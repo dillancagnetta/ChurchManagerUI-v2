@@ -8,7 +8,7 @@ import {
 } from '@angular/core';
 import { fuseAnimations } from '@fuse/animations';
 import { merge, Subject } from 'rxjs';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { filter, map, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { CellMinistryDataService } from '../_services/cell-ministry-data.service';
 import { GroupAttendanceQuery, GroupAttendanceRecord } from '../cell-ministry.model';
@@ -32,7 +32,7 @@ export class CellAttendanceReportsComponent implements OnInit, OnDestroy
 {
     @ViewChild('matDrawer', {static: true}) matDrawer: MatDrawer;
 
-    searchForm: FormGroup;
+    searchForm: UntypedFormGroup;
     searchBtnClicked = new Subject();
     drawerMode: 'over' | 'side';
 
@@ -53,7 +53,7 @@ export class CellAttendanceReportsComponent implements OnInit, OnDestroy
      * Constructor
      */
     constructor(
-        private _formBuilder: FormBuilder,
+        private _formBuilder: UntypedFormBuilder,
         private _activatedRoute: ActivatedRoute,
         private _changeDetectorRef: ChangeDetectorRef,
         private _data: CellMinistryDataService,

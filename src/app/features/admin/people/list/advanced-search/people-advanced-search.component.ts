@@ -7,7 +7,7 @@ import {
     EventEmitter,
     ViewChild, ElementRef
 } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, UntypedFormControl, FormGroup } from '@angular/forms';
 import { FilterItem, PeopleAdvancedSearchQuery, SearchItem } from '@features/admin/people';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatChipInputEvent } from '@angular/material/chips';
@@ -31,7 +31,7 @@ export class PeopleAdvancedSearchComponent implements OnInit {
     selection = new SelectionModel<SearchItem>(true, []);
 
     // Chip filters
-    chipFiltersCtrl = new FormControl();
+    chipFiltersCtrl = new UntypedFormControl();
     filteredChips: Observable<string[]>;
     selectedChipFilters: string[] = [];
     // Chip map with tool tip description

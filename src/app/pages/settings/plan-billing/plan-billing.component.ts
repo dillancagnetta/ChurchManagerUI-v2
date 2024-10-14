@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 
 @Component({
     selector       : 'settings-plan-billing',
@@ -9,14 +9,14 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 })
 export class SettingsPlanBillingComponent implements OnInit
 {
-    planBillingForm: FormGroup;
+    planBillingForm: UntypedFormGroup;
     plans: any[];
 
     /**
      * Constructor
      */
     constructor(
-        private _formBuilder: FormBuilder
+        private _formBuilder: UntypedFormBuilder
     )
     {
     }

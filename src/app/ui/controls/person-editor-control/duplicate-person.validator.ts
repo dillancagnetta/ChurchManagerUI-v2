@@ -1,4 +1,4 @@
-import { AsyncValidatorFn, FormGroup, ValidationErrors } from '@angular/forms';
+import { AsyncValidatorFn, UntypedFormGroup, ValidationErrors } from '@angular/forms';
 import { Inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ENV } from '@shared/constants';
@@ -17,7 +17,7 @@ export class PersonValidationService {
         @Inject(ENV) private _environment: Environment) {}
 
     duplicatePerson(): AsyncValidatorFn {
-        return (control: FormGroup): Observable<ValidationErrors | null> => {
+        return (control: UntypedFormGroup): Observable<ValidationErrors | null> => {
 
             const {firstName,lastName,emailAddress} = control.value;
             const params = new HttpParams()

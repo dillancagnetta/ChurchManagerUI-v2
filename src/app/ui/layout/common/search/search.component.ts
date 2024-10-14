@@ -14,7 +14,7 @@ import {
     ViewChild,
     ViewEncapsulation
 } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { of, Subject } from 'rxjs';
 import { catchError, debounceTime, filter, finalize, map, switchMap, takeUntil, tap } from 'rxjs/operators';
@@ -42,7 +42,7 @@ export class SearchComponent implements OnChanges, OnInit, OnDestroy
     opened: boolean = false;
     isSearching: boolean = false;
     results: PersonAutocompletes;
-    searchControl: FormControl = new FormControl();
+    searchControl: UntypedFormControl = new UntypedFormControl();
     private _unsubscribeAll: Subject<any> = new Subject<any>();
 
     /**

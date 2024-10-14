@@ -14,7 +14,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { PaginatedDataSource } from '@shared/data/paginated.data-source';
 import { Sort } from '@shared/data/pagination.models';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Group, GroupAttendanceForm, GroupsDataService } from '@features/admin/groups';
 import { GroupAttendanceFormDialogComponent } from './components/group-attendance-form/group-attendance-form-dialog.component';
@@ -41,7 +41,7 @@ export class ProfileGroupsComponent implements OnInit, OnDestroy
 
     dialogRef: any;
 
-    searchInput: FormControl;
+    searchInput: UntypedFormControl;
 
     @ViewChild(MatPaginator, {static: true})
     paginator: MatPaginator;
@@ -72,7 +72,7 @@ export class ProfileGroupsComponent implements OnInit, OnDestroy
     )
     {
         // Set the defaults
-        this.searchInput = new FormControl('');
+        this.searchInput = new UntypedFormControl('');
 
         // Set the private defaults
         this._unsubscribeAll = new Subject();

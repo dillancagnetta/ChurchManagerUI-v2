@@ -1,5 +1,5 @@
 import { Component, Inject, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import * as moment from 'moment';
 import { Subject } from 'rxjs';
@@ -13,7 +13,7 @@ import { weekdays } from '../calendar.types';
 export class CalendarRecurrenceComponent implements OnInit, OnDestroy
 {
     nthWeekdayText: string;
-    recurrenceForm: FormGroup;
+    recurrenceForm: UntypedFormGroup;
     recurrenceFormValues: any;
     weekdays = weekdays;
     private _unsubscribeAll: Subject<any> = new Subject<any>();
@@ -24,7 +24,7 @@ export class CalendarRecurrenceComponent implements OnInit, OnDestroy
     constructor(
         @Inject(MAT_DIALOG_DATA) public data: any,
         public matDialogRef: MatDialogRef<CalendarRecurrenceComponent>,
-        private _formBuilder: FormBuilder
+        private _formBuilder: UntypedFormBuilder
     )
     {
     }

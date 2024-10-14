@@ -2,7 +2,7 @@ import { Component, forwardRef, Input, OnDestroy, OnInit } from '@angular/core';
 import {
     AbstractControl,
     ControlValueAccessor,
-    FormControl,
+    UntypedFormControl,
     NG_VALIDATORS,
     NG_VALUE_ACCESSOR, ValidationErrors, Validator,
     ValidatorFn,
@@ -60,7 +60,7 @@ export class PersonAutocompleteControl implements ControlValueAccessor, OnInit, 
     /**
      * search form control
      */
-    inputControl: FormControl;
+    inputControl: UntypedFormControl;
 
     /**
      * Autocomplete search results stream
@@ -77,7 +77,7 @@ export class PersonAutocompleteControl implements ControlValueAccessor, OnInit, 
      */
     constructor(private _search: PersonSearchService)
     {
-        this.inputControl = new FormControl(null, []);
+        this.inputControl = new UntypedFormControl(null, []);
     }
 
     /**

@@ -1,5 +1,5 @@
 import { Component, ElementRef, forwardRef, OnDestroy, OnInit } from '@angular/core';
-import { ControlValueAccessor, FormControl, FormGroup, NG_VALUE_ACCESSOR, Validators } from '@angular/forms';
+import { ControlValueAccessor, UntypedFormControl, UntypedFormGroup, NG_VALUE_ACCESSOR, Validators } from '@angular/forms';
 import { fromEvent, Observable, Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { GroupTypeGroupsSelectControlDataService } from './group-type-groups-select-control-data.service';
@@ -21,9 +21,9 @@ import { SelectItem } from '@shared/shared.models';
 } )
 export class GroupTypeGroupsSelectControlComponent implements ControlValueAccessor, OnInit, OnDestroy {
 
-    public form = new FormGroup( {
-        groupTypeId: new FormControl( null, [Validators.required] ),
-        groupId: new FormControl( null),
+    public form = new UntypedFormGroup( {
+        groupTypeId: new UntypedFormControl( null, [Validators.required] ),
+        groupId: new UntypedFormControl( null),
     } );
 
     groupTypes$: Observable<SelectItem[]> = this._data.getGroupTypes$();

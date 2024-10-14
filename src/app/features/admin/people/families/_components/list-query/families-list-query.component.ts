@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { QueryBase } from '@shared/query-base';
-import { FormBuilder } from '@angular/forms';
+import { UntypedFormBuilder } from '@angular/forms';
 import { filter, map } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
 import { cloneDeep } from 'lodash-es';
@@ -14,7 +14,7 @@ import { FamiliesQuery } from '@features/admin/people/families';
 export class FamiliesListQueryComponent extends QueryBase<FamiliesQuery> implements OnInit, OnDestroy
 {
     constructor(
-        private _formBuilder: FormBuilder,
+        private _formBuilder: UntypedFormBuilder,
         private _route: ActivatedRoute
     )
   {

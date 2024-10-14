@@ -1,5 +1,5 @@
 import { Component, EventEmitter, forwardRef, Input, OnDestroy, Output } from '@angular/core';
-import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { ControlValueAccessor, UntypedFormControl, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { ChurchGroupsSelectControlDataService } from '../church-groups-select-control/church-groups-select-control-data.service';
 import { Observable, Subject } from 'rxjs';
@@ -41,7 +41,7 @@ export class ChurchesSelectControlComponent implements ControlValueAccessor, OnD
     /**
      * select list form control
      */
-    selectListControl = new FormControl('');
+    selectListControl = new UntypedFormControl('');
 
     /**
      * select items observable

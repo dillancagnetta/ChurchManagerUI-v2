@@ -1,5 +1,5 @@
 import { Component, Inject, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { GroupMemberForm, GroupsDataService, GroupTypeRole, GroupWithChildren } from '@features/admin/groups';
 import { Observable } from 'rxjs/internal/Observable';
@@ -15,7 +15,7 @@ import { FormAction, FormActions } from '@shared/shared.models';
 })
 export class AddGroupMemberFormDialogComponent implements OnInit, OnDestroy
 {
-    form: FormGroup;
+    form: UntypedFormGroup;
     group: GroupWithChildren;
     groupMember: GroupMemberForm = null;
     action: FormAction;
@@ -33,7 +33,7 @@ export class AddGroupMemberFormDialogComponent implements OnInit, OnDestroy
         public matDialogRef: MatDialogRef<AddGroupMemberFormDialogComponent>,
         @Inject(MAT_DIALOG_DATA) private _data: any,
         private _groupsData: GroupsDataService,
-        private _formBuilder: FormBuilder
+        private _formBuilder: UntypedFormBuilder
     )
     {
         // Set the defaults
@@ -103,7 +103,7 @@ export class AddGroupMemberFormDialogComponent implements OnInit, OnDestroy
     /**
      * Create form
      */
-    private _createForm(): FormGroup
+    private _createForm(): UntypedFormGroup
     {
         return this._formBuilder.group({
             person: [null, [Validators.required, containsIdValidation]],

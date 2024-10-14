@@ -6,7 +6,7 @@ import { CellMinistryDataService } from '@features/admin/groups/cell-ministry/_s
 import { Observable } from 'rxjs/internal/Observable';
 import { GroupAttendanceRecordDetail, GroupAttendee } from '@features/admin/groups/cell-ministry/cell-ministry.model';
 import { combineLatest, Subject } from 'rxjs';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 import { switchMap, takeUntil, tap } from 'rxjs/operators';
 
 @Component({
@@ -21,7 +21,7 @@ export class AttendanceReportFeedbackComponent implements OnInit
 
     tableColumns: string[] = ['firstName', 'lastName', 'didAttend', 'isFirstTime', 'isNewConvert', 'receivedHolySpirit'];
 
-    feedbackControl: FormControl = new FormControl();
+    feedbackControl: UntypedFormControl = new UntypedFormControl();
 
     submitBtnClicked = new Subject();
 

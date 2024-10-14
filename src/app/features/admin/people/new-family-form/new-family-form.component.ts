@@ -1,5 +1,5 @@
 import { Component, ViewChild, ViewEncapsulation } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormArray, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { PersonFormDialogComponent } from './person-form/person-form-dialog.component';
 import { fuseAnimations } from '@fuse/animations';
@@ -26,13 +26,13 @@ export class NewFamilyFormComponent {
 
     dialogRef: any;
 
-    addressFormStep1: FormGroup;
-    familyFormStep2: FormGroup;
+    addressFormStep1: UntypedFormGroup;
+    familyFormStep2: UntypedFormGroup;
 
     familyMembers$ = new BehaviorSubject<FamilyMember[]>([]);
 
     constructor(
-        private _formBuilder: FormBuilder,
+        private _formBuilder: UntypedFormBuilder,
         private _matDialog: MatDialog,
         private _data: PeopleDataService,
         private _toastr: ToastrService)
@@ -50,7 +50,7 @@ export class NewFamilyFormComponent {
      *
      * @returns {FormGroup}
      */
-    createForm(): FormGroup
+    createForm(): UntypedFormGroup
     {
         return this._formBuilder.group({
             familyName:  ['', Validators.required],
@@ -83,9 +83,9 @@ export class NewFamilyFormComponent {
     /*
      * Access to the Groups Members Form item
      */
-    public get familyMembersFormArray(): FormArray
+    public get familyMembersFormArray(): UntypedFormArray
     {
-        return this.familyFormStep2.get('members') as FormArray;
+        return this.familyFormStep2.get('members') as UntypedFormArray;
     }
 
     // Adds a new Family Member Form Array items

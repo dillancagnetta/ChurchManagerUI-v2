@@ -12,7 +12,7 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormArray, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { TemplatePortal } from '@angular/cdk/portal';
 import { Overlay, OverlayRef } from '@angular/cdk/overlay';
 import { MatDrawerToggleResult } from '@angular/material/sidenav';
@@ -42,7 +42,7 @@ export class ContactsDetailsComponent implements OnInit, OnDestroy
     tagsEditMode: boolean = false;
     filteredTags: Tag[];
     contact: Contact;
-    contactForm: FormGroup;
+    contactForm: UntypedFormGroup;
     contacts: Contact[];
     countries: Country[];
     private _tagsPanelOverlayRef: OverlayRef;
@@ -61,7 +61,7 @@ export class ContactsDetailsComponent implements OnInit, OnDestroy
         private _contactsListComponent: ContactsListComponent,
         private _contactsService: ContactsService,
         private _data: PeopleDataService,
-        private _formBuilder: FormBuilder,
+        private _formBuilder: UntypedFormBuilder,
         private _renderer2: Renderer2,
         private _router: Router,
         private _overlay: Overlay,
@@ -121,8 +121,8 @@ export class ContactsDetailsComponent implements OnInit, OnDestroy
                 this.person = contact;
 
                 // Clear the emails and phoneNumbers form arrays
-                (this.contactForm.get('emails') as FormArray).clear();
-                (this.contactForm.get('phoneNumbers') as FormArray).clear();
+                (this.contactForm.get('emails') as UntypedFormArray).clear();
+                (this.contactForm.get('phoneNumbers') as UntypedFormArray).clear();
 
                 // Patch values to the form
                 this.contactForm.patchValue(contact);
@@ -157,7 +157,7 @@ export class ContactsDetailsComponent implements OnInit, OnDestroy
 
                 // Add the email form groups to the emails form array
                 emailFormGroups.forEach((emailFormGroup) => {
-                    (this.contactForm.get('emails') as FormArray).push(emailFormGroup);
+                    (this.contactForm.get('emails') as UntypedFormArray).push(emailFormGroup);
                 });
 
                 // Setup the phone numbers form array
@@ -192,7 +192,7 @@ export class ContactsDetailsComponent implements OnInit, OnDestroy
 
                 // Add the phone numbers form groups to the phone numbers form array
                 phoneNumbersFormGroups.forEach((phoneNumbersFormGroup) => {
-                    (this.contactForm.get('phoneNumbers') as FormArray).push(phoneNumbersFormGroup);
+                    (this.contactForm.get('phoneNumbers') as UntypedFormArray).push(phoneNumbersFormGroup);
                 });
 
                 // Toggle the edit mode off
@@ -638,7 +638,7 @@ export class ContactsDetailsComponent implements OnInit, OnDestroy
         });
 
         // Add the email form group to the emails form array
-        (this.contactForm.get('emails') as FormArray).push(emailFormGroup);
+        (this.contactForm.get('emails') as UntypedFormArray).push(emailFormGroup);
 
         // Mark for check
         this._changeDetectorRef.markForCheck();
@@ -652,7 +652,7 @@ export class ContactsDetailsComponent implements OnInit, OnDestroy
     removeEmailField(index: number): void
     {
         // Get form array for emails
-        const emailsFormArray = this.contactForm.get('emails') as FormArray;
+        const emailsFormArray = this.contactForm.get('emails') as UntypedFormArray;
 
         // Remove the email field
         emailsFormArray.removeAt(index);
@@ -674,7 +674,7 @@ export class ContactsDetailsComponent implements OnInit, OnDestroy
         });
 
         // Add the phone number form group to the phoneNumbers form array
-        (this.contactForm.get('phoneNumbers') as FormArray).push(phoneNumberFormGroup);
+        (this.contactForm.get('phoneNumbers') as UntypedFormArray).push(phoneNumberFormGroup);
 
         // Mark for check
         this._changeDetectorRef.markForCheck();
@@ -688,7 +688,7 @@ export class ContactsDetailsComponent implements OnInit, OnDestroy
     removePhoneNumberField(index: number): void
     {
         // Get form array for phone numbers
-        const phoneNumbersFormArray = this.contactForm.get('phoneNumbers') as FormArray;
+        const phoneNumbersFormArray = this.contactForm.get('phoneNumbers') as UntypedFormArray;
 
         // Remove the phone number field
         phoneNumbersFormArray.removeAt(index);

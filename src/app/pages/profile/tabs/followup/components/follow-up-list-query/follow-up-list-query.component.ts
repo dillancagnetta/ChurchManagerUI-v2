@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { QueryBase } from '@shared/query-base';
 import { FollowUpQuery } from '../../follow-up.models';
-import { FormBuilder } from '@angular/forms';
+import { UntypedFormBuilder } from '@angular/forms';
 import { filter, map, withLatestFrom } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -18,7 +18,7 @@ export class FollowUpListQueryComponent extends QueryBase<FollowUpQuery> impleme
     severityList: string[] = ['Normal' , 'Urgent'];
 
     constructor(
-        private _formBuilder: FormBuilder,
+        private _formBuilder: UntypedFormBuilder,
         private _route: ActivatedRoute
     )
   {

@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit, ViewEncapsulation } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { Profile } from '../../../../profile.model';
 
 @Component({
@@ -12,7 +12,7 @@ import { Profile } from '../../../../profile.model';
 export class ProfileConnectionInfoFormDialogComponent implements OnInit
 {
     action: string;
-    form: FormGroup;
+    form: UntypedFormGroup;
     profile: Profile;
     dialogTitle: string;
 
@@ -23,7 +23,7 @@ export class ProfileConnectionInfoFormDialogComponent implements OnInit
     constructor(
         public matDialogRef: MatDialogRef<ProfileConnectionInfoFormDialogComponent>,
         @Inject(MAT_DIALOG_DATA) private _data: { action: string, profile: Profile },
-        private _formBuilder: FormBuilder
+        private _formBuilder: UntypedFormBuilder
     )
     {
         // Set the defaults
@@ -51,7 +51,7 @@ export class ProfileConnectionInfoFormDialogComponent implements OnInit
      *
      * @returns {FormGroup}
      */
-    createForm(): FormGroup
+    createForm(): UntypedFormGroup
     {
         return this._formBuilder.group({
             churchId: [this.profile.church.id],

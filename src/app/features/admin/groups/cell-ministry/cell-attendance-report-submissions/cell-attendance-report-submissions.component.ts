@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { filter, map, switchMap, takeUntil } from 'rxjs/operators';
 import { CellMinistryDataService } from '@features/admin/groups/cell-ministry/_services/cell-ministry-data.service';
@@ -16,7 +16,7 @@ import { ActivatedRoute, Params } from '@angular/router';
 })
 export class CellAttendanceReportSubmissionsComponent implements OnInit, OnDestroy
 {
-    searchForm: FormGroup;
+    searchForm: UntypedFormGroup;
     searchBtnClicked = new Subject();
 
     // View data
@@ -32,7 +32,7 @@ export class CellAttendanceReportSubmissionsComponent implements OnInit, OnDestr
      * Constructor
      */
     constructor(
-        private _formBuilder: FormBuilder,
+        private _formBuilder: UntypedFormBuilder,
         private _activatedRoute: ActivatedRoute,
         private _data: CellMinistryDataService
     ){

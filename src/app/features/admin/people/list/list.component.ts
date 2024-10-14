@@ -10,7 +10,7 @@ import {
 } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 import { MatDrawer } from '@angular/material/sidenav';
 import { fromEvent, Observable, Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged, filter, takeUntil } from 'rxjs/operators';
@@ -36,7 +36,7 @@ export class ContactsListComponent implements OnInit, OnDestroy
     countries: Country[];
     drawerMode: 'side' | 'over';
     drawerOpened: boolean = false;
-    searchInputControl: FormControl = new FormControl();
+    searchInputControl: UntypedFormControl = new UntypedFormControl();
     selectedContact: Person;
 
     // Private

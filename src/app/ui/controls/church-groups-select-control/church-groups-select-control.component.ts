@@ -1,5 +1,5 @@
 import { Component, ElementRef, forwardRef, Input, OnDestroy, OnInit } from '@angular/core';
-import { ControlValueAccessor, FormControl, FormGroup, NG_VALUE_ACCESSOR, Validators } from '@angular/forms';
+import { ControlValueAccessor, UntypedFormControl, UntypedFormGroup, NG_VALUE_ACCESSOR, Validators } from '@angular/forms';
 import { fromEvent, Observable, Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { ChurchGroupsSelectControlDataService } from './church-groups-select-control-data.service';
@@ -26,9 +26,9 @@ export class ChurchGroupsSelectControlComponent implements ControlValueAccessor,
     @Input() noSelectionLabel = '-- All Groups --';
     @Input() required = true;
 
-    public form = new FormGroup( {
-        churchId: new FormControl( null, [Validators.required] ),
-        groupId: new FormControl( null),
+    public form = new UntypedFormGroup( {
+        churchId: new UntypedFormControl( null, [Validators.required] ),
+        groupId: new UntypedFormControl( null),
     } );
 
     churches$: Observable<SelectItem[]> = this._data.getChurches$();

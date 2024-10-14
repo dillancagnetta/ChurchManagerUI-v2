@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit, ViewEncapsulation } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { BirthDateModel, Profile, ProfileGeneralInfo } from '../../../../profile.model';
 import { FormAction, FormActions } from '@shared/shared.models';
 import { BirthDate } from '@features/admin/people';
@@ -14,7 +14,7 @@ import { BirthDate } from '@features/admin/people';
 export class ProfileGeneralInfoFormDialogComponent implements OnInit
 {
     action: FormAction;
-    form: FormGroup;
+    form: UntypedFormGroup;
     profile: Profile;
     dialogTitle: string;
 
@@ -25,7 +25,7 @@ export class ProfileGeneralInfoFormDialogComponent implements OnInit
     constructor(
         public matDialogRef: MatDialogRef<ProfileGeneralInfoFormDialogComponent>,
         @Inject(MAT_DIALOG_DATA) private _data: { action: FormAction; profile: Profile },
-        private _formBuilder: FormBuilder
+        private _formBuilder: UntypedFormBuilder
     )
     {
         // Set the defaults
@@ -53,7 +53,7 @@ export class ProfileGeneralInfoFormDialogComponent implements OnInit
      *
      * @returns {FormGroup}
      */
-    createForm(): FormGroup
+    createForm(): UntypedFormGroup
     {
         return this._formBuilder.group({
             occupation: [this.profile.occupation],

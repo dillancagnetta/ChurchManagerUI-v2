@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { GroupsReportsDataService } from '@features/admin/groups/reporting/groups-reports-data.service';
 import { CustomValidators } from '@shared/validators/common-forms.validators';
@@ -15,7 +15,7 @@ export class GroupsReportsSearchComponent
 {
     @Output() updated = new EventEmitter<GroupAttendanceReportGridQuery>();
 
-    searchForm: FormGroup;
+    searchForm: UntypedFormGroup;
     searchBtnClicked = new Subject();
 
     // Private
@@ -25,7 +25,7 @@ export class GroupsReportsSearchComponent
      * Constructor
      */
     constructor(
-        private _formBuilder: FormBuilder,
+        private _formBuilder: UntypedFormBuilder,
         private _data: GroupsReportsDataService )
     {
         this.searchForm = this._formBuilder.group( {

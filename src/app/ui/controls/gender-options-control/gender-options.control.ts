@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, forwardRef, Input, Output } from '@angular/core';
-import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR, Validators } from '@angular/forms';
+import { ControlValueAccessor, UntypedFormControl, NG_VALUE_ACCESSOR, Validators } from '@angular/forms';
 import { Identifiable } from '@shared/shared.models';
 import { MatSelectChange } from '@angular/material/select';
 
@@ -36,7 +36,7 @@ export class GenderOptionsControl implements ControlValueAccessor {
     /**
      * Inner form control to link input text changes to mat select
      */
-    inputControl = new FormControl( '',  [Validators.required] );
+    inputControl = new UntypedFormControl( '',  [Validators.required] );
 
     onSelectionChange( selection: MatSelectChange ) {
         this.selectionChange.emit(selection);

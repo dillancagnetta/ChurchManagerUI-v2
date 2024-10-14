@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 
 @Component({
     selector       : 'settings-account',
@@ -9,13 +9,13 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class SettingsAccountComponent implements OnInit
 {
-    accountForm: FormGroup;
+    accountForm: UntypedFormGroup;
 
     /**
      * Constructor
      */
     constructor(
-        private _formBuilder: FormBuilder
+        private _formBuilder: UntypedFormBuilder
     )
     {
     }

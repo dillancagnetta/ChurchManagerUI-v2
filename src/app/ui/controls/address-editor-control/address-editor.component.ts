@@ -2,8 +2,8 @@ import { Component, ElementRef, forwardRef, OnDestroy } from '@angular/core';
 import {
     AbstractControl,
     ControlValueAccessor,
-    FormControl,
-    FormGroup,
+    UntypedFormControl,
+    UntypedFormGroup,
     NG_VALIDATORS,
     NG_VALUE_ACCESSOR,
     ValidationErrors,
@@ -35,12 +35,12 @@ export class AddressEditorComponent implements ControlValueAccessor, Validator, 
 
     private readonly _destroyed$: Subject<void> = new Subject();
 
-    public addressForm = new FormGroup( {
-        street: new FormControl( null, [Validators.required] ),
-        city: new FormControl( null, [Validators.required] ),
-        country: new FormControl( 'South Africa', [Validators.required] ),
-        province: new FormControl( null, [Validators.required] ),
-        postalCode: new FormControl( null, [Validators.required] )
+    public addressForm = new UntypedFormGroup( {
+        street: new UntypedFormControl( null, [Validators.required] ),
+        city: new UntypedFormControl( null, [Validators.required] ),
+        country: new UntypedFormControl( 'South Africa', [Validators.required] ),
+        province: new UntypedFormControl( null, [Validators.required] ),
+        postalCode: new UntypedFormControl( null, [Validators.required] )
     } );
 
     constructor( private _elementRef: ElementRef ) { }

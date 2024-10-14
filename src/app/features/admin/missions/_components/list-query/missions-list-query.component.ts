@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { QueryBase } from '@shared/query-base';
-import { FormBuilder } from '@angular/forms';
+import { UntypedFormBuilder } from '@angular/forms';
 import { filter, map } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
 import { cloneDeep } from 'lodash-es';
@@ -18,7 +18,7 @@ export class MissionsListQueryComponent extends QueryBase<MissionsQuery> impleme
     missionStreams = missionStreams;
 
     constructor(
-        private _formBuilder: FormBuilder,
+        private _formBuilder: UntypedFormBuilder,
         private _route: ActivatedRoute
     )
   {

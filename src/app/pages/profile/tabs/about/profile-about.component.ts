@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 
 import { BehaviorSubject, Subject } from 'rxjs';
 import { filter, first, map, switchMap, takeUntil, tap, withLatestFrom } from 'rxjs/operators';
@@ -138,7 +138,7 @@ export class ProfileAboutComponent implements OnInit, OnDestroy
                 first(), // <-- completes the observable and unsubscribes,
                 switchMap(([response, profile]) => {
                     const actionType: string = response[0];
-                    const formData: FormGroup = response[1];
+                    const formData: UntypedFormGroup = response[1];
                     switch ( actionType )
                     {
                         /**
@@ -182,7 +182,7 @@ export class ProfileAboutComponent implements OnInit, OnDestroy
                 first(), // <-- completes the observable and unsubscribes,
                 switchMap(([response, profile]) => {
                     const actionType: string = response[0];
-                    const formData: FormGroup = response[1];
+                    const formData: UntypedFormGroup = response[1];
                     switch ( actionType )
                     {
                         /**
@@ -227,7 +227,7 @@ export class ProfileAboutComponent implements OnInit, OnDestroy
                 first(), // <-- completes the observable and unsubscribes,
                 switchMap(([response, profile]) => {
                     const actionType: string = response[0];
-                    const formData: FormGroup = response[1];
+                    const formData: UntypedFormGroup = response[1];
                     switch ( actionType )
                     {
                         /**

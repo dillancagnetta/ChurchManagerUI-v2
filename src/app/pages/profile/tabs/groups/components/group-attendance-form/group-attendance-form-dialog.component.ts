@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit, ViewEncapsulation } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { AbstractControl, FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, UntypedFormArray, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { distinctUntilChanged, first, map } from 'rxjs/operators';
 import { Moment } from 'moment';
 import { Observable } from 'rxjs/internal/Observable';
@@ -16,7 +16,7 @@ import { Group, GroupAttendanceForm, GroupMemberSimple, GroupsDataService } from
 })
 export class GroupAttendanceFormDialogComponent implements OnInit
 {
-    form: FormGroup;
+    form: UntypedFormGroup;
     group: Group;
 
     didNotOccur$: Observable<boolean>;
@@ -36,7 +36,7 @@ export class GroupAttendanceFormDialogComponent implements OnInit
         public matDialogRef: MatDialogRef<GroupAttendanceFormDialogComponent>,
         @Inject(MAT_DIALOG_DATA) private _data: any,
         private _groupsData: GroupsDataService,
-        private _formBuilder: FormBuilder
+        private _formBuilder: UntypedFormBuilder
     )
     {
         this.group = _data.group;
@@ -67,7 +67,7 @@ export class GroupAttendanceFormDialogComponent implements OnInit
      * @returns {FormGroup}
      * https://netbasal.com/angular-reactive-forms-the-ultimate-guide-to-formarray-3adbe6b0b61a
      */
-    private createForm(): FormGroup
+    private createForm(): UntypedFormGroup
     {
         return this._formBuilder.group({
             attendanceDate: [null, Validators.required],
@@ -131,19 +131,19 @@ export class GroupAttendanceFormDialogComponent implements OnInit
     /*
      * Access to the Groups Members Form item
      */
-    public get groupMembersFormArray(): FormArray {
-        return this.form.get('members') as FormArray;
+    public get groupMembersFormArray(): UntypedFormArray {
+        return this.form.get('members') as UntypedFormArray;
     }
 
-    public get didNotOccurControl(): FormArray {
-        return this.form.get('didNotOccur') as FormArray;
+    public get didNotOccurControl(): UntypedFormArray {
+        return this.form.get('didNotOccur') as UntypedFormArray;
     }
 
     /*
     * Access to the Groups Members Form item
     */
-    public get firstTimersFormArray(): FormArray {
-        return this.form.get('firstTimers') as FormArray;
+    public get firstTimersFormArray(): UntypedFormArray {
+        return this.form.get('firstTimers') as UntypedFormArray;
     }
 
     public save() {

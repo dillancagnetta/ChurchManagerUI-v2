@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild, ViewEncapsulation } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 
 @Component({
     selector       : 'scrumboard-board-add-list',
@@ -13,7 +13,7 @@ export class ScrumboardBoardAddListComponent implements OnInit
     @Input() buttonTitle: string = 'Add a list';
     @Output() readonly saved: EventEmitter<string> = new EventEmitter<string>();
 
-    form: FormGroup;
+    form: UntypedFormGroup;
     formVisible: boolean = false;
 
     /**
@@ -21,7 +21,7 @@ export class ScrumboardBoardAddListComponent implements OnInit
      */
     constructor(
         private _changeDetectorRef: ChangeDetectorRef,
-        private _formBuilder: FormBuilder
+        private _formBuilder: UntypedFormBuilder
     )
     {
     }

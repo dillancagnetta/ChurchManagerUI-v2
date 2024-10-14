@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit, ViewEncapsulation } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { Profile } from '../../../../profile.model';
 import { FormAction, FormActions } from '@shared/shared.models';
 
@@ -13,7 +13,7 @@ import { FormAction, FormActions } from '@shared/shared.models';
 export class ProfileDiscipleshipInfoFormDialogComponent implements OnInit
 {
     action: FormAction;
-    form: FormGroup;
+    form: UntypedFormGroup;
     profile: Profile;
     dialogTitle: string;
 
@@ -24,7 +24,7 @@ export class ProfileDiscipleshipInfoFormDialogComponent implements OnInit
     constructor(
         public matDialogRef: MatDialogRef<ProfileDiscipleshipInfoFormDialogComponent>,
         @Inject(MAT_DIALOG_DATA) private _data: { action: FormAction, profile: Profile },
-        private _formBuilder: FormBuilder
+        private _formBuilder: UntypedFormBuilder
     )
     {
         // Set the defaults
@@ -52,7 +52,7 @@ export class ProfileDiscipleshipInfoFormDialogComponent implements OnInit
      *
      * @returns {FormGroup}
      */
-    createForm(): FormGroup
+    createForm(): UntypedFormGroup
     {
         return this._formBuilder.group({
             receivedHolySpirit: [this.profile.receivedHolySpirit],

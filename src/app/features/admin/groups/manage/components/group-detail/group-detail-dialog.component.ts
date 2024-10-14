@@ -7,7 +7,7 @@ import {
     OnInit,
     ViewEncapsulation
 } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { GroupsDataService, GroupType, GroupWithChildren } from '@features/admin/groups';
 import { map, switchMap, takeUntil } from 'rxjs/operators';
@@ -30,7 +30,7 @@ import { FormAction, FormActions } from '@shared/shared.models';
 })
 export class GroupDetailDialogComponent implements OnInit, OnDestroy
 {
-    form: FormGroup;
+    form: UntypedFormGroup;
     action: FormAction;
 
     settings: CalendarSettings = settings;
@@ -56,7 +56,7 @@ export class GroupDetailDialogComponent implements OnInit, OnDestroy
         @Inject(MAT_DIALOG_DATA) private data: { action: FormAction; parentGroup?: GroupWithChildren; group?: GroupWithChildren },
         private _changeDetectorRef: ChangeDetectorRef,
         private _matDialog: MatDialog,
-        private _formBuilder: FormBuilder,
+        private _formBuilder: UntypedFormBuilder,
         private _data: GroupsDataService
     )
     {

@@ -2,7 +2,7 @@
  * @title Paginated filter query example
  */
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormBuilder, Validators } from '@angular/forms';
 import { GroupAttendanceQuery } from '@features/admin/groups/cell-ministry/cell-ministry.model';
 import { filter, map } from 'rxjs/operators';
 import { QueryBase } from '@shared/query-base';
@@ -13,7 +13,7 @@ import { QueryBase } from '@shared/query-base';
 } )
 export class ExamplePaginatedQueryComponent extends QueryBase<GroupAttendanceQuery> implements OnInit
 {
-    constructor(private _formBuilder: FormBuilder)
+    constructor(private _formBuilder: UntypedFormBuilder)
     {
         super();
 

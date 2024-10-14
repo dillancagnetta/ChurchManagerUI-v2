@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormAction, FormActions } from '@shared/shared.models';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { missionCategoryList , missionTypes} from '@features/admin/missions';
 import moment from 'moment';
 import { Subject } from 'rxjs';
@@ -17,8 +17,8 @@ export class MissionsCreateDialogComponent implements OnInit
 {
     action: FormAction;
     dialogTitle: string;
-    missionStreamCtrl  = new FormControl('Group');
-    form: FormGroup;
+    missionStreamCtrl  = new UntypedFormControl('Group');
+    form: UntypedFormGroup;
 
     missionTypes = missionTypes;
     categoryList = missionCategoryList;
@@ -29,7 +29,7 @@ export class MissionsCreateDialogComponent implements OnInit
     constructor(
         public matDialogRef: MatDialogRef<MissionsCreateDialogComponent>,
         @Inject( MAT_DIALOG_DATA ) private _data: any,
-        private _formBuilder: FormBuilder
+        private _formBuilder: UntypedFormBuilder
     ) {
         // Set the defaults
         this.action = _data.action;
@@ -59,7 +59,7 @@ export class MissionsCreateDialogComponent implements OnInit
      *
      * @returns {FormGroup}
      */
-    createForm(): FormGroup
+    createForm(): UntypedFormGroup
     {
         return this._formBuilder.group(
             {

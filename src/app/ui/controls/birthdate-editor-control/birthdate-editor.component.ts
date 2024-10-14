@@ -1,5 +1,5 @@
 import { Component, ElementRef, forwardRef, OnDestroy } from '@angular/core';
-import { ControlValueAccessor, FormControl, FormGroup, NG_VALUE_ACCESSOR, Validators } from '@angular/forms';
+import { ControlValueAccessor, UntypedFormControl, UntypedFormGroup, NG_VALUE_ACCESSOR, Validators } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { BirthDateFormValue } from '@features/admin/people/new-family-form/person-form/person-form.model';
@@ -23,10 +23,10 @@ export class BirthDateEditorComponent implements ControlValueAccessor, OnDestroy
     private readonly _monthPattern = '^(0?[1-9]|1[012])$';
     private readonly _yearPattern = '^\\d{4}$';
 
-    public form = new FormGroup( {
-        day: new FormControl( null, [Validators.maxLength(2), Validators.pattern(this._dayPattern)] ),
-        month: new FormControl( null, [Validators.maxLength(2), Validators.pattern(this._monthPattern)] ),
-        year: new FormControl( null, [Validators.maxLength(4), Validators.pattern(this._yearPattern)] )
+    public form = new UntypedFormGroup( {
+        day: new UntypedFormControl( null, [Validators.maxLength(2), Validators.pattern(this._dayPattern)] ),
+        month: new UntypedFormControl( null, [Validators.maxLength(2), Validators.pattern(this._monthPattern)] ),
+        year: new UntypedFormControl( null, [Validators.maxLength(4), Validators.pattern(this._yearPattern)] )
     } );
 
     constructor(

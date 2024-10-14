@@ -1,5 +1,5 @@
 import { Component, EventEmitter, forwardRef, Input, OnDestroy, Output } from '@angular/core';
-import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { ControlValueAccessor, UntypedFormControl, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { MatSelectChange } from '@angular/material/select';
 import { Subject } from 'rxjs';
@@ -39,7 +39,7 @@ export class RecordStatusSelectControlComponent implements ControlValueAccessor,
     /**
      * select list form control
      */
-    selectListControl = new FormControl('Active');
+    selectListControl = new UntypedFormControl('Active');
 
     /**
      * select items observable

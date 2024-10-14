@@ -6,7 +6,7 @@ import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/dr
 import { takeUntil } from 'rxjs/operators';
 import { PaginatedDataSource } from '@shared/data/paginated.data-source';
 import { fuseAnimations } from '@fuse/animations';
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 
 export type StepParticipants = {
     completionDate?: Date,
@@ -29,7 +29,7 @@ export interface StepParticipantsQuery {
 } )
 export class ScrumboardStepParticipantsComponent implements OnInit
 {
-    searchForm: FormGroup;
+    searchForm: UntypedFormGroup;
     searchBtnClicked = new Subject();
 
     displayedColumns: string[] = ['completionDate', 'status', 'personName', 'isComplete'];

@@ -15,7 +15,7 @@ import {
     ViewContainerRef,
     ViewEncapsulation
 } from '@angular/core';
-import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR, Validators } from '@angular/forms';
+import { ControlValueAccessor, UntypedFormControl, NG_VALUE_ACCESSOR, Validators } from '@angular/forms';
 import { Overlay } from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
 import { MatCalendarCellCssClasses, MatMonthView } from '@angular/material/datepicker';
@@ -51,8 +51,8 @@ export class FuseDateRangeComponent implements ControlValueAccessor, OnInit, OnD
         month2: null
     };
     setWhichDate: 'start' | 'end' = 'start';
-    startTimeFormControl: FormControl;
-    endTimeFormControl: FormControl;
+    startTimeFormControl: UntypedFormControl;
+    endTimeFormControl: UntypedFormControl;
     private _dateFormat: string;
     private _onChange: (value: any) => void;
     private _onTouched: (value: any) => void;
@@ -656,8 +656,8 @@ export class FuseDateRangeComponent implements ControlValueAccessor, OnInit, OnD
     private _init(): void
     {
         // Start and end time form controls
-        this.startTimeFormControl = new FormControl('', [Validators.pattern(this._timeRegExp)]);
-        this.endTimeFormControl = new FormControl('', [Validators.pattern(this._timeRegExp)]);
+        this.startTimeFormControl = new UntypedFormControl('', [Validators.pattern(this._timeRegExp)]);
+        this.endTimeFormControl = new UntypedFormControl('', [Validators.pattern(this._timeRegExp)]);
 
         // Set the default range
         this._programmaticChange = true;

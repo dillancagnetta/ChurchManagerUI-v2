@@ -1,5 +1,5 @@
 import { Component, Inject, ViewEncapsulation } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Person, PersonModel } from '../../people.model';
 import { FamilyMember } from './person-form.model';
@@ -17,7 +17,7 @@ export class PersonFormDialogComponent
     familyName: string;
     familyId?: number;
     person: Person;
-    form: FormGroup;
+    form: UntypedFormGroup;
     dialogTitle: string;
 
     /**
@@ -30,7 +30,7 @@ export class PersonFormDialogComponent
     constructor(
         public matDialogRef: MatDialogRef<PersonFormDialogComponent>,
         @Inject( MAT_DIALOG_DATA ) private _data: any,
-        private _formBuilder: FormBuilder
+        private _formBuilder: UntypedFormBuilder
     ) {
         // Set the defaults
         this.action = _data.action;
@@ -70,7 +70,7 @@ export class PersonFormDialogComponent
      *
      * @returns {FormGroup}
      */
-    createForm(): FormGroup
+    createForm(): UntypedFormGroup
     {
         return this._formBuilder.group(
             {
