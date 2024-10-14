@@ -1,6 +1,6 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { fuseAnimations } from '@fuse/animations';
-import { MatSelectChange } from '@angular/material/select';
+import { MatLegacySelectChange as MatSelectChange } from '@angular/material/legacy-select';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { ProfileDiscipleshipService } from './profile-discipleship.service';
 import { DiscipleshipProgramsForPerson } from '@features/admin/discipleship/discipleship.models';

@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
-import { MatCardModule } from '@angular/material/card';
-import { MatInputModule } from '@angular/material/input';
+import { MatLegacyCardModule as MatCardModule } from '@angular/material/legacy-card';
+import { MatLegacyInputModule as MatInputModule } from '@angular/material/legacy-input';
 import { MatIconModule } from '@angular/material/icon';
-import { MatSelectModule } from '@angular/material/select';
+import { MatLegacySelectModule as MatSelectModule } from '@angular/material/legacy-select';
 import { SharedModule } from '@shared/shared.module';
 import { ChurchGroupsSelectControlComponent } from './church-groups-select-control.component';
 import { ChurchGroupsSelectControlDataService } from './church-groups-select-control-data.service';

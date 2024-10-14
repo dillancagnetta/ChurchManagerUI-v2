@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
-import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatLegacyTooltipModule as MatTooltipModule } from '@angular/material/legacy-tooltip';
 import { FuseDrawerModule } from '@fuse/components/drawer';
 import { LayoutComponent } from '@ui/layout/layout.component';
 import { EmptyLayoutModule } from '@ui/layout/layouts/empty/empty.module';

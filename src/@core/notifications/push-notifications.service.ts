@@ -3,7 +3,7 @@ import { SwPush } from '@angular/service-worker';
 import { PushSubscriptionService } from '@core/notifications/push-subscription.service';
 import { ENV } from '@shared/constants';
 import { Environment } from '@shared/environment.model';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { first } from 'rxjs/operators';
 

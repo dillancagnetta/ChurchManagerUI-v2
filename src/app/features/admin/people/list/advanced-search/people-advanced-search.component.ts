@@ -10,9 +10,9 @@ import {
 import { FormBuilder, UntypedFormControl, FormGroup } from '@angular/forms';
 import { FilterItem, PeopleAdvancedSearchQuery, SearchItem } from '@features/admin/people';
 import { SelectionModel } from '@angular/cdk/collections';
-import { MatChipInputEvent } from '@angular/material/chips';
+import { MatLegacyChipInputEvent as MatChipInputEvent } from '@angular/material/legacy-chips';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
-import { MatAutocomplete, MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
+import { MatLegacyAutocomplete as MatAutocomplete, MatLegacyAutocompleteSelectedEvent as MatAutocompleteSelectedEvent } from '@angular/material/legacy-autocomplete';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 

@@ -7,8 +7,8 @@ import { ReportDatePickerControlModule } from '@ui/controls/report-date-picker-c
 import { GroupTypeGroupsSelectControlModule } from '@ui/controls/group-types-groups-select-control/group-type-groups-select-control.module';
 import { GroupsReportsDataService } from '@features/admin/groups/reporting/groups-reports-data.service';
 import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
-import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatLegacyButtonModule as MatButtonModule } from '@angular/material/legacy-button';
+import { MatLegacyProgressBarModule as MatProgressBarModule } from '@angular/material/legacy-progress-bar';
 
 @NgModule({
     declarations: [

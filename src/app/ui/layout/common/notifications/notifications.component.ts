@@ -14,7 +14,7 @@ import {
 } from '@angular/core';
 import { Overlay, OverlayRef } from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
-import { MatButton } from '@angular/material/button';
+import { MatLegacyButton as MatButton } from '@angular/material/legacy-button';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { Notification } from '@ui/layout/common/notifications/notifications.types';

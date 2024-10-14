@@ -5,7 +5,7 @@ import { ChurchGroupsSelectControlDataService } from '../church-groups-select-co
 import { Observable, Subject } from 'rxjs';
 import { SelectItem } from '@shared/shared.models';
 import { takeUntil } from 'rxjs/operators';
-import { MatSelectChange } from '@angular/material/select';
+import { MatLegacySelectChange as MatSelectChange } from '@angular/material/legacy-select';
 
 @Component({
     selector: 'churches-select-control',
