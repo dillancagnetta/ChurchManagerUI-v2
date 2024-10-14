@@ -1,7 +1,7 @@
 import { Component, EventEmitter, forwardRef, Input, OnDestroy, Output } from '@angular/core';
 import { ControlValueAccessor, UntypedFormControl, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
-import { MatLegacySelectChange as MatSelectChange } from '@angular/material/legacy-select';
+import { MatLegacySelectChange as MatSelectChange } from '@angular/material/select';
 import { Subject } from 'rxjs';
 import { takeUntil, tap } from 'rxjs/operators';
 import moment, { Moment } from 'moment';

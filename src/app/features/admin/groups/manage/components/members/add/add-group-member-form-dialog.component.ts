@@ -1,6 +1,6 @@
 import { Component, Inject, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
-import { MAT_LEGACY_DIALOG_DATA as MAT_DIALOG_DATA, MatLegacyDialogRef as MatDialogRef } from '@angular/material/legacy-dialog';
+import {  MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { GroupMemberForm, GroupsDataService, GroupTypeRole, GroupWithChildren } from '@features/admin/groups';
 import { Observable } from 'rxjs/internal/Observable';
 import { filter, switchMap, takeUntil } from 'rxjs/operators';

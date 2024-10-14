@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { AddressEditorComponent } from './address-editor.component';
-import { MatLegacyInputModule as MatInputModule } from '@angular/material/legacy-input';
+import {MatInputModule} from '@angular/material/input';
 import { SharedModule } from '@shared/shared.module';
 import { MatIconModule } from '@angular/material/icon';
-import { MatLegacySelectModule as MatSelectModule } from '@angular/material/legacy-select';
+import {MatSelectModule} from '@angular/material/select';
 
 @NgModule( {
     declarations: [AddressEditorComponent],

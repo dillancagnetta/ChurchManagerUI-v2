@@ -11,7 +11,7 @@ import {
 import { GroupsDataService, GroupWithChildren } from '@features/admin/groups';
 import { FlatTreeControl } from '@angular/cdk/tree';
 import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree';
-import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
+import {MatDialogModule} from '@angular/material/dialog';
 import { GroupDetailDialogComponent } from '@features/admin/groups/manage/components/group-detail/group-detail-dialog.component';
 import { filter, first } from 'rxjs/operators';
 import { NewGroupForm } from '@features/admin/groups/manage/components/group-detail/group-detail.model';

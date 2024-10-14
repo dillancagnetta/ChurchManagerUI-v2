@@ -15,7 +15,7 @@ import {
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Overlay, OverlayRef } from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
-import { MatLegacyButton as MatButton } from '@angular/material/legacy-button';
+import {MatButtonModule} from '@angular/material/button';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { Shortcut } from '@ui/layout/common/shortcuts/shortcuts.types';

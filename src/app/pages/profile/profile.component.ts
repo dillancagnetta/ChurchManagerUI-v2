@@ -3,7 +3,7 @@ import { ProfileService } from './_services/profile.service';
 import { Subject } from 'rxjs';
 import { Profile } from './profile.model';
 import { ProfilePhotoFormDialogComponent } from './tabs/about/components';
-import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
+import {MatDialogModule} from '@angular/material/dialog';
 import { filter, first, switchMap, takeUntil, withLatestFrom } from 'rxjs/operators';
 import { FormActions } from '@shared/shared.models';
 import { FileUploadService } from '@shared/api/file-upload.service';

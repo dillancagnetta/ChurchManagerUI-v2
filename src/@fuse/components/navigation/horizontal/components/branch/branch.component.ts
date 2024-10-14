@@ -8,7 +8,7 @@ import {
     ViewChild
 } from '@angular/core';
 import { BooleanInput } from '@angular/cdk/coercion';
-import { MatLegacyMenu as MatMenu } from '@angular/material/legacy-menu';
+import { MatLegacyMenu as MatMenu } from '@angular/material/menu';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { FuseHorizontalNavigationComponent } from '@fuse/components/navigation/horizontal/horizontal.component';

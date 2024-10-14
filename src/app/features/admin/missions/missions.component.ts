@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
 import { MissionsCreateDialogComponent } from '@features/admin/missions/_components/create/missions-create-dialog.component';
-import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
+import {MatDialogModule} from '@angular/material/dialog';
 import { FormActions } from '@shared/shared.models';
 import { first, switchMap } from 'rxjs/operators';
 import { MissionsDataService } from '@features/admin/missions/_services/missions-data.service';

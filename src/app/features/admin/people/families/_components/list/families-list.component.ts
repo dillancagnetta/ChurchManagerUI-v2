@@ -14,7 +14,7 @@ import { BehaviorSubject, EMPTY, Observable, Subject } from 'rxjs';
 import { FuseMediaWatcherService } from '@fuse/services/media-watcher';
 import { FamiliesDataService, Family, pagingServiceProvider } from '@features/admin/people/families';
 import { PersonFormDialogComponent } from '@features/admin/people/new-family-form/person-form/person-form-dialog.component';
-import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
+import {MatDialogModule} from '@angular/material/dialog';
 import { FamilyMember } from '@features/admin/people/new-family-form/person-form/person-form.model';
 import { FamiliesService } from '@features/admin/people/families/_services/families.service';
 

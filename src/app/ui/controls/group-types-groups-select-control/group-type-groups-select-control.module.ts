@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
-import { MatLegacyCardModule as MatCardModule } from '@angular/material/legacy-card';
-import { MatLegacyInputModule as MatInputModule } from '@angular/material/legacy-input';
+import { MatLegacyCardModule as MatCardModule } from '@angular/material/card';
+import {MatInputModule} from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
-import { MatLegacySelectModule as MatSelectModule } from '@angular/material/legacy-select';
+import {MatSelectModule} from '@angular/material/select';
 import { SharedModule } from '@shared/shared.module';
 import { GroupTypeGroupsSelectControlComponent } from '@ui/controls/group-types-groups-select-control/group-type-groups-select-control.component';
 import { GroupTypeGroupsSelectControlDataService } from '@ui/controls/group-types-groups-select-control/group-type-groups-select-control-data.service';

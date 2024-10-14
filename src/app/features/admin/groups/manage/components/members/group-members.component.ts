@@ -10,12 +10,12 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { GroupMemberForm, GroupMemberSimple, GroupMembersSimple, GroupWithChildren } from '@features/admin/groups';
-import { MatLegacyTableDataSource as MatTableDataSource } from '@angular/material/legacy-table';
+import { MatTableDataSource } from '@angular/material/table';
 import { SelectionModel } from '@angular/cdk/collections';
-import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
+import {MatDialogModule} from '@angular/material/dialog';
 import { AddGroupMemberFormDialogComponent } from './add/add-group-member-form-dialog.component';
 import { MatSort } from '@angular/material/sort';
-import { MatLegacyPaginator as MatPaginator } from '@angular/material/legacy-paginator';
+import { MatPaginator } from '@angular/material/paginator';
 
 // https://stackblitz.com/edit/mat-dialog-example?file=app%2Fapp.component.ts
 @Component({

@@ -6,7 +6,7 @@ import { environment } from '../environments/environment';
 import { ENV } from '@shared/constants';
 import { httpInterceptorProviders } from '@core/interceptors';
 import { notificationToastrProvider } from '@core/notifications';
-import { MatLegacySnackBarModule as MatSnackBarModule } from '@angular/material/legacy-snack-bar';
+import { MatLegacySnackBarModule as MatSnackBarModule } from '@angular/material/snack-bar';
 import { MAT_MOMENT_DATE_ADAPTER_OPTIONS, MatMomentDateModule } from '@angular/material-moment-adapter';
 import { JwtModule } from '@auth0/angular-jwt';
 import { NgxUiLoaderModule, NgxUiLoaderRouterModule } from 'ngx-ui-loader';

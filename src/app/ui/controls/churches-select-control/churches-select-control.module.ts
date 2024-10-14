@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
-import { MatLegacyFormFieldModule as MatFormFieldModule } from '@angular/material/legacy-form-field';
-import { MatLegacySelectModule as MatSelectModule } from '@angular/material/legacy-select';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatSelectModule} from '@angular/material/select';
 import { SharedModule } from '@shared/shared.module';
 import { ChurchesSelectControlComponent } from './churches-select-control';
 import { ChurchGroupsSelectControlDataService } from '../church-groups-select-control/church-groups-select-control-data.service';

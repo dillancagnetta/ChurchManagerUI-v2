@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, forwardRef, Input, Output } from '@angular/core';
 import { ControlValueAccessor, UntypedFormControl, NG_VALUE_ACCESSOR, Validators } from '@angular/forms';
 import { Identifiable } from '@shared/shared.models';
-import { MatLegacySelectChange as MatSelectChange } from '@angular/material/legacy-select';
+import { MatLegacySelectChange as MatSelectChange } from '@angular/material/select';
 
 @Component( {
     selector: 'cm-gender-field',

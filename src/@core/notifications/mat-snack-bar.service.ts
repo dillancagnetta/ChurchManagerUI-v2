@@ -1,4 +1,4 @@
-import { MatLegacySnackBar as MatSnackBar, MatLegacySnackBarConfig as MatSnackBarConfig } from '@angular/material/legacy-snack-bar';
+import { MatLegacySnackBar as MatSnackBar, MatLegacySnackBarConfig as MatSnackBarConfig } from '@angular/material/snack-bar';
 import { Injectable } from '@angular/core';
 import { ToastrService } from '@core/notifications/toastr.service';
 

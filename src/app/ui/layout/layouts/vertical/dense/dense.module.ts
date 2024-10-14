@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
-import { MatLegacyButtonModule as MatButtonModule } from '@angular/material/legacy-button';
+import {MatButtonModule} from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
-import { MatLegacyMenuModule as MatMenuModule } from '@angular/material/legacy-menu';
+import {MatMenuModule} from '@angular/material/menu';
 import { FuseNavigationModule } from '@fuse/components/navigation';
 import { MessagesModule } from '@ui/layout/common/messages/messages.module';
 import { NotificationsModule } from '@ui/layout/common/notifications/notifications.module';

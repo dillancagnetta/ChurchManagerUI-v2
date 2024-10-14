@@ -3,7 +3,7 @@ import { UntypedFormGroup } from '@angular/forms';
 
 import { BehaviorSubject, Subject } from 'rxjs';
 import { filter, first, map, switchMap, takeUntil, tap, withLatestFrom } from 'rxjs/operators';
-import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
+import {MatDialogModule} from '@angular/material/dialog';
 import { fuseAnimations } from '@fuse/animations';
 
 import { Profile, ProfileGeneralInfo, ProfilePersonalInfo } from '../../profile.model';

@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { SharedModule } from '@shared/shared.module';
-import { MatLegacyInputModule as MatInputModule } from '@angular/material/legacy-input';
+import {MatInputModule} from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
-import { MatLegacySelectModule as MatSelectModule } from '@angular/material/legacy-select';
+import {MatSelectModule} from '@angular/material/select';
 import { BirthDateEditorComponent } from './birthdate-editor.component';
-import { MatLegacyCardModule as MatCardModule } from '@angular/material/legacy-card';
+import { MatLegacyCardModule as MatCardModule } from '@angular/material/card';
 
 @NgModule( {
     declarations: [BirthDateEditorComponent],

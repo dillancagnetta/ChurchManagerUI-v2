@@ -12,7 +12,7 @@ import {
     SimpleChanges,
     ViewChild
 } from '@angular/core';
-import { MatLegacyPaginator as MatPaginator } from '@angular/material/legacy-paginator';
+import { MatLegacyPaginator as MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { PAGING_SERVICE, TableBtn, TableColumn, TableQuery } from '..';
 import { PagedResult } from '@shared/data/pagination.models';
