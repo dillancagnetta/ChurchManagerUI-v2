@@ -1,4 +1,4 @@
-import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
+import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Profile } from '../profile.model';
@@ -7,7 +7,7 @@ import { ProfileDiscipleshipService } from '../tabs/discipleship/profile-discipl
 import { DiscipleshipProgramsForPerson } from '@features/admin/discipleship/discipleship.models';
 
 @Injectable()
-export class ProfileResolver implements Resolve<any>
+export class ProfileResolver 
 {
     /**
      * Constructor
@@ -26,7 +26,7 @@ export class ProfileResolver implements Resolve<any>
 }
 
 @Injectable()
-export class ProfileDiscipleshipResolver implements Resolve<any>
+export class ProfileDiscipleshipResolver 
 {
     /**
      * Constructor

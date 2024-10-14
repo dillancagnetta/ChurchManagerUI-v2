@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
+import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { forkJoin, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { InitialData } from 'app/app.types';
@@ -14,7 +14,7 @@ import { FuseNavigationItem } from '@fuse/components/navigation';
 @Injectable({
     providedIn: 'root'
 })
-export class InitialDataResolver implements Resolve<any> {
+export class InitialDataResolver  {
     private _apiUrl = this._environment.baseUrls.apiUrl;
 
     /**

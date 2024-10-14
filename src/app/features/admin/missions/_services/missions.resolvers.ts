@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
+import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
 import { MissionsService } from '@features/admin/missions/_services/missions.service';
 import { GroupAttendanceRecord } from '@features/admin/groups/cell-ministry/cell-ministry.model';
@@ -8,7 +8,7 @@ import { GroupAttendanceRecord } from '@features/admin/groups/cell-ministry/cell
  * Single Mission by id Resolvers
  */
 @Injectable()
-export class MissionResolver implements Resolve<any>
+export class MissionResolver 
 {
     /**
      * Constructor

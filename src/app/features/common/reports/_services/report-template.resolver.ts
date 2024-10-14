@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
+import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { ReportTemplatesDataService } from '@features/common/reports/_services/report-templates-data.service';
 import { Observable } from 'rxjs';
 import * as WebDataRocks from 'webdatarocks';
@@ -7,7 +7,7 @@ import * as WebDataRocks from 'webdatarocks';
 @Injectable({
     providedIn: 'root'
 })
-    export class ReportTemplateResolver implements Resolve<any>
+    export class ReportTemplateResolver 
 {
     /**
      * Constructor

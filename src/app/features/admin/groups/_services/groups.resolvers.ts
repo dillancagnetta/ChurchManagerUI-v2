@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
+import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
 import { GroupsManageService } from '@features/admin/groups/_services/groups-manage.service';
 
@@ -7,7 +7,7 @@ import { GroupsManageService } from '@features/admin/groups/_services/groups-man
  * Returns all groups and their children
  */
 @Injectable()
-export class GroupsManageResolver implements Resolve<any>
+export class GroupsManageResolver 
 {
 
     constructor(private _service: GroupsManageService)
@@ -24,7 +24,7 @@ export class GroupsManageResolver implements Resolve<any>
  * Returns single group by Id and its children
  */
 @Injectable()
-export class GroupManageResolver implements Resolve<any>
+export class GroupManageResolver 
 {
 
     constructor(private _service: GroupsManageService)

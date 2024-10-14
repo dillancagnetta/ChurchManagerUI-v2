@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanDeactivate, RouterStateSnapshot, UrlTree } from '@angular/router';
+import { ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { MissionDetailComponent } from '@features/admin/missions/_components/detail/mission-detail.component';
 import { Observable } from 'rxjs';
 
 @Injectable({
     providedIn: 'root'
 })
-export class CanDeactivateMissionDetail implements CanDeactivate<MissionDetailComponent>
+export class CanDeactivateMissionDetail 
 {
     canDeactivate(
         component: MissionDetailComponent,

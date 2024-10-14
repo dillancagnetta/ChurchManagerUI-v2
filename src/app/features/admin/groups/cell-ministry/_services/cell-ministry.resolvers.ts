@@ -1,4 +1,4 @@
-import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
+import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs/internal/Observable';
 import { GroupAttendanceRecord } from '@features/admin/groups/cell-ministry/cell-ministry.model';
 import { CellMinistryDataService } from '@features/admin/groups/cell-ministry/_services/cell-ministry-data.service';
@@ -7,7 +7,7 @@ import { CellGroupPerformanceDataService } from '@features/admin/groups/cell-min
 import { PeriodTypes } from '@shared/shared.models';
 
 @Injectable()
-export class CellMinistryAttendanceReportResolver implements Resolve<any>
+export class CellMinistryAttendanceReportResolver 
 {
     /**
      * Constructor
@@ -29,7 +29,7 @@ export class CellMinistryAttendanceReportResolver implements Resolve<any>
 }
 
 @Injectable()
-export class CellMinistryDashboardResolver implements Resolve<any>
+export class CellMinistryDashboardResolver 
 {
     /**
      * Constructor
@@ -52,7 +52,7 @@ export class CellMinistryDashboardResolver implements Resolve<any>
 
 
 @Injectable()
-export class CellGroupPerformanceResolver implements Resolve<any>
+export class CellGroupPerformanceResolver 
 {
     /**
      * Constructor

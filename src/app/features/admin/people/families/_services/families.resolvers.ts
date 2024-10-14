@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
+import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
 import { FamiliesService } from '@features/admin/people/families/_services/families.service';
 
@@ -7,7 +7,7 @@ import { FamiliesService } from '@features/admin/people/families/_services/famil
  * Single Family by id Resolvers
  */
 @Injectable()
-export class FamilyResolver implements Resolve<any>
+export class FamilyResolver 
 {
     /**
      * Constructor
