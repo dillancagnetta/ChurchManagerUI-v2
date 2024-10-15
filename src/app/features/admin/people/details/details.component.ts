@@ -230,7 +230,7 @@ export class ContactsDetailsComponent implements OnInit, OnDestroy
     ngOnDestroy(): void
     {
         // Unsubscribe from all subscriptions
-        this._unsubscribeAll.next();
+        this._unsubscribeAll.next({});
         this._unsubscribeAll.complete();
 
         // Dispose the overlays if they are still on the DOM

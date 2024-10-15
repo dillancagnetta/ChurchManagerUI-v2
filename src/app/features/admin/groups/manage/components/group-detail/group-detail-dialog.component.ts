@@ -17,7 +17,7 @@ import {
     recurrenceRuleFriendlyText,
     settings
 } from '../../../../../../pages/calendar';
-import RRule from 'rrule';
+import {RRule} from 'rrule';
 import * as moment from 'moment';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { FormAction, FormActions } from '@shared/shared.models';
@@ -170,7 +170,7 @@ export class GroupDetailDialogComponent implements OnInit, OnDestroy
     ngOnDestroy(): void
     {
         // Unsubscribe from all subscriptions
-        this._unsubscribeAll.next();
+        this._unsubscribeAll.next({});
         this._unsubscribeAll.complete();
     }
 
