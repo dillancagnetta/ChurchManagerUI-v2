@@ -81,34 +81,34 @@ export class AuthSignInComponent implements OnInit
         // Sign in
         this._authService.signIn(this.signInForm.value)
             .subscribe(
-                () => {
-                    console.log('logged in');
-                    // Set the redirect url.
-                    // The '/signed-in-redirect' is a dummy url to catch the request and redirect the user
-                    // to the correct page after a successful sign in. This way, that url can be set via
-                    // routing file and we don't have to touch here.
-                    const redirectURL = this._activatedRoute.snapshot.queryParamMap.get('redirectURL') || '/signed-in-redirect';
+                {
+                    next: () => {
+                        console.log('logged in');
+                        // Set the redirect url.
+                        // The '/signed-in-redirect' is a dummy url to catch the request and redirect the user
+                        // to the correct page after a successful sign in. This way, that url can be set via
+                        // routing file and we don't have to touch here.
+                        const redirectURL = this._activatedRoute.snapshot.queryParamMap.get('redirectURL') || '/signed-in-redirect';
+                        // Navigate to the redirect url
+                        this._router.navigateByUrl(redirectURL);
+                    },
+                    error: (e) => {
 
-                    // Navigate to the redirect url
-                    this._router.navigateByUrl(redirectURL);
+                        // Re-enable the form
+                        this.signInForm.enable();
 
-                },
-                (response) => {
+                        // Reset the form
+                        this.signInNgForm.resetForm();
 
-                    // Re-enable the form
-                    this.signInForm.enable();
+                        // Set the alert
+                        this.alert = {
+                            type   : 'error',
+                            message: 'Wrong email or password'
+                        };
 
-                    // Reset the form
-                    this.signInNgForm.resetForm();
-
-                    // Set the alert
-                    this.alert = {
-                        type   : 'error',
-                        message: 'Wrong email or password'
-                    };
-
-                    // Show the alert
-                    this.showAlert = true;
+                        // Show the alert
+                        this.showAlert = true;
+                    }
                 }
             );
     }

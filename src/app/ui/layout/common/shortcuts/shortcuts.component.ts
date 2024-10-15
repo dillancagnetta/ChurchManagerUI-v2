@@ -12,14 +12,14 @@ import {
     ViewContainerRef,
     ViewEncapsulation
 } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
-import { Overlay, OverlayRef } from '@angular/cdk/overlay';
-import { TemplatePortal } from '@angular/cdk/portal';
-import {MatButtonModule} from '@angular/material/button';
-import { takeUntil } from 'rxjs/operators';
-import { Subject } from 'rxjs';
-import { Shortcut } from '@ui/layout/common/shortcuts/shortcuts.types';
-import { ShortcutsService } from '@ui/layout/common/shortcuts/shortcuts.service';
+import {UntypedFormBuilder, UntypedFormGroup, Validators} from '@angular/forms';
+import {Overlay, OverlayRef} from '@angular/cdk/overlay';
+import {TemplatePortal} from '@angular/cdk/portal';
+import {MatButton} from '@angular/material/button';
+import {takeUntil} from 'rxjs/operators';
+import {Subject} from 'rxjs';
+import {Shortcut} from '@ui/layout/common/shortcuts/shortcuts.types';
+import {ShortcutsService} from '@ui/layout/common/shortcuts/shortcuts.service';
 
 @Component({
     selector       : 'shortcuts',
@@ -105,7 +105,7 @@ export class ShortcutsComponent implements OnChanges, OnInit, OnDestroy
     ngOnDestroy(): void
     {
         // Unsubscribe from all subscriptions
-        this._unsubscribeAll.next();
+        this._unsubscribeAll.next({});
         this._unsubscribeAll.complete();
 
         // Dispose the overlay

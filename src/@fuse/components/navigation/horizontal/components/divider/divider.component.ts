@@ -57,7 +57,7 @@ export class FuseHorizontalNavigationDividerItemComponent implements OnInit, OnD
     ngOnDestroy(): void
     {
         // Unsubscribe from all subscriptions
-        this._unsubscribeAll.next();
+        this._unsubscribeAll.next({});
         this._unsubscribeAll.complete();
     }
 }

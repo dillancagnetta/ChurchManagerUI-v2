@@ -57,7 +57,7 @@ export class FuseVerticalNavigationSpacerItemComponent implements OnInit, OnDest
     ngOnDestroy(): void
     {
         // Unsubscribe from all subscriptions
-        this._unsubscribeAll.next();
+        this._unsubscribeAll.next({});
         this._unsubscribeAll.complete();
     }
 }

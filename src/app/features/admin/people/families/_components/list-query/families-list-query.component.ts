@@ -55,7 +55,7 @@ export class FamiliesListQueryComponent extends QueryBase<FamiliesQuery> impleme
     ngOnDestroy(): void
     {
         // Unsubscribe from all subscriptions
-        this.unsubscribeAll.next();
+        this.unsubscribeAll.next({});
         this.unsubscribeAll.complete();
     }
 

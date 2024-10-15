@@ -4,7 +4,7 @@ import { merge } from 'lodash-es';
 import { FuseConfirmationDialogComponent } from '@fuse/services/confirmation/dialog/dialog.component';
 import { FuseConfirmationConfig } from '@fuse/services/confirmation/confirmation.types';
 
-@Injectable()
+@Injectable({providedIn: 'root'})
 export class FuseConfirmationService
 {
     private _defaultConfig: FuseConfirmationConfig = {

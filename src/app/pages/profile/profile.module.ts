@@ -18,7 +18,7 @@ import { ProfileAboutComponent } from './tabs/about/profile-about.component';
 import { ProfileGroupsComponent } from './tabs/groups/groups.component';
 import { GroupAttendanceFormDialogComponent } from './tabs/groups/components/group-attendance-form/group-attendance-form-dialog.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatLegacyCheckboxModule as MatCheckboxModule } from '@angular/material/checkbox';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { GenderControlModule } from '@ui/controls/gender-options-control/gender-control.module';
 import { MatDialogModule } from '@angular/material/dialog';

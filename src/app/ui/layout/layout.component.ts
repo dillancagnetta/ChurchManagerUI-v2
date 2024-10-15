@@ -1,14 +1,13 @@
-import { Component, Inject, OnDestroy, OnInit, Renderer2, ViewEncapsulation } from '@angular/core';
-import { DOCUMENT } from '@angular/common';
-import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
-import { combineLatest, Subject } from 'rxjs';
-import { filter, map, takeUntil } from 'rxjs/operators';
-import { FuseConfigService } from '@fuse/services/config';
-import { FuseMediaWatcherService } from '@fuse/services/media-watcher';
-import { FuseTailwindService } from '@fuse/services/tailwind/tailwind.service';
-import { FUSE_VERSION } from '@fuse/version';
-import { Layout } from '@ui/layout/layout.types';
-import { AppConfig, Scheme, Theme } from '@core/config/app.config';
+import {Component, Inject, OnDestroy, OnInit, Renderer2, ViewEncapsulation} from '@angular/core';
+import {DOCUMENT} from '@angular/common';
+import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
+import {combineLatest, Subject} from 'rxjs';
+import {filter, map, takeUntil} from 'rxjs/operators';
+import {FuseConfigService} from '@fuse/services/config';
+import {FuseMediaWatcherService} from '@fuse/services/media-watcher';
+import {FUSE_VERSION} from '@fuse/version';
+import {Layout} from '@ui/layout/layout.types';
+import {FuseConfig, Scheme, Theme} from '@core/config/fuseConfig';
 
 @Component({
     selector     : 'layout',
@@ -18,8 +17,8 @@ import { AppConfig, Scheme, Theme } from '@core/config/app.config';
 })
 export class LayoutComponent implements OnInit, OnDestroy
 {
-    config: AppConfig;
-    layout: Layout;
+    config: FuseConfig;
+    layout: string;
     scheme: 'dark' | 'light';
     theme: string;
     themes: [string, any][] = [];
@@ -35,7 +34,6 @@ export class LayoutComponent implements OnInit, OnDestroy
         protected _router: Router,
         protected _fuseConfigService: FuseConfigService,
         protected _fuseMediaWatcherService: FuseMediaWatcherService,
-        protected _fuseTailwindConfigService: FuseTailwindService
     )
     {
     }
@@ -49,11 +47,6 @@ export class LayoutComponent implements OnInit, OnDestroy
      */
     ngOnInit(): void
     {
-        // Get the themes
-        this._fuseTailwindConfigService.tailwindConfig$.subscribe((config) => {
-            this.themes = Object.entries(config.themes);
-        });
-
         // Set the theme and scheme based on the configuration
         combineLatest([
             this._fuseConfigService.config$,
@@ -90,7 +83,7 @@ export class LayoutComponent implements OnInit, OnDestroy
         // Subscribe to config changes
         this._fuseConfigService.config$
             .pipe(takeUntil(this._unsubscribeAll))
-            .subscribe((config: AppConfig) => {
+            .subscribe((config: FuseConfig) => {
 
                 // Store the config
                 this.config = config;
@@ -119,7 +112,7 @@ export class LayoutComponent implements OnInit, OnDestroy
     ngOnDestroy(): void
     {
         // Unsubscribe from all subscriptions
-        this._unsubscribeAll.next();
+        this._unsubscribeAll.next({});
         this._unsubscribeAll.complete();
     }
 

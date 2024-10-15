@@ -1,8 +1,7 @@
 import { NgModule, Optional, SkipSelf } from '@angular/core';
-import { MAT_LEGACY_FORM_FIELD_DEFAULT_OPTIONS as MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
+import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { FuseMediaWatcherModule } from '@fuse/services/media-watcher/media-watcher.module';
 import { FuseSplashScreenModule } from '@fuse/services/splash-screen/splash-screen.module';
-import { FuseTailwindConfigModule } from '@fuse/services/tailwind/tailwind.module';
 import { FuseUtilsModule } from '@fuse/services/utils/utils.module';
 import { FuseConfirmationModule } from '@fuse/services/confirmation';
 import { MATERIAL_SANITY_CHECKS } from '@angular/material/core';
@@ -12,7 +11,6 @@ import { MATERIAL_SANITY_CHECKS } from '@angular/material/core';
         FuseConfirmationModule,
         FuseMediaWatcherModule,
         FuseSplashScreenModule,
-        FuseTailwindConfigModule,
         FuseUtilsModule
     ],
     providers: [

@@ -161,7 +161,7 @@ export class CellAttendanceReportsComponent implements OnInit, OnDestroy
             .pipe(
                 switchMap(record => this._data.deleteAttendanceRecord$(record.id))
             )
-            .subscribe(_ => this.searchBtnClicked.next());
+            .subscribe(_ => this.searchBtnClicked.next(true));
     }
 
     /**
@@ -170,7 +170,7 @@ export class CellAttendanceReportsComponent implements OnInit, OnDestroy
     ngOnDestroy(): void
     {
         // Unsubscribe from all subscriptions
-        this._unsubscribeAll.next();
+        this._unsubscribeAll.next({});
         this._unsubscribeAll.complete();
     }
 

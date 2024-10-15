@@ -72,7 +72,7 @@ export class MissionsListQueryComponent extends QueryBase<MissionsQuery> impleme
     ngOnDestroy(): void
     {
         // Unsubscribe from all subscriptions
-        this.unsubscribeAll.next();
+        this.unsubscribeAll.next({});
         this.unsubscribeAll.complete();
     }
 

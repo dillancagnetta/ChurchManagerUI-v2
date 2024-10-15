@@ -5,7 +5,7 @@ import { ChurchGroupsSelectControlDataService } from '../church-groups-select-co
 import { Observable, Subject } from 'rxjs';
 import { SelectItem } from '@shared/shared.models';
 import { takeUntil } from 'rxjs/operators';
-import { MatLegacySelectChange as MatSelectChange } from '@angular/material/select';
+import { MatSelectChange } from '@angular/material/select';
 
 @Component({
     selector: 'churches-select-control',
@@ -104,7 +104,7 @@ export class ChurchesSelectControlComponent implements ControlValueAccessor, OnD
     ngOnDestroy(): void
     {
         // Unsubscribe from all subscriptions
-        this._unsubscribeAll.next();
+        this._unsubscribeAll.next({});
         this._unsubscribeAll.complete();
     }
 

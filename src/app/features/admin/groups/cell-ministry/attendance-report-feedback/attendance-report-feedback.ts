@@ -88,6 +88,6 @@ export class AttendanceReportFeedbackComponent implements OnInit
      */
     updateAttendance(): void
     {
-        this.submitBtnClicked.next();
+        this.submitBtnClicked.next(true);
     }
 }

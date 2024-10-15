@@ -367,7 +367,7 @@ export class FuseVerticalNavigationComponent implements OnChanges, OnInit, After
         this._fuseNavigationService.deregisterComponent(this.name);
 
         // Unsubscribe from all subscriptions
-        this._unsubscribeAll.next();
+        this._unsubscribeAll.next({});
         this._unsubscribeAll.complete();
     }
 

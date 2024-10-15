@@ -74,7 +74,7 @@ export class FollowUpListQueryComponent extends QueryBase<FollowUpQuery> impleme
     ngOnDestroy(): void
     {
         // Unsubscribe from all subscriptions
-        this.unsubscribeAll.next();
+        this.unsubscribeAll.next({});
         this.unsubscribeAll.complete();
     }
 }

@@ -1,11 +1,10 @@
-import { Component, Inject, Renderer2, ViewEncapsulation } from '@angular/core';
-import { DOCUMENT } from '@angular/common';
-import { ActivatedRoute, Router } from '@angular/router';
-import { FuseConfigService } from '@fuse/services/config';
-import { FuseMediaWatcherService } from '@fuse/services/media-watcher';
-import { FuseTailwindService } from '@fuse/services/tailwind/tailwind.service';
-import { SnackbarNotificationsService } from '@core/notifications/snackbar-notifications.service';
-import { LayoutComponent } from '@ui/layout/layout.component';
+import {Component, Inject, Renderer2, ViewEncapsulation} from '@angular/core';
+import {DOCUMENT} from '@angular/common';
+import {ActivatedRoute, Router} from '@angular/router';
+import {FuseConfigService} from '@fuse/services/config';
+import {FuseMediaWatcherService} from '@fuse/services/media-watcher';
+import {SnackbarNotificationsService} from '@core/notifications/snackbar-notifications.service';
+import {LayoutComponent} from '@ui/layout/layout.component';
 
 @Component({
     selector     : 'layout',
@@ -25,13 +24,11 @@ export class AdminLayoutComponent extends LayoutComponent
         protected _router: Router,
         protected _fuseConfigService: FuseConfigService,
         protected _fuseMediaWatcherService: FuseMediaWatcherService,
-        protected _fuseTailwindConfigService: FuseTailwindService,
         private _notifications: SnackbarNotificationsService
     )
     {
         super(_activatedRoute, _document, _renderer2, _router,
-            _fuseConfigService, _fuseMediaWatcherService,
-            _fuseTailwindConfigService);
+            _fuseConfigService, _fuseMediaWatcherService);
     }
 
 }

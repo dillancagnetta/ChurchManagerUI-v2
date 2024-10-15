@@ -9,7 +9,7 @@ import { PersonAutocompleteControlModule } from '@ui/controls/person-autocomplet
 import { ExamplePaginatedQueryComponent } from '@features/admin/example/components/example-paginated-query/example-paginated-query';
 import { ChurchGroupsSelectControlModule } from '@ui/controls/church-groups-select-control/church-groups-select-control.module';
 import { MatIconModule } from '@angular/material/icon';
-import { MatLegacyCheckboxModule as MatCheckboxModule } from '@angular/material/checkbox';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { SharedModule } from '@shared/shared.module';

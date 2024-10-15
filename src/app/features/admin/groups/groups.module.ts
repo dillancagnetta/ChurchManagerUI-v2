@@ -36,7 +36,9 @@ import { GroupTypesSelectControlModule } from '@ui/controls/group-types-select-c
 import {MatSelectModule} from '@angular/material/select';
 import { MatDividerModule } from '@angular/material/divider';
 import { CalendarModule } from '../../../pages/calendar';
+/*
 import { NgxMatNativeDateModule, NgxMatTimepickerModule } from '@angular-material-components/datetime-picker';
+*/
 import { ChurchesSelectControlModule } from '@ui/controls/churches-select-control/churches-select-control.module';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { RecordStatusSelectControlModule } from '@ui/controls/record-status-select-control/record-status-select-control.module';
@@ -90,8 +92,8 @@ import { ChurchGroupsSelectControlModule } from '@ui/controls/church-groups-sele
         RecordStatusSelectControlModule,
 
         // 3rd Party
-        NgxMatNativeDateModule,
-        NgxMatTimepickerModule
+/*        NgxMatNativeDateModule,
+        NgxMatTimepickerModule*/
     ],
     providers: [
         GroupsManageResolver,

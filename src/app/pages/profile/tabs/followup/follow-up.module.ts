@@ -6,7 +6,7 @@ import { FollowUpListComponent } from './components/follow-up-list/follow-up-lis
 import { FollowUpListQueryComponent } from './components/follow-up-list-query/follow-up-list-query.component';
 import { FollowUpFormComponent } from './components/follow-up-form/follow-up-form.component';
 import {MatButtonModule} from '@angular/material/button';
-import { MatLegacyCheckboxModule as MatCheckboxModule } from '@angular/material/checkbox';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';

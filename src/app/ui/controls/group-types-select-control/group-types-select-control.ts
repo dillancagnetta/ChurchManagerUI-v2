@@ -4,7 +4,7 @@ import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { Observable, Subject } from 'rxjs';
 import { SelectItem } from '@shared/shared.models';
 import { takeUntil } from 'rxjs/operators';
-import { MatLegacySelectChange as MatSelectChange } from '@angular/material/select';
+import { MatSelectChange } from '@angular/material/select';
 import { GroupTypesSelectDataService } from '@ui/controls/group-types-select-control/group-types-select-data.service';
 
 @Component({
@@ -103,7 +103,7 @@ export class GroupTypesSelectControl implements ControlValueAccessor, OnDestroy
     ngOnDestroy(): void
     {
         // Unsubscribe from all subscriptions
-        this._unsubscribeAll.next();
+        this._unsubscribeAll.next({});
         this._unsubscribeAll.complete();
     }
 

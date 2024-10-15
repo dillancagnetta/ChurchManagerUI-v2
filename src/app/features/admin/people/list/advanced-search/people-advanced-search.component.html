@@ -142,7 +142,7 @@
     <ng-container>
         <mat-form-field class="mt-3">
             <mat-label>Additional Filters</mat-label>
-            <mat-chip-list #chipList>
+            <mat-chip-listbox #chipList>
                 <mat-chip
                     *ngFor="let filter of selectedChipFilters"
                     [selectable]="false"
@@ -160,7 +160,7 @@
                     [matChipInputFor]="chipList"
                     [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
                     (matChipInputTokenEnd)="add($event)">
-            </mat-chip-list>
+            </mat-chip-listbox>
             <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
                 <mat-option matTooltip="{{(filter | fuseFindByKey:'label':chipFilterItems).description}}" *ngFor="let filter of filteredChips | async" [value]="filter">
                     {{filter}}

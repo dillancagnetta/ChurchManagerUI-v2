@@ -12,13 +12,13 @@ import {
     ViewContainerRef,
     ViewEncapsulation
 } from '@angular/core';
-import { Overlay, OverlayRef } from '@angular/cdk/overlay';
-import { TemplatePortal } from '@angular/cdk/portal';
-import {MatButtonModule} from '@angular/material/button';
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
-import { Notification } from '@ui/layout/common/notifications/notifications.types';
-import { NotificationsService } from '@ui/layout/common/notifications/notifications.service';
+import {Overlay, OverlayRef} from '@angular/cdk/overlay';
+import {TemplatePortal} from '@angular/cdk/portal';
+import {MatButton} from '@angular/material/button';
+import {Subject} from 'rxjs';
+import {takeUntil} from 'rxjs/operators';
+import {Notification} from '@ui/layout/common/notifications/notifications.types';
+import {NotificationsService} from '@ui/layout/common/notifications/notifications.service';
 
 @Component({
     selector       : 'notifications',
@@ -95,7 +95,7 @@ export class NotificationsComponent implements OnChanges, OnInit, OnDestroy
     ngOnDestroy(): void
     {
         // Unsubscribe from all subscriptions
-        this._unsubscribeAll.next();
+        this._unsubscribeAll.next({});
         this._unsubscribeAll.complete();
 
         // Dispose the overlay

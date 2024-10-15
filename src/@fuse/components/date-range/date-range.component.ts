@@ -373,7 +373,7 @@ export class FuseDateRangeComponent implements ControlValueAccessor, OnInit, OnD
     ngOnDestroy(): void
     {
         // Unsubscribe from all subscriptions
-        this._unsubscribeAll.next();
+        this._unsubscribeAll.next({});
         this._unsubscribeAll.complete();
 
         // @ TODO: Workaround until "angular/issues/20007" resolved

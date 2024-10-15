@@ -3,7 +3,7 @@ import { ProfileService } from './_services/profile.service';
 import { Subject } from 'rxjs';
 import { Profile } from './profile.model';
 import { ProfilePhotoFormDialogComponent } from './tabs/about/components';
-import {MatDialogModule} from '@angular/material/dialog';
+import {MatDialog} from '@angular/material/dialog';
 import { filter, first, switchMap, takeUntil, withLatestFrom } from 'rxjs/operators';
 import { FormActions } from '@shared/shared.models';
 import { FileUploadService } from '@shared/api/file-upload.service';
@@ -53,7 +53,7 @@ export class ProfileComponent implements OnDestroy
     ngOnDestroy(): void
     {
         // Unsubscribe from all subscriptions
-        this._unsubscribeAll.next();
+        this._unsubscribeAll.next({});
         this._unsubscribeAll.complete();
     }
 

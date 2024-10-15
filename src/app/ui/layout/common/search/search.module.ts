@@ -1,13 +1,13 @@
-import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { Overlay } from '@angular/cdk/overlay';
-import { MAT_LEGACY_AUTOCOMPLETE_SCROLL_STRATEGY as MAT_AUTOCOMPLETE_SCROLL_STRATEGY, MatLegacyAutocompleteModule as MatAutocompleteModule } from '@angular/material/autocomplete';
+import {NgModule} from '@angular/core';
+import {RouterModule} from '@angular/router';
+import {Overlay} from '@angular/cdk/overlay';
+import {MAT_AUTOCOMPLETE_SCROLL_STRATEGY, MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatButtonModule} from '@angular/material/button';
 import {MatFormFieldModule} from '@angular/material/form-field';
-import { MatIconModule } from '@angular/material/icon';
+import {MatIconModule} from '@angular/material/icon';
 import {MatInputModule} from '@angular/material/input';
-import { SharedModule } from '@shared/shared.module';
-import { SearchComponent } from '@ui/layout/common/search/search.component';
+import {SharedModule} from '@shared/shared.module';
+import {SearchComponent} from '@ui/layout/common/search/search.component';
 
 @NgModule({
     declarations: [

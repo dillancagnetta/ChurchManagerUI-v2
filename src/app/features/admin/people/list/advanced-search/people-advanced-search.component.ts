@@ -1,20 +1,21 @@
 import {
     ChangeDetectionStrategy,
     Component,
+    ElementRef,
+    EventEmitter,
     OnInit,
     Output,
-    ViewEncapsulation,
-    EventEmitter,
-    ViewChild, ElementRef
+    ViewChild,
+    ViewEncapsulation
 } from '@angular/core';
-import { FormBuilder, UntypedFormControl, FormGroup } from '@angular/forms';
-import { FilterItem, PeopleAdvancedSearchQuery, SearchItem } from '@features/admin/people';
-import { SelectionModel } from '@angular/cdk/collections';
-import { MatChipInputEvent } from '@angular/material/chips';
-import { COMMA, ENTER } from '@angular/cdk/keycodes';
-import {  MatAutocomplete, MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
-import { Observable } from 'rxjs';
-import { map, startWith } from 'rxjs/operators';
+import {UntypedFormControl} from '@angular/forms';
+import {FilterItem, PeopleAdvancedSearchQuery, SearchItem} from '@features/admin/people';
+import {SelectionModel} from '@angular/cdk/collections';
+import {MatChipInputEvent} from '@angular/material/chips';
+import {COMMA, ENTER} from '@angular/cdk/keycodes';
+import {MatAutocomplete, MatAutocompleteSelectedEvent} from '@angular/material/autocomplete';
+import {Observable} from 'rxjs';
+import {map, startWith} from 'rxjs/operators';
 
 @Component({
     selector: 'people-advanced-search',

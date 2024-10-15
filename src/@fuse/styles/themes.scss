@@ -1,182 +1,257 @@
+@use 'sass:map';
 @use '@angular/material' as mat;
-@use "sass:map";
+@use 'user-themes' as userThemes;
 
-/** Include the core Angular Material styles */
-// TODO(v15): As of v15 mat.legacy-core no longer includes default typography styles.
-//  The following line adds:
-//    1. Default typography styles for all components
-//    2. Styles for typography hierarchy classes (e.g. .mat-headline-1)
-//  If you specify typography styles for the components you use elsewhere, you should delete this line.
-//  If you don't need the default component typographies but still want the hierarchy styles,
-//  you can delete this line and instead use:
-//    `@include mat.legacy-typography-hierarchy(mat.define-legacy-typography-config());`
-@include mat.all-legacy-component-typographies();
-@include mat.legacy-core();
+/* Set the base colors for light themes */
+$light-base: (
+    foreground: (
+        base: #000000,
+        divider: #e2e8f0,
+        /* slate.200 */ dividers: #e2e8f0,
+        /* slate.200 */ disabled: #94a3b8,
+        /* slate.400 */ disabled-button: #94a3b8,
+        /* slate.400 */ disabled-text: #94a3b8,
+        /* slate.400 */ elevation: #000000,
+        hint-text: #94a3b8,
+        /* slate.400 */ secondary-text: #64748b,
+        /* slate.500 */ icon: #64748b,
+        /* slate.500 */ icons: #64748b,
+        /* slate.500 */ mat-icon: #64748b,
+        /* slate.500 */ text: #1e293b,
+        /* slate.800 */ slider-min: #1e293b,
+        /* slate.800 */ slider-off: #cbd5e1,
+        /* slate.300 */ slider-off-active: #94a3b8 /* slate.400 */,
+    ),
+    background: (
+        status-bar: #cbd5e1,
+        /* slate.300 */ app-bar: #ffffff,
+        background: #f1f5f9,
+        /* slate.100 */ hover: rgba(148, 163, 184, 0.12),
+        /* slate.400 + opacity */ card: #ffffff,
+        dialog: #ffffff,
+        disabled-button: rgba(148, 163, 184, 0.38),
+        /* slate.400 + opacity */ raised-button: #ffffff,
+        focused-button: #64748b,
+        /* slate.500 */ selected-button: #e2e8f0,
+        /* slate.200 */ selected-disabled-button: #e2e8f0,
+        /* slate.200 */ disabled-button-toggle: #cbd5e1,
+        /* slate.300 */ unselected-chip: #e2e8f0,
+        /* slate.200 */ disabled-list-option: #cbd5e1,
+        /* slate.300 */ tooltip: #1e293b /* slate.800 */,
+    ),
+);
 
-/** Configure the Angular Material typography */
-@include mat.all-legacy-component-typographies(
-        mat.define-legacy-typography-config(
-            $font-family: theme('fontFamily.sans'),
-            $title: mat.define-typography-level(1.25rem, 2rem, 600),
-            $body-2: mat.define-typography-level(0.875rem, 1.5rem, 600),
-            $button: mat.define-typography-level(0.875rem, 0.875rem, 500),
-            $input: mat.define-typography-level(0.875rem, 1.2857142857, 400) // line-height: 20px
+/* Set the base colors for dark themes */
+$dark-base: (
+    foreground: (
+        base: #ffffff,
+        divider: rgba(241, 245, 249, 0.12),
+        /* slate.100 + opacity */ dividers: rgba(241, 245, 249, 0.12),
+        /* slate.100 + opacity */ disabled: #475569,
+        /* slate.600 */ disabled-button: #1e293b,
+        /* slate.800 */ disabled-text: #475569,
+        /* slate.600 */ elevation: #000000,
+        hint-text: #64748b,
+        /* slate.500 */ secondary-text: #94a3b8,
+        /* slate.400 */ icon: #f1f5f9,
+        /* slate.100 */ icons: #f1f5f9,
+        /* slate.100 */ mat-icon: #94a3b8,
+        /* slate.400 */ text: #ffffff,
+        slider-min: #ffffff,
+        slider-off: #64748b,
+        /* slate.500 */ slider-off-active: #94a3b8 /* slate.400 */,
+    ),
+    background: (
+        status-bar: #0f172a,
+        /* slate.900 */ app-bar: #0f172a,
+        /* slate.900 */ background: #0f172a,
+        /* slate.900 */ hover: rgba(255, 255, 255, 0.05),
+        card: #1e293b,
+        /* slate.800 */ dialog: #1e293b,
+        /* slate.800 */ disabled-button: rgba(15, 23, 42, 0.38),
+        /* slate.900 + opacity */ raised-button: #0f172a,
+        /* slate.900 */ focused-button: #e2e8f0,
+        /* slate.200 */ selected-button: rgba(255, 255, 255, 0.05),
+        selected-disabled-button: #1e293b,
+        /* slate.800 */ disabled-button-toggle: #0f172a,
+        /* slate.900 */ unselected-chip: #475569,
+        /* slate.600 */ disabled-list-option: #e2e8f0,
+        /* slate.200 */ tooltip: #64748b /* slate.500 */,
+    ),
+);
+
+/* Include the core Angular Material styles */
+@include mat.core();
+
+/* Create a base theme without any color to set the density and typography */
+@include mat.all-component-themes(
+        (
+            color: null,
+            density: 0,
+            typography:
+            mat.m2-define-typography-config(
+                $font-family: theme('fontFamily.sans'),
+                $headline-1:
+                    mat.m2-define-typography-level(
+                            1.875rem,
+                            2.25rem,
+                            800,
+                            theme('fontFamily.sans')
+                    ),
+                $headline-2:
+                    mat.m2-define-typography-level(
+                            1.25rem,
+                            1.75rem,
+                            700,
+                            theme('fontFamily.sans')
+                    ),
+                $headline-3:
+                    mat.m2-define-typography-level(
+                            1.125rem,
+                            1.75rem,
+                            600,
+                            theme('fontFamily.sans')
+                    ),
+                $headline-4:
+                    mat.m2-define-typography-level(
+                            0.875rem,
+                            1.25rem,
+                            600,
+                            theme('fontFamily.sans')
+                    ),
+                $headline-5:
+                    mat.m2-define-typography-level(
+                            0.875rem,
+                            1.5rem,
+                            400,
+                            theme('fontFamily.sans')
+                    ),
+                $headline-6:
+                    mat.m2-define-typography-level(
+                            0.875rem,
+                            1.5rem,
+                            400,
+                            theme('fontFamily.sans')
+                    ),
+                $subtitle-1:
+                    mat.m2-define-typography-level(
+                            1rem,
+                            1.75rem,
+                            400,
+                            theme('fontFamily.sans')
+                    ),
+                $subtitle-2:
+                    mat.m2-define-typography-level(
+                            0.875rem,
+                            1.25rem,
+                            600,
+                            theme('fontFamily.sans')
+                    ),
+                $body-1:
+                    mat.m2-define-typography-level(
+                            0.875rem,
+                            1.5rem,
+                            400,
+                            theme('fontFamily.sans')
+                    ),
+                $body-2:
+                    mat.m2-define-typography-level(
+                            0.875rem,
+                            1.5rem,
+                            400,
+                            theme('fontFamily.sans')
+                    ),
+                $caption:
+                    mat.m2-define-typography-level(
+                            0.75rem,
+                            1rem,
+                            400,
+                            theme('fontFamily.sans')
+                    ),
+                $button:
+                    mat.m2-define-typography-level(
+                            0.875rem,
+                            0.875rem,
+                            500,
+                            theme('fontFamily.sans')
+                    ),
+                $overline:
+                    mat.m2-define-typography-level(
+                            0.75rem,
+                            2rem,
+                            500,
+                            theme('fontFamily.sans')
+                    )
+            ),
         )
 );
 
-/** Prepare the Background and Foreground maps */
-$background-light: (
-    status-bar: #CBD5E1, /* blueGray.300 */
-    app-bar: #FFFFFF,
-    background: #F1F5F9, /* blueGray.100 */
-    hover: rgba(148, 163, 184, 0.12), /* blueGray.400 + opacity */
-    card: #FFFFFF,
-    dialog: #FFFFFF,
-    disabled-button: rgba(148, 163, 184, 0.38), /* blueGray.400 + opacity */
-    raised-button: #FFFFFF,
-    focused-button: #64748B, /* blueGray.500 */
-    selected-button: #E2E8F0, /* blueGray.200 */
-    selected-disabled-button: #E2E8F0, /* blueGray.200 */
-    disabled-button-toggle: #CBD5E1, /* blueGray.300 */
-    unselected-chip: #E2E8F0, /* blueGray.200 */
-    disabled-list-option: #CBD5E1, /* blueGray.300 */
-    tooltip: #1E293B /* blueGray.800 */
-);
+/* Loop through user themes and generate Angular Material themes */
+@each $name, $theme in userThemes.$user-themes {
+    /* Generate the palettes */
+    $palettes: ();
+    @each $name in (primary, accent, warn) {
+        /* Define the Angular Material theme */
+        $palette: mat.m2-define-palette(map.get($theme, $name));
 
-$background-dark: (
-    status-bar: #0F172A, /* blueGray.900 */
-    app-bar: #0F172A, /* blueGray.900 */
-    background: #0F172A, /* blueGray.900 */
-    hover: rgba(255, 255, 255, 0.05),
-    card: #1E293B, /* blueGray.800 */
-    dialog: #1E293B, /* blueGray.800 */
-    disabled-button: rgba(15, 23, 42, 0.38), /* blueGray.900 + opacity */
-    raised-button: #0F172A, /* blueGray.900 */
-    focused-button: #E2E8F0, /* blueGray.200 */
-    selected-button: rgba(255, 255, 255, 0.05),
-    selected-disabled-button: #1E293B, /* blueGray.800 */
-    disabled-button-toggle: #0F172A, /* blueGray.900 */
-    unselected-chip: #475569, /* blueGray.600 */
-    disabled-list-option: #E2E8F0, /* blueGray.200 */
-    tooltip: #64748B /* blueGray.500 */
-);
+        /* Replace the default colors on the defined Material palette */
+        $palette: map.merge(
+                $palette,
+                (
+                    default: map.get(map.get($theme, $name), DEFAULT),
+                    lighter: map.get(map.get($theme, $name), 100),
+                    darker: map.get(map.get($theme, $name), 700),
+                    text: map.get(map.get($theme, $name), DEFAULT),
+                    default-contrast:
+                    map.get(map.get(map.get($theme, $name), contrast), DEFAULT),
+                    lighter-contrast:
+                    map.get(map.get(map.get($theme, $name), contrast), 100),
+                    darker-contrast:
+                    map.get(map.get(map.get($theme, $name), contrast), 700),
+                )
+        );
 
-$foreground-light: (
-    base: #000000,
-    divider: #E2E8F0, /* blueGray.200 */
-    dividers: #E2E8F0, /* blueGray.200 */
-    disabled: #94A3B8, /* blueGray.400 */
-    disabled-button: #94A3B8, /* blueGray.400 */
-    disabled-text: #94A3B8, /* blueGray.400 */
-    elevation: #000000,
-    hint-text: #94A3B8, /* blueGray.400 */
-    secondary-text: #64748B, /* blueGray.500 */
-    icon: #64748B, /* blueGray.500 */
-    icons: #64748B, /* blueGray.500 */
-    mat-icon: #64748B, /* blueGray.500 */
-    text: #1E293B, /* blueGray.800 */
-    slider-min: #1E293B, /* blueGray.800 */
-    slider-off: #CBD5E1, /* blueGray.300 */
-    slider-off-active: #94A3B8 /* blueGray.400 */
-);
+        $palettes: map.merge($palettes, (#{$name}: $palette));
+    }
 
-$foreground-dark: (
-    base: #FFFFFF,
-    divider: rgba(241, 245, 249, 0.12), /* blueGray.100 + opacity */
-    dividers: rgba(241, 245, 249, 0.12), /* blueGray.100 + opacity */
-    disabled: #475569, /* blueGray.600 */
-    disabled-button: #1E293B, /* blueGray.800 */
-    disabled-text: #475569, /* blueGray.600 */
-    elevation: #000000,
-    hint-text: #64748B, /* blueGray.500 */
-    secondary-text: #94A3B8, /* blueGray.400 */
-    icon: #F1F5F9, /* blueGray.100 */
-    icons: #F1F5F9, /* blueGray.100 */
-    mat-icon: #94A3B8, /* blueGray.400 */
-    text: #FFFFFF,
-    slider-min: #FFFFFF,
-    slider-off: #64748B, /* blueGray.500 */
-    slider-off-active: #94A3B8 /* blueGray.400 */
-);
-
-/** Generate Primary, Accent and Warn palettes */
-$palettes: ();
-@each $name in (primary, accent, warn) {
-    $palettes: map.merge($palettes, (#{$name}: (
-        50: var(--fuse-#{$name}-50),
-        100: var(--fuse-#{$name}-100),
-        200: var(--fuse-#{$name}-200),
-        300: var(--fuse-#{$name}-300),
-        400: var(--fuse-#{$name}-400),
-        500: var(--fuse-#{$name}-500),
-        600: var(--fuse-#{$name}-600),
-        700: var(--fuse-#{$name}-700),
-        800: var(--fuse-#{$name}-800),
-        900: var(--fuse-#{$name}-900),
-        contrast: (
-            50: var(--fuse-on-#{$name}-50),
-            100: var(--fuse-on-#{$name}-100),
-            200: var(--fuse-on-#{$name}-200),
-            300: var(--fuse-on-#{$name}-300),
-            400: var(--fuse-on-#{$name}-400),
-            500: var(--fuse-on-#{$name}-500),
-            600: var(--fuse-on-#{$name}-600),
-            700: var(--fuse-on-#{$name}-700),
-            800: var(--fuse-on-#{$name}-800),
-            900: var(--fuse-on-#{$name}-900)
-        ),
-        default: var(--fuse-#{$name}),
-        lighter: var(--fuse-#{$name}-100),
-        darker: var(--fuse-#{$name}-700),
-        text: var(--fuse-#{$name}),
-        default-contrast: var(--fuse-on-#{$name}),
-        lighter-contrast: var(--fuse-on-#{$name}-100),
-        darker-contrast: var(--fuse-on-#{$name}-700)
-    )));
-}
-
-/** Generate Angular Material themes. Since we are using CSS Custom Properties,
-    we don't have to generate a separate Angular Material theme for each color
-    set. We can just create one light and one dark theme and then switch the
-    CSS Custom Properties to dynamically switch the colors. */
-body.light,
-body .light {
-    $base-light-theme: mat.define-light-theme((
-        color: ($palettes)
-    ));
-
-    $light-theme: (
-        color: (
-            primary: map.get(map.get($base-light-theme, color), primary),
-            accent: map.get(map.get($base-light-theme, color), accent),
-            warn: map.get(map.get($base-light-theme, color), warn),
-            is-dark: map.get(map.get($base-light-theme, color), is-dark),
-            foreground: $foreground-light,
-            background: $background-light
-        ),
-        density: -2
+    /* Define a light & dark Angular Material theme with the generated palettes */
+    $light-theme: mat.m2-define-light-theme(
+            (
+                color: $palettes,
+            )
     );
 
-    @include mat.all-legacy-component-themes($light-theme);
-}
-
-body.dark,
-body .dark {
-    $base-dark-theme: mat.define-dark-theme((
-        color: ($palettes)
-    ));
-
-    $dark-theme: (
-        color: (
-            primary: map.get(map.get($base-dark-theme, color), primary),
-            accent: map.get(map.get($base-dark-theme, color), accent),
-            warn: map.get(map.get($base-dark-theme, color), warn),
-            is-dark: map.get(map.get($base-dark-theme, color), is-dark),
-            foreground: $foreground-dark,
-            background: $background-dark
-        ),
-        density: -2
+    $dark-theme: mat.m2-define-dark-theme(
+            (
+                color: $palettes,
+            )
     );
 
-    @include mat.all-legacy-component-colors($dark-theme);
+    /* Merge the custom base colors with the generated themes */
+    $light-theme-colors: map.merge(map.get($light-theme, color), $light-base);
+    $light-theme: map.merge(
+            (
+                color: $light-theme-colors,
+            ),
+            $light-theme-colors
+    );
+
+    $dark-theme-colors: map.merge(map.get($dark-theme, color), $dark-base);
+    $dark-theme: map.merge(
+            (
+                color: $dark-theme-colors,
+            ),
+            $dark-theme-colors
+    );
+
+    /* Generate and encapsulate Angular Material themes */
+    #{map.get($theme, selector)} .light,
+    #{map.get($theme, selector)}.light {
+        @include mat.all-component-colors($light-theme);
+    }
+
+    #{map.get($theme, selector)} .dark,
+    #{map.get($theme, selector)}.dark {
+        @include mat.all-component-colors($dark-theme);
+    }
 }

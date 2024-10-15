@@ -1,30 +1,19 @@
-import { provideHttpClient, withInterceptors } from '@angular/common/http';
-import {
-    APP_INITIALIZER,
-    ENVIRONMENT_INITIALIZER,
-    EnvironmentProviders,
-    Provider,
-    importProvidersFrom,
-    inject,
-} from '@angular/core';
-import { MATERIAL_SANITY_CHECKS } from '@angular/material/core';
-import { MatDialogModule } from '@angular/material/dialog';
-import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
-import {
-    FUSE_MOCK_API_DEFAULT_DELAY,
-    mockApiInterceptor,
-} from '@fuse/lib/mock-api';
-import { FuseConfig } from '@fuse/services/config';
-import { FUSE_CONFIG } from '@fuse/services/config/config.constants';
-import { FuseConfirmationService } from '@fuse/services/confirmation';
-import {
+import {ENVIRONMENT_INITIALIZER, EnvironmentProviders, importProvidersFrom, inject, Provider,} from '@angular/core';
+import {MATERIAL_SANITY_CHECKS} from '@angular/material/core';
+import {MatDialogModule} from '@angular/material/dialog';
+import {MAT_FORM_FIELD_DEFAULT_OPTIONS} from '@angular/material/form-field';
+import {FUSE_MOCK_API_DEFAULT_DELAY,} from '@fuse/lib/mock-api';
+import {FUSE_APP_CONFIG} from '@fuse/services/config/config.constants';
+import {FuseConfirmationService} from '@fuse/services/confirmation';
+/*import {
     FuseLoadingService,
     fuseLoadingInterceptor,
-} from '@fuse/services/loading';
-import { FuseMediaWatcherService } from '@fuse/services/media-watcher';
-import { FusePlatformService } from '@fuse/services/platform';
-import { FuseSplashScreenService } from '@fuse/services/splash-screen';
-import { FuseUtilsService } from '@fuse/services/utils';
+} from '@fuse/services/loading';*/
+import {FuseMediaWatcherService} from '@fuse/services/media-watcher';
+import {FuseSplashScreenService} from '@fuse/services/splash-screen';
+import {FuseConfig} from "@core/config/fuseConfig";
+import {FuseUtilsService} from "@fuse/services/utils/utils.service";
+import {FusePlatformService} from "@fuse/platform/platform.service";
 
 export type FuseProviderConfig = {
     mockApi?: {
@@ -63,23 +52,23 @@ export const provideFuse = (
             useValue: config?.mockApi?.delay ?? 0,
         },
         {
-            provide: FUSE_CONFIG,
+            provide: FUSE_APP_CONFIG,
             useValue: config?.fuse ?? {},
         },
 
-        importProvidersFrom(MatDialogModule),
+/*        importProvidersFrom(MatDialogModule),
         {
             provide: ENVIRONMENT_INITIALIZER,
             useValue: () => inject(FuseConfirmationService),
             multi: true,
-        },
+        },*/
 
-        provideHttpClient(withInterceptors([fuseLoadingInterceptor])),
+/*        provideHttpClient(withInterceptors([fuseLoadingInterceptor])),
         {
             provide: ENVIRONMENT_INITIALIZER,
             useValue: () => inject(FuseLoadingService),
             multi: true,
-        },
+        },*/
 
         {
             provide: ENVIRONMENT_INITIALIZER,
@@ -104,7 +93,7 @@ export const provideFuse = (
     ];
 
     // Mock Api services
-    if (config?.mockApi?.services) {
+   /* if (config?.mockApi?.services) {
         providers.push(
             provideHttpClient(withInterceptors([mockApiInterceptor])),
             {
@@ -114,7 +103,7 @@ export const provideFuse = (
                 multi: true,
             }
         );
-    }
+    }*/
 
     // Return the providers
     return providers;

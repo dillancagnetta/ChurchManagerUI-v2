@@ -31,12 +31,17 @@ export class SwUpdateComponent implements OnInit, OnDestroy {
      */
     ngOnDestroy(): void {
         // Unsubscribe from all subscriptions
-        this._unsubscribeAll.next();
+        this._unsubscribeAll.next({});
         this._unsubscribeAll.complete();
     }
 
     private _subscribeForUpdates(): void {
-        this.swUpdate.available
+        /*
+        The activated observable of SwUpdate is now deprecated. To check the activation status of a service worker use the activatedUpdate method instead.
+        The available observable of SwUpdate is now deprecated. To get the same information use versionUpdates and filter only the VersionReadyEvent events
+
+        * */
+      /*  this.swUpdate.available
             .pipe(takeUntil(this._unsubscribeAll))
             .subscribe(event => {
                 console.log(
@@ -66,7 +71,7 @@ export class SwUpdateComponent implements OnInit, OnDestroy {
                     'new version is',
                     event.current
                 );
-            });
+            });*/
     }
 
     activateUpdate(): void {

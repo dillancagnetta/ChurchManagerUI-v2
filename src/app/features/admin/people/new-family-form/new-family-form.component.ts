@@ -1,6 +1,6 @@
 import { Component, ViewChild, ViewEncapsulation } from '@angular/core';
 import { UntypedFormArray, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
-import {MatDialogModule} from '@angular/material/dialog';
+import {MatDialog} from '@angular/material/dialog';
 import { PersonFormDialogComponent } from './person-form/person-form-dialog.component';
 import { fuseAnimations } from '@fuse/animations';
 import { FamilyMember, NewFamilyForm, PersonBasicDetailsForm } from './person-form/person-form.model';

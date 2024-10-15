@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@angular/core';
+import {inject, Inject, Injectable} from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { merge } from 'lodash-es';
 import { FUSE_APP_CONFIG } from '@fuse/services/config/config.constants';
@@ -8,16 +8,7 @@ import { FUSE_APP_CONFIG } from '@fuse/services/config/config.constants';
 })
 export class FuseConfigService
 {
-    private _config: BehaviorSubject<any>;
-
-    /**
-     * Constructor
-     */
-    constructor(@Inject(FUSE_APP_CONFIG) config: any)
-    {
-        // Private
-        this._config = new BehaviorSubject(config);
-    }
+    private _config = new BehaviorSubject(inject(FUSE_APP_CONFIG));
 
     // -----------------------------------------------------------------------------------------------------
     // @ Accessors

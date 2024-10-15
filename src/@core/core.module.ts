@@ -1,21 +1,20 @@
 import { NgModule, Optional, SkipSelf } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient} from '@angular/common/http';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MatIconRegistry } from '@angular/material/icon';
 import { environment } from '../environments/environment';
 import { ENV } from '@shared/constants';
 import { httpInterceptorProviders } from '@core/interceptors';
 import { notificationToastrProvider } from '@core/notifications';
-import { MatLegacySnackBarModule as MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MAT_MOMENT_DATE_ADAPTER_OPTIONS, MatMomentDateModule } from '@angular/material-moment-adapter';
 import { JwtModule } from '@auth0/angular-jwt';
 import { NgxUiLoaderModule, NgxUiLoaderRouterModule } from 'ngx-ui-loader';
 import { ngxUiLoaderConfig, routerLoaderConfig, tokenGetter } from '@core/core.config';
+import {provideAnimations} from "@angular/platform-browser/animations";
 
 @NgModule({
     imports  : [
-        HttpClientModule,
-
         // Material Core Modules
         MatSnackBarModule,
         MatMomentDateModule,
@@ -35,7 +34,9 @@ import { ngxUiLoaderConfig, routerLoaderConfig, tokenGetter } from '@core/core.c
         httpInterceptorProviders,
         notificationToastrProvider,
         // Change the default behaviour to parse dates as UTC
-        { provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: { useUtc: true } }
+        { provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: { useUtc: true } },
+        provideHttpClient(),
+        provideAnimations(),
     ],
     exports: [NgxUiLoaderModule, NgxUiLoaderRouterModule]
 })

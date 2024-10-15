@@ -8,7 +8,7 @@ import {
     ViewChild
 } from '@angular/core';
 import { BooleanInput } from '@angular/cdk/coercion';
-import { MatLegacyMenu as MatMenu } from '@angular/material/menu';
+import {  MatMenu } from '@angular/material/menu';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { FuseHorizontalNavigationComponent } from '@fuse/components/navigation/horizontal/horizontal.component';
@@ -71,7 +71,7 @@ export class FuseHorizontalNavigationBranchItemComponent implements OnInit, OnDe
     ngOnDestroy(): void
     {
         // Unsubscribe from all subscriptions
-        this._unsubscribeAll.next();
+        this._unsubscribeAll.next({});
         this._unsubscribeAll.complete();
     }
 

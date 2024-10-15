@@ -10,7 +10,7 @@ export type Themes = { id: string; name: string }[];
  * AppConfig interface. Update this interface to strictly type your config
  * object.
  */
-export interface AppConfig
+export interface FuseConfig
 {
     layout: string;
     scheme: Scheme;
@@ -27,7 +27,7 @@ export interface AppConfig
  * object to set the defaults. To access, update and reset the config, use
  * FuseConfigService and its methods.
  */
-export const appConfig: AppConfig = {
+export const appConfig: FuseConfig = {
     layout: 'compact',
     scheme: 'light',
     theme : 'default',

@@ -10,12 +10,12 @@ import {
 import { Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged, filter, switchMap, takeUntil, tap } from 'rxjs/operators';
 
-import { MatLegacyPaginator as MatPaginator } from '@angular/material/paginator';
+import {  MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { PaginatedDataSource } from '@shared/data/paginated.data-source';
 import { Sort } from '@shared/data/pagination.models';
 import { UntypedFormControl } from '@angular/forms';
-import {MatDialogModule} from '@angular/material/dialog';
+import {MatDialog} from '@angular/material/dialog';
 import { Group, GroupAttendanceForm, GroupsDataService } from '@features/admin/groups';
 import { GroupAttendanceFormDialogComponent } from './components/group-attendance-form/group-attendance-form-dialog.component';
 import { ActivatedRoute } from '@angular/router';
@@ -123,7 +123,7 @@ export class ProfileGroupsComponent implements OnInit, OnDestroy
     ngOnDestroy(): void
     {
         // Unsubscribe from all subscriptions
-        this._unsubscribeAll.next();
+        this._unsubscribeAll.next({});
         this._unsubscribeAll.complete();
     }
 
