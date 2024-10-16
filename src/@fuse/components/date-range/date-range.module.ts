@@ -21,7 +21,8 @@ import { FuseDateRangeComponent } from '@fuse/components/date-range/date-range.c
         MatFormFieldModule,
         MatInputModule,
         MatIconModule,
-        MatMomentDateModule
+        MatMomentDateModule,
+        MatFormFieldModule
     ],
     exports     : [
         FuseDateRangeComponent

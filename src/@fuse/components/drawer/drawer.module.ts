@@ -1,13 +1,15 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FuseDrawerComponent } from '@fuse/components/drawer/drawer.component';
+import {MatFormFieldModule} from "@angular/material/form-field";
 
 @NgModule({
     declarations: [
         FuseDrawerComponent
     ],
     imports     : [
-        CommonModule
+        CommonModule,
+        MatFormFieldModule
     ],
     exports     : [
         FuseDrawerComponent

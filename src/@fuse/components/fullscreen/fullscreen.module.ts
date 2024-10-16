@@ -4,6 +4,7 @@ import { MatIconModule } from '@angular/material/icon';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import { FuseFullscreenComponent } from '@fuse/components/fullscreen/fullscreen.component';
 import { CommonModule } from '@angular/common';
+import {MatFormFieldModule} from "@angular/material/form-field";
 
 @NgModule({
     declarations: [
@@ -13,7 +14,8 @@ import { CommonModule } from '@angular/common';
         MatButtonModule,
         MatIconModule,
         MatTooltipModule,
-        CommonModule
+        CommonModule,
+        MatFormFieldModule
     ],
     exports     : [
         FuseFullscreenComponent
