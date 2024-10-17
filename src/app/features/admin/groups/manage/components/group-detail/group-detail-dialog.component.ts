@@ -18,7 +18,7 @@ import {
     settings
 } from '../../../../../../pages/calendar';
 import {RRule} from 'rrule';
-import * as moment from 'moment';
+import moment from 'moment';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { FormAction, FormActions } from '@shared/shared.models';
 

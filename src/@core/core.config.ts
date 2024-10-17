@@ -1,5 +1,4 @@
-import { NgxUiLoaderConfig } from 'ngx-ui-loader';
-import { NgxUiLoaderRouterConfig } from 'ngx-ui-loader/lib/utils/interfaces';
+import {NgxUiLoaderConfig, NgxUiLoaderRouterConfig} from 'ngx-ui-loader';
 
 export function tokenGetter() {
     return localStorage.getItem("accessToken");

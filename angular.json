@@ -15,12 +15,15 @@
             "prefix": "app",
             "architect": {
                 "build": {
-                    "builder": "@angular-devkit/build-angular:browser",
+                    "builder": "@angular-devkit/build-angular:application",
                     "options": {
-                        "outputPath": "dist/church-manager-ui",
+                        "outputPath": {
+                          "base": "dist/church-manager-ui"
+                        },
                         "index": "src/index.html",
-                        "main": "src/main.ts",
-                        "polyfills": "src/polyfills.ts",
+                        "polyfills": [
+                          "src/polyfills.ts"
+                        ],
                         "tsConfig": "tsconfig.app.json",
                         "inlineStyleLanguage": "scss",
                         "allowedCommonJsDependencies": [
@@ -58,10 +61,11 @@
                         "scripts": [
                             "./node_modules/webdatarocks/webdatarocks.toolbar.min.js",
                             "./node_modules/webdatarocks/webdatarocks.js",
-                            "./node_modules/webdatarocks/webdatarocks.highcharts.js"
+                            "./node_modules/webdatarocks/webdatarocks.highcharts.js",
+                            "node_modules/apexcharts/dist/apexcharts.min.js"
                         ],
-                        "serviceWorker": true,
-                        "ngswConfigPath": "ngsw-config.json"
+                        "serviceWorker": "ngsw-config.json",
+                        "browser": "src/main.ts"
                     },
                     "configurations": {
                         "production": {
@@ -128,9 +132,7 @@
                             "outputHashing": "all"
                         },
                         "development": {
-                            "buildOptimizer": false,
-                            "optimization": false,
-                            "vendorChunk": true,
+                          "optimization": false,
                             "extractLicenses": false,
                             "sourceMap": true,
                             "namedChunks": true

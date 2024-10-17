@@ -3,7 +3,6 @@
 
 /* This injects additional styles into Tailwind's base styles layer. */
 @layer base {
-
     * {
         /* Text rendering */
         text-rendering: optimizeLegibility;
@@ -63,11 +62,17 @@
         -webkit-text-fill-color: currentColor;
     }
 
-    body, .dark, .light {
+    /* Set the background and foreground colors */
+    body,
+    .dark,
+    .light {
         @apply text-default bg-default #{'!important'};
     }
 
-    *, *::before, *::after {
+    /* Set the border color */
+    *,
+    ::before,
+    ::after {
         --tw-border-opacity: 1 !important;
         border-color: rgba(var(--fuse-border-rgb), var(--tw-border-opacity));
 
@@ -76,19 +81,59 @@
         }
     }
 
-    [disabled] * {
+    /* Style scrollbars on platforms other than MacOS and iOS */
+    @media only screen and (min-width: 960px) {
+        body:not(.os-mac) {
+            ::-webkit-scrollbar {
+                width: 8px;
+                height: 8px;
+                background-color: rgba(0, 0, 0, 0);
+            }
+
+            ::-webkit-scrollbar:hover {
+                width: 8px;
+                height: 8px;
+                background-color: rgba(0, 0, 0, 0.06);
+            }
+
+            ::-webkit-scrollbar-thumb {
+                border: 2px solid transparent;
+                border-radius: 20px;
+                box-shadow: inset 0 0 0 20px rgba(0, 0, 0, 0.24);
+            }
+
+            ::-webkit-scrollbar-thumb:active {
+                border-radius: 20px;
+                box-shadow: inset 0 0 0 20px rgba(0, 0, 0, 0.37);
+            }
+
+            &.dark {
+                ::-webkit-scrollbar-thumb {
+                    box-shadow: inset 0 0 0 20px rgba(255, 255, 255, 0.24);
+                }
+
+                ::-webkit-scrollbar-thumb:active {
+                    box-shadow: inset 0 0 0 20px rgba(255, 255, 255, 0.37);
+                }
+            }
+        }
+    }
+
+    /* Set the foreground color for disabled elements */
+    [disabled] {
         @apply text-disabled #{'!important'};
     }
 
     /* Print styles */
     @media print {
-
         /* Make the base font size smaller for print so everything is scaled nicely */
         html {
             font-size: 12px !important;
         }
 
-        body, .dark, .light {
+        body,
+        .dark,
+        .light {
             background: none !important;
         }
     }

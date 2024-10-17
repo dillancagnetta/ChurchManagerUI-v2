@@ -37,8 +37,7 @@ export class ProfileAboutComponent implements OnInit, OnDestroy
      */
     constructor(
         private _profileService: ProfileService,
-        private _matDialog: MatDialog,
-        private _activatedRoute: ActivatedRoute,
+        private _matDialog: MatDialog
     )
     {
         // Set the private defaults

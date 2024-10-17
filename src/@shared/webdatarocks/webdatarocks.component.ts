@@ -1,5 +1,5 @@
 import { Component, ElementRef, Input, Output, EventEmitter, OnInit } from '@angular/core';
-import * as WebDataRocks from 'webdatarocks';
+import WebDataRocks from 'webdatarocks';
 
 @Component({
     selector: 'wbr-pivot',

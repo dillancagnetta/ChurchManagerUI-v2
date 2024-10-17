@@ -2,10 +2,9 @@ import { ChangeDetectionStrategy, Component, OnDestroy, OnInit, ViewEncapsulatio
 import { Router } from '@angular/router';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { ApexOptions } from 'ng-apexcharts';
+import {ApexAxisChartSeries, ApexOptions } from 'ng-apexcharts';
 import { AnalyticsService } from './analytics.service';
 import { DashboardDataService } from '@features/admin/dashboard/dashboard-data.service';
-import { ApexAxisChartSeries } from 'ng-apexcharts/lib/model/apex-types';
 import moment from 'moment';
 
 @Component({

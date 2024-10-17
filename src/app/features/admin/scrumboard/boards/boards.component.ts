@@ -8,7 +8,7 @@ import {
 } from '@angular/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import * as moment from 'moment';
+import moment from 'moment';
 import { ScrumboardService } from '../scrumboard.service';
 import { DiscipleshipProgramSummary } from '@features/admin/discipleship/discipleship.models';
 

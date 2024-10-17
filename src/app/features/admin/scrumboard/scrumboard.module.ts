@@ -12,7 +12,7 @@ import {MatInputModule} from '@angular/material/input';
 import {MatMenuModule} from '@angular/material/menu';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
-import * as moment from 'moment';
+import moment from 'moment';
 import { ScrumboardComponent } from '@features/admin/scrumboard/scrumboard.component';
 import { ScrumboardBoardsComponent } from '@features/admin/scrumboard/boards/boards.component';
 import { ScrumboardBoardComponent } from '@features/admin/scrumboard/board/board.component';

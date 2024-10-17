@@ -10,7 +10,7 @@ import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import * as moment from 'moment';
+import moment from 'moment';
 import { FuseConfirmationService } from '@fuse/services/confirmation';
 import { ScrumboardService } from '../scrumboard.service';
 import { Card, List } from '../scrumboard.models';

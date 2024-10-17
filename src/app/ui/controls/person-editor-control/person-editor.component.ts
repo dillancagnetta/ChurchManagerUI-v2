@@ -40,23 +40,25 @@ export class PersonEditorComponent implements ControlValueAccessor, Validator, O
 
     private readonly _phoneNumberPattern = '^((?:\\+27|27)|0)([0-9]{2})(\\d{7})$';
 
-    public form = new UntypedFormGroup( {
-        firstName: new UntypedFormControl( null, [Validators.minLength(3), Validators.required] ),
-        middleName: new UntypedFormControl( null ),
-        lastName: new UntypedFormControl( null, [Validators.minLength(3), Validators.required] ),
-        gender: new UntypedFormControl( null ),
-        ageClassification: new UntypedFormControl( null, [Validators.required] ),
-        occupation: new UntypedFormControl( null ),
-        emailAddress: new UntypedFormControl( null, [Validators.email] ),
-        phoneNumber: new UntypedFormControl( null, [Validators.required, Validators.pattern(this._phoneNumberPattern)] ),
-        birthDate: new UntypedFormControl( null ),
-        receivedHolySpirit: new UntypedFormControl( false )
-    }, { asyncValidators: this._validation.duplicatePerson() }
-    );
+    public form: UntypedFormGroup;
 
     constructor(
         private _elementRef: ElementRef,
-        private _validation: PersonValidationService) { }
+        private _validation: PersonValidationService) {
+        this.form = new UntypedFormGroup( {
+                firstName: new UntypedFormControl( null, [Validators.minLength(3), Validators.required] ),
+                middleName: new UntypedFormControl( null ),
+                lastName: new UntypedFormControl( null, [Validators.minLength(3), Validators.required] ),
+                gender: new UntypedFormControl( null ),
+                ageClassification: new UntypedFormControl( null, [Validators.required] ),
+                occupation: new UntypedFormControl( null ),
+                emailAddress: new UntypedFormControl( null, [Validators.email] ),
+                phoneNumber: new UntypedFormControl( null, [Validators.required, Validators.pattern(this._phoneNumberPattern)] ),
+                birthDate: new UntypedFormControl( null ),
+                receivedHolySpirit: new UntypedFormControl( false )
+            }, { asyncValidators: this._validation.duplicatePerson() }
+        );
+    }
 
     writeValue( person: PersonFormValue ): void
     {

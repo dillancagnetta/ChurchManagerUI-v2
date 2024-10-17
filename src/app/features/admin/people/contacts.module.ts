@@ -16,7 +16,7 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatTableModule} from '@angular/material/table';
 import {MatTooltipModule} from '@angular/material/tooltip';
-import * as moment from 'moment';
+import moment from 'moment';
 import {FuseAutogrowModule} from '@fuse/directives/autogrow';
 import {FuseFindByKeyPipeModule} from '@fuse/pipes/find-by-key';
 import {SharedModule} from '@shared/shared.module';

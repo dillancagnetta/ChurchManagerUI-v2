@@ -1,14 +1,13 @@
-import { Component, OnDestroy, ViewEncapsulation } from '@angular/core';
-import { ProfileService } from './_services/profile.service';
-import { Subject } from 'rxjs';
-import { Profile } from './profile.model';
-import { ProfilePhotoFormDialogComponent } from './tabs/about/components';
+import {Component, OnDestroy, ViewEncapsulation} from '@angular/core';
+import {ProfileService} from './_services/profile.service';
+import {Subject} from 'rxjs';
+import {Profile} from './profile.model';
+import {ProfilePhotoFormDialogComponent} from './tabs/about/components';
 import {MatDialog} from '@angular/material/dialog';
-import { filter, first, switchMap, takeUntil, withLatestFrom } from 'rxjs/operators';
-import { FormActions } from '@shared/shared.models';
-import { FileUploadService } from '@shared/api/file-upload.service';
-import { FuseConfirmationService } from '@fuse/services/confirmation';
-import { ToastrService } from '@core/notifications/toastr.service';
+import {filter, first, switchMap, takeUntil, withLatestFrom} from 'rxjs/operators';
+import {FormActions} from '@shared/shared.models';
+import {FuseConfirmationService} from '@fuse/services/confirmation';
+import {ToastrService} from '@core/notifications/toastr.service';
 
 @Component({
     selector       : 'profile',
@@ -31,7 +30,6 @@ export class ProfileComponent implements OnDestroy
      */
     constructor(
         private _profileService: ProfileService,
-        private _uploader: FileUploadService,
         private _matDialog: MatDialog,
         private _fuseConfirmationService: FuseConfirmationService,
         private _toastr: ToastrService

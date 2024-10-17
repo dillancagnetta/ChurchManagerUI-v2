@@ -48,6 +48,7 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
 import { FuseAlertModule } from '@fuse/components/alert';
 import { ProfileFollowUpComponent } from './tabs/followup/follow-up.component';
 import { GeneralTableModule } from '@ui/components/general-table/general-table.module';
+import {MatRipple} from "@angular/material/core";
 
 
 @NgModule({
@@ -67,7 +68,7 @@ import { GeneralTableModule } from '@ui/components/general-table/general-table.m
         ProfilePhotoFormDialogComponent,
         ProfileMyDashboardComponent
     ],
-    imports     : [
+    imports: [
         RouterModule.forChild(profileRoutes),
         MatButtonModule,
         MatCheckboxModule,
@@ -103,7 +104,8 @@ import { GeneralTableModule } from '@ui/components/general-table/general-table.m
 
         // Extensions
         AgePluralizeModule,
-        UploadImagesModule
+        UploadImagesModule,
+        MatRipple
     ],
     providers: [
         ProfileResolver, ProfileDiscipleshipResolver,
