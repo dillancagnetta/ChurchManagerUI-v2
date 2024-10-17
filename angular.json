@@ -31,7 +31,8 @@
                             "highlight.js",
                             "crypto-js/enc-utf8",
                             "crypto-js/hmac-sha256",
-                            "crypto-js/enc-base64"
+                            "crypto-js/enc-base64",
+                            "quill-delta"
                         ],
                         "assets": [
                             "src/favicon-16x16.png",
@@ -62,7 +63,7 @@
                             "./node_modules/webdatarocks/webdatarocks.toolbar.min.js",
                             "./node_modules/webdatarocks/webdatarocks.js",
                             "./node_modules/webdatarocks/webdatarocks.highcharts.js",
-                            "node_modules/apexcharts/dist/apexcharts.min.js"
+                            "./node_modules/apexcharts/dist/apexcharts.min.js"
                         ],
                         "serviceWorker": "ngsw-config.json",
                         "browser": "src/main.ts"
@@ -144,16 +145,16 @@
                     "builder": "@angular-devkit/build-angular:dev-server",
                     "configurations": {
                         "production": {
-                            "browserTarget": "church-manager-ui:build:production"
+                            "buildTarget": "church-manager-ui:build:production"
                         },
                         "test": {
-                            "browserTarget": "church-manager-ui:build:test"
+                            "buildTarget": "church-manager-ui:build:test"
                         },
                         "local": {
-                            "browserTarget": "church-manager-ui:build:local"
+                            "buildTarget": "church-manager-ui:build:local"
                         },
                         "development": {
-                            "browserTarget": "church-manager-ui:build:development"
+                            "buildTarget": "church-manager-ui:build:development"
                         }
                     },
                     "defaultConfiguration": "development"
@@ -161,7 +162,7 @@
                 "extract-i18n": {
                     "builder": "@angular-devkit/build-angular:extract-i18n",
                     "options": {
-                        "browserTarget": "church-manager-ui:build"
+                        "buildTarget": "church-manager-ui:build"
                     }
                 },
                 "test": {
@@ -208,9 +209,7 @@
             }
         }
     },
-    "defaultProject": "church-manager-ui",
     "cli": {
-        "analytics": false,
-        "defaultCollection": "@angular-eslint/schematics"
+      "analytics": false
     }
 }
