@@ -75,7 +75,7 @@
 
                 <mat-form-field
                      class="w-full">
-                    <mat-label>Tenant</mat-label>
+                    <mat-label>Church</mat-label>
                     <mat-select [formControlName]="'tenant'">
                         <mat-option *ngFor="let tenant of tenants$ | async"
                             [value]="tenant.name">

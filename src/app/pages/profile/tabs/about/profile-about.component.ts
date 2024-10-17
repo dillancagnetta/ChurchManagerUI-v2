@@ -88,7 +88,7 @@ export class ProfileAboutComponent implements OnInit, OnDestroy
             .pipe(
                 filter(([response, _]) => !!response), // <-- only "truthy" results pass same as if(result)
                 first(), // <-- completes the observable and unsubscribes,
-                switchMap(([response, profile]) => {
+                switchMap(([response, profile]: [any, Profile]) => {
                     const actionType: string = response[0];
                     const formData: ProfileGeneralInfo = response[1];
                     switch ( actionType )
@@ -135,7 +135,7 @@ export class ProfileAboutComponent implements OnInit, OnDestroy
             .pipe(
                 filter(([response, _]) => !!response), // <-- only "truthy" results pass same as if(result)
                 first(), // <-- completes the observable and unsubscribes,
-                switchMap(([response, profile]) => {
+                switchMap(([response, profile]: [any, Profile]) => {
                     const actionType: string = response[0];
                     const formData: UntypedFormGroup = response[1];
                     switch ( actionType )
@@ -179,7 +179,7 @@ export class ProfileAboutComponent implements OnInit, OnDestroy
             .pipe(
                 filter(([response, _]) => !!response), // <-- only "truthy" results pass same as if(result)
                 first(), // <-- completes the observable and unsubscribes,
-                switchMap(([response, profile]) => {
+                switchMap(([response, profile]: [any, Profile]) => {
                     const actionType: string = response[0];
                     const formData: UntypedFormGroup = response[1];
                     switch ( actionType )
@@ -224,7 +224,7 @@ export class ProfileAboutComponent implements OnInit, OnDestroy
             .pipe(
                 filter(([response, _]) => !!response), // <-- only "truthy" results pass same as if(result)
                 first(), // <-- completes the observable and unsubscribes,
-                switchMap(([response, profile]) => {
+                switchMap(([response, profile]: [any, Profile]) => {
                     const actionType: string = response[0];
                     const formData: UntypedFormGroup = response[1];
                     switch ( actionType )

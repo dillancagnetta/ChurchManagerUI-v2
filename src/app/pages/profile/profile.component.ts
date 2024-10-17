@@ -86,7 +86,7 @@ export class ProfileComponent implements OnDestroy
             .pipe(
                 filter(([response, _]) => !!response), // <-- only "truthy" results pass same as if(result)
                 first(), // <-- completes the observable and unsubscribes,
-                switchMap(([response, profile]) => {
+                switchMap(([response, profile]: [any, Profile]) => {
                     console.log(response);
                     const actionType: string = response[0];
                     const file: string = response[1];

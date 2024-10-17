@@ -1,7 +1,7 @@
 <form class="shadow-md rounded-lg md:p-8 flex flex-col items-start" name="form" [formGroup]="addressForm">
 
     <div class="flex">
-        <mat-form-field appearance="outline">
+        <mat-form-field appearance="outline" class="w-100">
             <mat-label>Address</mat-label>
             <textarea matInput formControlName="street" required  autocomplete="street-address"></textarea>
             <mat-error>Address is required!</mat-error>
@@ -36,9 +36,9 @@
 
     </div>
 
-    <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
+    <div class="row-auto justify-center">
 
-        <mat-form-field appearance="outline" fxFlex="100">
+        <mat-form-field appearance="outline" class="w-100">
             <mat-label>Country</mat-label>
             <mat-select formControlName="country" required>
                 <mat-option [value]="'South Africa'">
