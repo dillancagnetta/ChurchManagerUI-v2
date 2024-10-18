@@ -5,6 +5,7 @@ import { ENV } from '@shared/constants';
 import { Environment } from '@shared/environment.model';
 import { shareReplay, tap } from 'rxjs/operators';
 import { ChurchAttendanceAnnualBreakdown } from './analytics.models';
+import moment from 'moment';
 
 const CACHE_SIZE = 1;
 
@@ -48,8 +49,12 @@ export class DashboardDataService {
     }
 
     private _getChurchAttendance$(): Observable<ChurchAttendanceAnnualBreakdown[]> {
+        // start date of January for the current year
+        const currentEndOfYear = moment().endOf('year').toDate().toDateString();
+        // start date of January for the previous year
+        const startOfJanuaryLastYear = moment().subtract(1, 'year').startOf('year').toDate().toDateString();
         return this._httpClient.get<ChurchAttendanceAnnualBreakdown[]>(
-            `${this.environment.baseUrls.apiUrl}/v1/dashboard/church-attendance?from=2019-01-01&to=2022-01-01`)
+            `${this.environment.baseUrls.apiUrl}/v1/dashboard/church-attendance?from=${startOfJanuaryLastYear}&to=${currentEndOfYear}`)
             .pipe(
                 tap(x => console.log('fetch church-attendance', x))
             );

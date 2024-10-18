@@ -79,6 +79,7 @@ export class AnalyticsComponent implements OnInit, OnDestroy
             .pipe(takeUntil(this._unsubscribeAll))
             .subscribe(
                 records => {
+
                     const tempDatasets: { [year: string]: ApexAxisChartSeries; } = {};
                     const tempNcAndFtDatasets: { [year: string]: ApexAxisChartSeries; } = {};
 
@@ -103,9 +104,13 @@ export class AnalyticsComponent implements OnInit, OnDestroy
                         ];
                     });
 
-                    //this.chartVisitors.series = tempDatasets as any;
+                    // Adjust to match format
+                    const series = {};
+                    for (const year in tempDatasets) {
+                        series[year] = tempDatasets[year]
+                    }
 
-                    if ( tempDatasets?.length ) {
+                    if ( series ) {
                         const chartVisitors = {
                             chart     : {
                                 animations: {
@@ -149,7 +154,7 @@ export class AnalyticsComponent implements OnInit, OnDestroy
                                     }
                                 }
                             },
-                            series    : tempDatasets,
+                            series    : series,
                             stroke    : {
                                 width: 3
                             },
@@ -202,7 +207,6 @@ export class AnalyticsComponent implements OnInit, OnDestroy
                                 show      : false
                             }
                         };
-
                         this.chartVisitors$.next( chartVisitors );
                     }
 
