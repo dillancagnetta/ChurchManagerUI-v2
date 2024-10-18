@@ -1,4 +1,12 @@
-import { ChangeDetectionStrategy, Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    Component,
+    OnDestroy,
+    OnInit,
+    signal,
+    ViewEncapsulation,
+    WritableSignal
+} from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -17,6 +25,7 @@ export class AnalyticsComponent implements OnInit, OnDestroy
 {
     chartVisitors: ApexOptions;
     chartVisitors$ = new BehaviorSubject<any>(null);
+    $chartVisitorsYearsSeries: WritableSignal<string[]> = signal([]);
     chartConversions: ApexOptions;
     chartImpressions: ApexOptions;
     chartVisits: ApexOptions;
@@ -108,6 +117,8 @@ export class AnalyticsComponent implements OnInit, OnDestroy
                     const series = {};
                     for (const year in tempDatasets) {
                         series[year] = tempDatasets[year]
+                        // Add the years to series
+                        this.$chartVisitorsYearsSeries.update( x => x.concat(year))
                     }
 
                     if ( series ) {
