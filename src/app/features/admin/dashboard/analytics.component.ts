@@ -1,19 +1,10 @@
-import {
-    ChangeDetectionStrategy,
-    Component,
-    OnDestroy,
-    OnInit,
-    signal,
-    ViewEncapsulation,
-    WritableSignal
-} from '@angular/core';
-import { Router } from '@angular/router';
-import { BehaviorSubject, Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
-import {ApexAxisChartSeries, ApexOptions } from 'ng-apexcharts';
-import { AnalyticsService } from './analytics.service';
-import { DashboardDataService } from '@features/admin/dashboard/dashboard-data.service';
-import moment from 'moment';
+import {ChangeDetectionStrategy, Component, inject, OnDestroy, OnInit, Signal, ViewEncapsulation} from '@angular/core';
+import {Router} from '@angular/router';
+import {Subject} from 'rxjs';
+import {takeUntil} from 'rxjs/operators';
+import {ApexOptions} from 'ng-apexcharts';
+import {AnalyticsService} from './analytics.service';
+import {DashboardStore} from "@features/admin/dashboard/dashboard.store";
 
 @Component({
     selector       : 'analytics',
@@ -24,8 +15,6 @@ import moment from 'moment';
 export class AnalyticsComponent implements OnInit, OnDestroy
 {
     chartVisitors: ApexOptions;
-    chartVisitors$ = new BehaviorSubject<any>(null);
-    $chartVisitorsYearsSeries: WritableSignal<string[]> = signal([]);
     chartConversions: ApexOptions;
     chartImpressions: ApexOptions;
     chartVisits: ApexOptions;
@@ -38,12 +27,15 @@ export class AnalyticsComponent implements OnInit, OnDestroy
     chartLanguage: ApexOptions;
     chartNewVsReturning: ApexOptions;
 
+    // Attendance Chart
+    readonly store = inject(DashboardStore);
+    $isChartAttendanceLoading: Signal<boolean> = this.store.isLoading;
+
     /**
      * Constructor
      */
     constructor(
         private _analyticsService: AnalyticsService,
-        private _dashboardData: DashboardDataService,
         private _router: Router
     )
     {
@@ -84,7 +76,9 @@ export class AnalyticsComponent implements OnInit, OnDestroy
             }
         };
 
-        this._dashboardData.getChurchAttendance$()
+        //this.$chartVisitorsYearsSeries = this.store.chartSeries()
+
+        /*this._dashboardData.getChurchAttendance$()
             .pipe(takeUntil(this._unsubscribeAll))
             .subscribe(
                 records => {
@@ -222,7 +216,7 @@ export class AnalyticsComponent implements OnInit, OnDestroy
                     }
 
                 }
-            );
+            );*/
     }
 
     /**

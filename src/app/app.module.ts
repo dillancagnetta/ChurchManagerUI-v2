@@ -19,6 +19,7 @@ import {FuseMockApiModule} from "@fuse/lib/mock-api";
 const routerConfig: ExtraOptions = {
     preloadingStrategy       : PreloadAllModules,
     scrollPositionRestoration: 'enabled',
+    bindToComponentInputs: true
     /* DEBUG ROUTES */
     // enableTracing: true
 };

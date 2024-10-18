@@ -14,6 +14,7 @@ import { SharedModule } from '@shared/shared.module';
 import { AnalyticsComponent } from './analytics.component';
 import { analyticsRoutes } from './analytics.routing';
 import { DashboardDataService } from './dashboard-data.service';
+import {DashboardStore} from "@features/admin/dashboard/dashboard.store";
 
 @NgModule({
     declarations: [
@@ -33,7 +34,7 @@ import { DashboardDataService } from './dashboard-data.service';
         NgApexchartsModule,
         SharedModule
     ],
-    providers: [DashboardDataService]
+    providers: [DashboardDataService, DashboardStore]
 })
 export class AnalyticsModule
 {

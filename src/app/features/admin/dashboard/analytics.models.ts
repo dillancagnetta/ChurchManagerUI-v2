@@ -1,5 +1,5 @@
 interface ChurchAttendanceMonthlyTotals {
-    year: number;
+    year: number | string;
     month: number;
     totalAttendance: number;
     totalNewConverts: number | null;
@@ -7,6 +7,6 @@ interface ChurchAttendanceMonthlyTotals {
 }
 
 export interface ChurchAttendanceAnnualBreakdown {
-    year: number;
+    year: number | string;
     data: ChurchAttendanceMonthlyTotals[];
 }

@@ -27,6 +27,8 @@
     "@angular/service-worker": "18.2.8",
     "@auth0/angular-jwt": "5.2.0",
     "@microsoft/signalr": "8.0.7",
+    "@ngrx/operators": "^18.1.0",
+    "@ngrx/signals": "^18.1.0",
     "apexcharts": "3.54.1",
     "crypto-js": "4.2.0",
     "highcharts": "11.4.8",

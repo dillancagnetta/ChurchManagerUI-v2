@@ -8,7 +8,7 @@ import { tap } from 'rxjs/operators';
 })
 export class AnalyticsService
 {
-    private _data: BehaviorSubject<any> = new BehaviorSubject(null);
+    private _data: BehaviorSubject<any> = new BehaviorSubject(null);1
 
     /**
      * Constructor
@@ -45,3 +45,5 @@ export class AnalyticsService
         );
     }
 }
+
+
