@@ -82,6 +82,8 @@ export class AuthSignInComponent implements OnInit
             tenant  : ['', Validators.required],
             rememberMe: ['']
         });
+
+        this.authStore.getTenants();
     }
 
     // -----------------------------------------------------------------------------------------------------

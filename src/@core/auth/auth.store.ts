@@ -71,7 +71,7 @@ export const AuthStore = signalStore(
 
   withHooks({
     onInit(store) {
-      store.getTenants();
+      // store.getTenants();
 
       watchState(store, (state) => {
         console.log('[watchState] auth state', state);
