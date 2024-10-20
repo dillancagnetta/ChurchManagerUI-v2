@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@angular/core';
+    import { Inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 import { ENV } from '@shared/constants';
 import { Environment } from '@shared/environment.model';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { ClaimType } from '@core/auth/auth.model';
+import {AuthResponse, ClaimType} from '@core/auth/auth.model';
 
 @Injectable({
     providedIn: 'root'
@@ -85,16 +85,16 @@ export class AuthService
      */
     signIn(credentials: { username: string, password: string, tenant?:string }): Observable<any>
     {
-        return this._httpClient.post(`${this._apiUrl}/v1/auth/login/?tenant=${credentials.tenant}`, credentials)
-            .pipe(
+        return this._httpClient.post<AuthResponse>(`${this._apiUrl}/v1/auth/login/?tenant=${credentials.tenant}`, credentials)
+            /*.pipe(
                 map((response) => {
-                    const token = (<any>response).accessToken;
-                    const refreshToken = (<any>response).refreshToken;
+                    const token = response.accessToken;
+                    const refreshToken = response.refreshToken;
                     this.accessToken = token;
                     localStorage.setItem("refreshToken", refreshToken);
                     this.isAuthenticated = true;
                 } )
-            );
+            );*/
     }
 
     /** get authenticate state */

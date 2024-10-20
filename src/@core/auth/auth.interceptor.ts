@@ -1,14 +1,17 @@
-import { Injectable } from '@angular/core';
+import {inject, Injectable} from '@angular/core';
 import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, mergeMap } from 'rxjs/operators';
 import { AuthService } from '@core/auth/auth.service';
+import {AuthStore} from "@core/auth/auth.store";
 
 export const InterceptorSkipHeader = 'X-Skip-Interceptor';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor
 {
+    private readonly authStore = inject(AuthStore);
+
     /**
      * Constructor
      */
@@ -53,7 +56,7 @@ export class AuthInterceptor implements HttpInterceptor
                                     this._authService.signOut();
 
                                     // Reload the app
-                                    location.reload();
+                                    // location.reload();
                                 }
 
                                 return throwError(error);

@@ -1,10 +1,9 @@
-import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormGroup, NgForm, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { fuseAnimations } from '@fuse/animations';
-import { FuseAlertType } from '@fuse/components/alert';
-import { AuthService } from '@core/auth/auth.service';
-import { Observable } from 'rxjs';
+import {Component, effect, inject, OnInit, Signal, ViewChild, ViewEncapsulation} from '@angular/core';
+import {NgForm, UntypedFormBuilder, UntypedFormGroup, Validators} from '@angular/forms';
+import {ActivatedRoute, Router} from '@angular/router';
+import {fuseAnimations} from '@fuse/animations';
+import {FuseAlertType} from '@fuse/components/alert';
+import {AuthStore} from "@core/auth/auth.store";
 
 @Component({
     selector     : 'auth-sign-in',
@@ -14,6 +13,8 @@ import { Observable } from 'rxjs';
 })
 export class AuthSignInComponent implements OnInit
 {
+    private readonly authStore = inject(AuthStore);
+
     @ViewChild('signInNgForm') signInNgForm: NgForm;
 
     alert: { type: FuseAlertType, message: string } = {
@@ -23,18 +24,46 @@ export class AuthSignInComponent implements OnInit
     signInForm: UntypedFormGroup;
     showAlert: boolean = false;
 
-    tenants$: Observable<any>;
+    $tenants: Signal<string[]> = this.authStore.tenants;
+    $error: Signal<string> = this.authStore.authError;
 
     /**
      * Constructor
      */
     constructor(
         private _activatedRoute: ActivatedRoute,
-        private _authService: AuthService,
         private _formBuilder: UntypedFormBuilder,
         private _router: Router
     )
     {
+        // Listen for errors and if show the error message
+        effect(() => {
+            if (this.$error()) {
+                // Enable the form
+                this.signInForm.enable();
+                // Set the alert
+                this.alert = {
+                    type   : 'error',
+                    message: 'Something is wrong, please try again.'
+                };
+                // Show the alert
+                this.showAlert = true;
+            }
+        });
+
+        // Redirect when login successful
+        effect(() => {
+          if (this.authStore.isAuthenticated()) {
+            console.log('logged in');
+            // Set the redirect url.
+            // The '/signed-in-redirect' is a dummy url to catch the request and redirect the user
+            // to the correct page after a successful sign in. This way, that url can be set via
+            // routing file and we don't have to touch here.
+            const redirectURL = _activatedRoute.snapshot.queryParamMap.get('redirectURL') || '/signed-in-redirect';
+            // Navigate to the redirect url
+            _router.navigateByUrl(redirectURL);
+          }
+        });
     }
 
     // -----------------------------------------------------------------------------------------------------
@@ -53,8 +82,6 @@ export class AuthSignInComponent implements OnInit
             tenant  : ['', Validators.required],
             rememberMe: ['']
         });
-
-        this.tenants$ = this._authService.tenants$();
     }
 
     // -----------------------------------------------------------------------------------------------------
@@ -79,7 +106,10 @@ export class AuthSignInComponent implements OnInit
         this.showAlert = false;
 
         // Sign in
-        this._authService.signIn(this.signInForm.value)
+        this.authStore.signIn(this.signInForm.value);
+
+        // Sign in
+        /*this._authService.signIn(this.signInForm.value)
             .subscribe(
                 {
                     next: () => {
@@ -110,6 +140,6 @@ export class AuthSignInComponent implements OnInit
                         this.showAlert = true;
                     }
                 }
-            );
+            );*/
     }
 }

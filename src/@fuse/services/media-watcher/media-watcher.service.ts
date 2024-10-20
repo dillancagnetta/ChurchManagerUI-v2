@@ -21,7 +21,6 @@ export class FuseMediaWatcherService
         this._fuseConfigService.config$
             .pipe(
                 map((config) => {
-                    console.log(config)
                         return fromPairs(
                             Object.entries(config.screens).map(
                                 ([alias, screen]) => [
@@ -37,7 +36,6 @@ export class FuseMediaWatcherService
                         .observe(Object.values(screens))
                         .pipe(
                             map((state) => {
-                                console.log('state', state)
                                 // Prepare the observable values and set their defaults
                                 const matchingAliases: string[] = [];
                                 const matchingQueries: any = {};
