@@ -242,4 +242,14 @@ export class SearchComponent implements OnChanges, OnInit, OnDestroy
         const url = `${this.environment.baseUrls.apiUrl}/v1/people/autocomplete?searchTerm=${query}`;
         return this._httpClient.get<ApiResponse>(url);
     }
+
+    /**
+     * Track by function for ngFor loops
+     *
+     * @param index
+     * @param item
+     */
+    trackByFn(index: number, item: any): any {
+      return item.id || index;
+    }
 }

@@ -2,7 +2,7 @@ import {patchState, signalStore, watchState, withHooks, withMethods, withState} 
 import {rxMethod} from '@ngrx/signals/rxjs-interop';
 import {authInitialState, AuthState, Credentials} from './auth.model';
 import {inject} from '@angular/core';
-import {exhaustMap, pipe, switchMap, tap} from 'rxjs';
+import {EMPTY, exhaustMap, pipe, switchMap, tap, throwError} from 'rxjs';
 import {tapResponse} from '@ngrx/operators';
 import {ActivatedRoute, Router} from '@angular/router';
 import {LocalStorageService} from "@core/local-storage/local-storage.service";
@@ -10,6 +10,7 @@ import {AuthService} from "@core/auth/auth.service";
 import {FormErrorsStore} from "@shared/forms/forms-errors.store";
 import {setError, setLoaded, withCallState} from "@core/store/call-state.feature";
 import {HttpErrorResponse} from "@angular/common/http";
+import {catchError} from "rxjs/operators";
 
 export const AuthStore = signalStore(
   {providedIn: 'root'},
@@ -31,6 +32,11 @@ export const AuthStore = signalStore(
             const tenants = response.map(x => x.name);
             patchState(store, {tenants, ...setLoaded('auth')})
           }),
+          // Set this if we want to notify the user of an error on the sign on page
+          /*catchError((error) => {
+            patchState(store, {isAuthenticated: false, ...setError(error.message, 'auth')});
+            return EMPTY;
+          }),*/
         ),
       ),
       signIn: rxMethod<Credentials>(

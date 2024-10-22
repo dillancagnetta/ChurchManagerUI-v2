@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, Input, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
+import {ChangeDetectorRef, Component, input, Input, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
 import { Router } from '@angular/router';
 import { BooleanInput } from '@angular/cdk/coercion';
 import { Subject } from 'rxjs';
@@ -17,7 +17,8 @@ export class UserMenuComponent implements OnInit, OnDestroy
     static ngAcceptInputType_showAvatar: BooleanInput;
 
     @Input() showAvatar: boolean = true;
-    @Input() user: User;
+    //@Input() user: User;
+    user = input<User>();
 
     private _unsubscribeAll: Subject<any> = new Subject<any>();
 

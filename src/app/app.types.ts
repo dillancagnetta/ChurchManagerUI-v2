@@ -15,5 +15,5 @@ export interface InitialData
     };
     notifications: Notification[];
     shortcuts: Shortcut[];
-    user: User;
+    // user: User;
 }

@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
+import {Component, inject, OnDestroy, OnInit, Signal, ViewEncapsulation} from '@angular/core';
 import { ActivatedRoute, Data, Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -6,6 +6,8 @@ import { FuseMediaWatcherService } from '@fuse/services/media-watcher';
 import { FuseNavigationService } from '@fuse/components/navigation';
 import { InitialData } from 'app/app.types';
 import { BuildInfoService } from '@core/build-info/build-info.service';
+import {CurrentUserStore} from "@features/common/current-user/current-user.store";
+import {User} from "@core/user/user.model";
 
 @Component({
     selector     : 'compact-layout',
@@ -14,6 +16,9 @@ import { BuildInfoService } from '@core/build-info/build-info.service';
 })
 export class CompactLayoutComponent implements OnInit, OnDestroy
 {
+    private readonly store = inject(CurrentUserStore);
+    $user: Signal<User> = this.store.data;
+
     data: InitialData;
     isScreenSmall: boolean;
     private _unsubscribeAll: Subject<any> = new Subject<any>();

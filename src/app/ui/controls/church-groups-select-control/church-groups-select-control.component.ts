@@ -1,7 +1,7 @@
 import { Component, ElementRef, forwardRef, Input, OnDestroy, OnInit } from '@angular/core';
 import { ControlValueAccessor, UntypedFormControl, UntypedFormGroup, NG_VALUE_ACCESSOR, Validators } from '@angular/forms';
 import { fromEvent, Observable, Subject } from 'rxjs';
-import { debounceTime, distinctUntilChanged, switchMap, takeUntil, tap } from 'rxjs/operators';
+import {debounceTime, distinctUntilChanged, filter, switchMap, takeUntil, tap} from 'rxjs/operators';
 import { ChurchGroupsSelectControlDataService } from './church-groups-select-control-data.service';
 import { SelectItem } from '@shared/shared.models';
 
@@ -44,6 +44,7 @@ export class ChurchGroupsSelectControlComponent implements ControlValueAccessor,
         // Responds to changes in the church select and loads the groups
         this.groups$ = this.form.get('churchId')
             .valueChanges
+            .pipe(filter((churchId) => !!churchId))
             .pipe(takeUntil(this._destroyed$))
             .pipe(
                 debounceTime(500),
@@ -53,6 +54,7 @@ export class ChurchGroupsSelectControlComponent implements ControlValueAccessor,
 
         this.form.get('churchId')
             .valueChanges
+            .pipe(filter((churchId) => !!churchId))
             .pipe(takeUntil(this._destroyed$))
             .pipe(
                 switchMap( (churchId: number) => this._data.getGroups$(churchId))

@@ -28,7 +28,7 @@ export class GenderOptionsControl implements ControlValueAccessor {
         {id: 'Unknown', label: 'Unknown'}
     ];
 
-    @Input() appearance = 'standard'; // | 'outline';
+    @Input() appearance = 'outline'; // | 'outline';
     @Input() showLabel = true;
     @Input() label = 'Gender'; // overwritten from base
     @Output() selectionChange = new EventEmitter<MatSelectChange>();

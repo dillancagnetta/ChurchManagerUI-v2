@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@angular/core';
+import {inject, Inject, Injectable} from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { forkJoin, Observable } from 'rxjs';
@@ -10,13 +10,14 @@ import { ApiResponse, UserDetails } from '@shared/shared.models';
 import LogRocket from 'logrocket';
 import { AuthService } from '@core/auth/auth.service';
 import { FuseNavigationItem } from '@fuse/components/navigation';
+import {CurrentUserStore} from "@features/common/current-user/current-user.store";
 
 @Injectable({
     providedIn: 'root'
 })
 export class InitialDataResolver  {
-    private _apiUrl = this._environment.baseUrls.apiUrl;
-
+    private readonly _apiUrl = this._environment.baseUrls.apiUrl;
+    private readonly _currentUserStore= inject(CurrentUserStore);
     /**
      * Constructor
      */
@@ -37,13 +38,17 @@ export class InitialDataResolver  {
      * @param state
      */
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<InitialData> {
+
+        // Get User Data
+        this._currentUserStore.getUserData();
+
         // Fork join multiple API endpoint calls to wait all of them to finish
         return forkJoin([
             this._httpClient.get<any>('api/common/messages'),
             this._httpClient.get<any>('api/common/navigation'),
             this._httpClient.get<any>('api/common/notifications'),
             this._httpClient.get<any>('api/common/shortcuts'),
-            this._httpClient.get<any>(`${this._apiUrl}/v1/userdetails/current-user`)
+            /*this._httpClient.get<any>(`${this._apiUrl}/v1/userdetails/current-user`)
                 .pipe(
                     map((response: ApiResponse) => {
                         const userDetails = response.data as UserDetails;
@@ -63,9 +68,9 @@ export class InitialDataResolver  {
                             avatar: userDetails.photoUrl || 'assets/images/avatars/profile-blank.jpg',
                             status: 'online'
                         };
-                    }))
+                    }))*/
         ]).pipe(
-            map(([messages, navigation, notifications, shortcuts, user]) => {
+            map(([messages, navigation, notifications, shortcuts, /*user*/]) => {
                 // Feature Permissions
                 let compactNavigation = navigation.compact as FuseNavigationItem[];
                 if (!this._auth.roles.includes('Admin')) {
@@ -87,7 +92,7 @@ export class InitialDataResolver  {
                     },
                     notifications,
                     shortcuts,
-                    user
+                    // user
                 });
 
                 } // close map

@@ -25,20 +25,20 @@
             <div class="relative w-24 h-24">
                 <img
                     class="w-full h-full rounded-full"
-                    *ngIf="data.user.avatar"
-                    [src]="data.user.avatar"
+                    *ngIf="$user().avatar"
+                    [src]="$user().avatar"
                     alt="User avatar">
                 <mat-icon
                     class="icon-size-24"
-                    *ngIf="!data.user.avatar"
+                    *ngIf="!$user().avatar"
                     [svgIcon]="'heroicons_solid:user-circle'"></mat-icon>
             </div>
             <div class="flex flex-col items-center justify-center w-full mt-6">
                 <div class="w-full whitespace-nowrap overflow-ellipsis overflow-hidden text-center leading-normal font-medium">
-                    {{data.user.name}}
+                    {{$user().name}}
                 </div>
                 <div class="w-full mt-0.5 whitespace-nowrap overflow-ellipsis overflow-hidden text-center text-md leading-normal font-medium text-secondary">
-                    {{data.user.email}}
+                    {{$user().email}}
                 </div>
             </div>
         </div>
