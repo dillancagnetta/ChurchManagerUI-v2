@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnInit, output, OutputEmitterRef} from '@angular/core';
 import { TableBtn, TableColumn } from '@ui/components/general-table';
 import { FollowUpRecord } from '../../follow-up.models';
 import { parseLocalDate } from '@core/date-utils';
@@ -14,6 +14,8 @@ export class FollowUpListComponent implements OnInit {
 
     columns: TableColumn[];
     buttons: TableBtn[] = [];
+
+    addButtonClicked: OutputEmitterRef<void> = output<void>()
 
     constructor()
     {
@@ -47,7 +49,7 @@ export class FollowUpListComponent implements OnInit {
         console.log('button clicked: ',  action);
 
         if (action[0] === 'add') {
-
+          this.addButtonClicked.emit();
         }
     }
 

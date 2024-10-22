@@ -29,7 +29,7 @@ export interface FuseConfig
  */
 export const appConfig: FuseConfig = {
     layout: 'compact',
-    scheme: 'light',
+    scheme: 'dark',
     theme : 'default',
     screens: {
         sm: '600px',

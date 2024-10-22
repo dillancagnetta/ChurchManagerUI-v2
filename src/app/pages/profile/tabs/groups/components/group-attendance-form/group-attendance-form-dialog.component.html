@@ -2,7 +2,7 @@
     <!-- Header -->
     <div class="flex flex-0 items-center justify-between h-16 p-4  mb-4 bg-primary text-on-primary">
         <div class="text-lg">Attendance Record</div>
-        <div class="text-sm"> {{group.name}}</div>
+        <div class="text-lg"> {{group.name}}</div>
         <button
             mat-icon-button
             (click)="matDialogRef.close()"
@@ -13,7 +13,7 @@
         </button>
     </div>
 
-    <div mat-dialog-content class="p-24 pb-0 m-0">
+    <div mat-dialog-content class="p-5 pb-0 m-0">
 
         <form [formGroup]="form">
 

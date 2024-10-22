@@ -1,0 +1,27 @@
+<div class="time-picker">
+<mat-form-field>
+  <mat-label>Hours</mat-label>
+  <input
+    matInput
+    type="number"
+    min="0"
+    max="23"
+    [(ngModel)]="hours"
+    (ngModelChange)="onHoursChange($event)"
+    placeholder="HH"
+  />
+</mat-form-field>
+
+<mat-form-field>
+  <mat-label>Minutes</mat-label>
+  <input
+    matInput
+    type="number"
+    min="0"
+    max="59"
+    [value]="formatMinutes(minutes)"
+    (input)="onMinutesChange($event.target.value)"
+    placeholder="MM"
+  />
+</mat-form-field>
+</div>

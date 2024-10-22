@@ -29,6 +29,7 @@ export class GroupDetailsComponent
     {
         // Open the dialog
         const dialogRef = this._matDialog.open(GroupDetailDialogComponent, {
+          panelClass: 'form-dialog',
             data : {
                 action: FormActions.Edit,
                 group: this.group

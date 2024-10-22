@@ -44,6 +44,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { RecordStatusSelectControlModule } from '@ui/controls/record-status-select-control/record-status-select-control.module';
 import {MatMenuModule} from '@angular/material/menu';
 import { ChurchGroupsSelectControlModule } from '@ui/controls/church-groups-select-control/church-groups-select-control.module';
+import {TimePickerControl} from "@ui/controls/time-picker-control/time-picker-control";
 
 @NgModule({
     declarations: [
@@ -90,10 +91,11 @@ import { ChurchGroupsSelectControlModule } from '@ui/controls/church-groups-sele
         ChurchesSelectControlModule,
         ChurchGroupsSelectControlModule,
         RecordStatusSelectControlModule,
+        TimePickerControl,
 
         // 3rd Party
-/*        NgxMatNativeDateModule,
-        NgxMatTimepickerModule*/
+        /*        NgxMatNativeDateModule,
+                NgxMatTimepickerModule*/
     ],
     providers: [
         GroupsManageResolver,

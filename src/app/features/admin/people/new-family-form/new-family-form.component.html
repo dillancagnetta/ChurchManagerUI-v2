@@ -50,7 +50,7 @@
 
                     <ng-template matStepLabel>Family Members</ng-template>
 
-                        <div class="flex items-baseline">
+                        <div class="flex items-baseline pt-2">
                             <mat-form-field appearance="outline">
                                 <mat-label>Family Last Name</mat-label>
                                 <input matInput formControlName="familyName">
@@ -65,6 +65,8 @@
                                     id="add-person-button"
                                     (click)="newPerson()"
                                     aria-label="add person"
+                                    matTooltip="Add family member"
+                                    [disabled]="!familyFormStep2.get('familyName').valid"
                                     [@zoomIn]="true">
                                     <mat-icon>person_add</mat-icon>
                                 </button>

@@ -25,6 +25,7 @@ import { FormAction, FormActions } from '@shared/shared.models';
 @Component({
     selector       : 'new-group-dialog',
     templateUrl    : './group-detail-dialog.component.html',
+    styleUrl       : './group-detail-dialog.component.scss',
     encapsulation  : ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -103,7 +104,7 @@ export class GroupDetailDialogComponent implements OnInit, OnDestroy
             address: [this.editGroup?.address],
             isOnline: [this.editGroup?.isOnline],
             // Event
-            meetingTime: [null],
+            meetingTime: [this.editGroup?.schedule?.meetingTime],
             start           : [moment(this.editGroup?.schedule?.startDate) ?? new Date()],
             end             : [moment(this.editGroup?.schedule?.endDate)],
             recurrence      : [null]
@@ -151,17 +152,18 @@ export class GroupDetailDialogComponent implements OnInit, OnDestroy
             this.form.get('groupId').setValue(this.editGroup?.id);
             this.form.get('groupTypeId').setValue(this.editGroup?.groupType?.id);
             this.form.get('recurrence').setValue(this.editGroup?.schedule?.recurrenceRule);
-            const meetingTimeSplit = this.editGroup?.schedule?.meetingTime.split(':');
+            this.form.get('meetingTime').setValue(this.editGroup?.schedule?.meetingTime);
+            /*const meetingTimeSplit = this.editGroup?.schedule?.meetingTime.split(':');
             if (Array.isArray(meetingTimeSplit)) {
                 // Insert dummy date as all we need is the time
                 this.form.get('meetingTime').setValue(new Date(2018, 11, 24, +meetingTimeSplit[0], +meetingTimeSplit[1]));
-            }
+            }*/
         }
 
         // This was a hack to get the form to update - ngx-mat-timepicker wasn't responding to being changed
-        this.form.get('meetingTime').valueChanges
+        /*this.form.get('meetingTime').valueChanges
             .pipe(takeUntil(this._unsubscribeAll))
-            .subscribe(value => this.form.markAllAsTouched());
+            .subscribe(value => this.form.markAllAsTouched());*/
     }
 
     /**

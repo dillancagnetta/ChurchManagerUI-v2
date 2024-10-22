@@ -4,7 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { ProfileFollowUpComponent } from './follow-up.component';
 import { FollowUpListComponent } from './components/follow-up-list/follow-up-list.component';
 import { FollowUpListQueryComponent } from './components/follow-up-list-query/follow-up-list-query.component';
-import { FollowUpFormComponent } from './components/follow-up-form/follow-up-form.component';
+import { FollowUpFormDialogComponent } from './components/follow-up-form/follow-up-form-dialog.component';
 import {MatButtonModule} from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -28,6 +28,10 @@ import { FuseAlertModule } from '@fuse/components/alert';
 import { FuseScrollbarModule } from '@fuse/directives/scrollbar';
 import { FuseFindByKeyPipeModule } from '@fuse/pipes/find-by-key';
 import { GeneralTableModule } from '@ui/components/general-table/general-table.module';
+import {
+  ChurchGroupsSelectControlModule
+} from "@ui/controls/church-groups-select-control/church-groups-select-control.module";
+import {GroupTypesSelectControlModule} from "@ui/controls/group-types-select-control/group-types-select-control.module";
 
 const routes: Routes = [
     {path: '', component: ProfileFollowUpComponent }
@@ -38,39 +42,41 @@ const routes: Routes = [
       ProfileFollowUpComponent,
       FollowUpListComponent,
       FollowUpListQueryComponent,
-      FollowUpFormComponent
+      FollowUpFormDialogComponent
   ],
   imports: [
-      RouterModule.forChild(routes),
+    RouterModule.forChild(routes),
 
-      MatButtonModule,
-      MatCheckboxModule,
-      MatDatepickerModule,
-      MatDialogModule,
-      MatDividerModule,
-      MatExpansionModule,
-      MatFormFieldModule,
-      MatIconModule,
-      MatInputModule,
-      MatMenuModule,
-      MatPaginatorModule,
-      MatProgressBarModule,
-      MatSelectModule,
-      MatSlideToggleModule,
-      MatTableModule,
-      MatTooltipModule,
-      MatToolbarModule,
+    MatButtonModule,
+    MatCheckboxModule,
+    MatDatepickerModule,
+    MatDialogModule,
+    MatDividerModule,
+    MatExpansionModule,
+    MatFormFieldModule,
+    MatIconModule,
+    MatInputModule,
+    MatMenuModule,
+    MatPaginatorModule,
+    MatProgressBarModule,
+    MatSelectModule,
+    MatSlideToggleModule,
+    MatTableModule,
+    MatTooltipModule,
+    MatToolbarModule,
 
-      // Fuse
-      FuseCardModule,
-      FuseAutogrowModule,
-      FuseAlertModule,
-      FuseScrollbarModule,
-      FuseFindByKeyPipeModule,
-      SharedModule,
+    // Fuse
+    FuseCardModule,
+    FuseAutogrowModule,
+    FuseAlertModule,
+    FuseScrollbarModule,
+    FuseFindByKeyPipeModule,
+    SharedModule,
 
-      // UI Controls
-      GeneralTableModule,
+    // UI Controls
+    GeneralTableModule,
+    ChurchGroupsSelectControlModule,
+    GroupTypesSelectControlModule,
   ]
 })
 export class FollowUpModule { }
