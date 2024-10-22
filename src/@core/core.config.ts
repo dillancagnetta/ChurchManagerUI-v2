@@ -14,6 +14,10 @@ export const routerLoaderConfig: NgxUiLoaderRouterConfig = {
     exclude: [
         '/apps/people',
         '/apps/groups/cell-ministry/attendance-reports',
-        '/pages/profile'
+        '/pages/profile',
+
+    ],
+    excludeRegexp: [
+      'apps/groups*'
     ]
 }

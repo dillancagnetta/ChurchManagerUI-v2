@@ -35,7 +35,7 @@ import { containsIdValidation, isAutocompleteOption } from '@shared/validators/c
 })
 export class PersonAutocompleteControl implements ControlValueAccessor, OnInit, OnDestroy, Validator
 {
-    @Input() appearance = 'outline'; // | 'standard';
+    @Input() appearance: string = 'outline';
     @Input() label;
     @Input() debounce: number = 300;
     @Input() minLength: number = 2;
