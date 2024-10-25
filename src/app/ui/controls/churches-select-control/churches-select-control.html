@@ -4,6 +4,7 @@
         [required]="required"
         (selectionChange)="onSelectionChange($event)"
         [formControl]="selectListControl">
+        <mat-option *ngIf="allowSelectAll()" value="0">{{allSelectionLabel()}}</mat-option>
         <mat-option *ngFor="let item of items$ | async" [value]="item.id">
             {{ item.name }}
         </mat-option>

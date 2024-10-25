@@ -15,12 +15,13 @@ import { AnalyticsComponent } from './analytics.component';
 import { analyticsRoutes } from './analytics.routing';
 import { DashboardDataService } from './dashboard-data.service';
 import {DashboardStore} from "@features/admin/dashboard/dashboard.store";
+import {ChurchesSelectControlModule} from "@ui/controls/churches-select-control/churches-select-control.module";
 
 @NgModule({
     declarations: [
         AnalyticsComponent
     ],
-    imports     : [
+    imports: [
         RouterModule.forChild(analyticsRoutes),
         MatButtonModule,
         MatButtonToggleModule,
@@ -32,7 +33,8 @@ import {DashboardStore} from "@features/admin/dashboard/dashboard.store";
         MatTableModule,
         MatTooltipModule,
         NgApexchartsModule,
-        SharedModule
+        SharedModule,
+        ChurchesSelectControlModule
     ],
     providers: [DashboardDataService, DashboardStore]
 })

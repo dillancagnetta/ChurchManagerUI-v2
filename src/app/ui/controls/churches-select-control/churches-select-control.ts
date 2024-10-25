@@ -1,11 +1,13 @@
-import { Component, EventEmitter, forwardRef, Input, OnDestroy, Output } from '@angular/core';
-import { ControlValueAccessor, UntypedFormControl, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { coerceBooleanProperty } from '@angular/cdk/coercion';
-import { ChurchGroupsSelectControlDataService } from '../church-groups-select-control/church-groups-select-control-data.service';
-import { Observable, Subject } from 'rxjs';
-import { SelectItem } from '@shared/shared.models';
-import { takeUntil } from 'rxjs/operators';
-import { MatSelectChange } from '@angular/material/select';
+import {Component, EventEmitter, forwardRef, input, Input, OnDestroy, Output} from '@angular/core';
+import {ControlValueAccessor, NG_VALUE_ACCESSOR, UntypedFormControl} from '@angular/forms';
+import {coerceBooleanProperty} from '@angular/cdk/coercion';
+import {
+  ChurchGroupsSelectControlDataService
+} from '../church-groups-select-control/church-groups-select-control-data.service';
+import {Observable, Subject} from 'rxjs';
+import {SelectItem} from '@shared/shared.models';
+import {takeUntil} from 'rxjs/operators';
+import {MatSelectChange} from '@angular/material/select';
 
 @Component({
     selector: 'churches-select-control',
@@ -35,6 +37,9 @@ export class ChurchesSelectControlComponent implements ControlValueAccessor, OnD
     {
         this._required = coerceBooleanProperty(value);
     }
+
+    allowSelectAll = input<boolean>(false);
+    allSelectionLabel = input<string>('-- All Churches --');
 
     @Output() selectionChange = new EventEmitter<MatSelectChange>();
 

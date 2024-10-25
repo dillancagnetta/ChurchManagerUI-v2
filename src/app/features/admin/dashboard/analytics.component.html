@@ -9,14 +9,17 @@
                 <div class="font-medium tracking-tight text-secondary">Monitor metrics, check reports and review performance</div>
             </div>
             <div class="flex items-center ml-6">
-                <button
+                <!--<button
                     class="hidden sm:inline-flex"
                     mat-stroked-button>
                     <mat-icon
                         class="icon-size-5"
                         [svgIcon]="'heroicons_solid:cog'"></mat-icon>
                     <span class="ml-2">Settings</span>
-                </button>
+                </button>-->
+                <churches-select-control
+                  allowSelectAll="true"
+                  (selectionChange)="onChurchSelected($event)"></churches-select-control>
                 <button
                     class="hidden sm:inline-flex ml-3"
                     mat-flat-button
@@ -143,39 +146,54 @@
                             class="h-6 min-h-6 px-2 rounded-full bg-hover"
                             mat-button
                             [matMenuTriggerFor]="impressionsMenu">
-                            <span class="font-medium text-sm text-secondary">30 days</span>
+                            <span class="font-medium text-sm text-secondary">{{store.newConvertsPeriodSelection()}} months</span>
                         </button>
                         <mat-menu #impressionsMenu="matMenu">
-                            <button mat-menu-item>30 days</button>
-                            <button mat-menu-item>3 months</button>
-                            <button mat-menu-item>9 months</button>
+                          @for(period of store.availableMonthsPeriods(); track period) {
+                            <button mat-menu-item (click)="newConvertPeriodChange(period)">{{period}} Months</button>
+                          }
                         </mat-menu>
+
+                            <!--<button mat-menu-item (click)="newConvertPeriodChange('6')">6 months</button>
+                            <button mat-menu-item (click)="newConvertPeriodChange('12')">This year</button>
+                       -->
                     </div>
                 </div>
                 <div class="flex flex-col lg:flex-row lg:items-center mx-6 mt-3">
-                    <div class="text-7xl font-bold tracking-tighter leading-tight">{{data.impressions.amount | number:'1.0-0'}}</div>
+                    <div class="text-7xl font-bold tracking-tighter leading-tight">{{store.newConvertsVsFirstTimersStats().total | number:'1.0-0'}}</div>
                     <div class="flex lg:flex-col lg:ml-3">
                         <mat-icon
-                            class="icon-size-5 text-red-500"
-                            [svgIcon]="'heroicons_solid:trending-down'"></mat-icon>
+                            class="icon-size-5"
+                            [ngClass]="store.newConvertsVsFirstTimersStats()?.percentageChange > 0 ? 'text-green-500' : 'text-red-500'"
+                            [svgIcon]="store.newConvertsVsFirstTimersStats()?.percentageChange > 0
+                            ? 'heroicons_solid:trending-up'
+                            : 'heroicons_solid:trending-down'"></mat-icon>
                         <div class="flex items-center ml-1 lg:ml-0 lg:mt-0.5 text-md leading-none whitespace-nowrap text-secondary">
-                            <span class="font-medium text-red-500">4%</span>
-                            <span class="ml-1">below target</span>
+                            <span class="font-medium"
+                                  [ngClass]="store.newConvertsVsFirstTimersStats()?.percentageChange > 0 ? 'text-green-500' : 'text-red-500'">
+                              {{store.newConvertsVsFirstTimersStats().percentageChange  | number:'1.0-0'}}%</span>
+                            <span class="ml-1">
+                              average {{store.newConvertsVsFirstTimersStats()?.percentageChange > 0 ? 'increase' : 'decrease'}}
+                            </span>
                         </div>
                     </div>
                 </div>
                 <div class="flex flex-col flex-auto h-20">
+                  @if(store.newConvertsVsFirstTimersStats()) {
                     <apx-chart
-                        class="flex-auto w-full h-full"
-                        [chart]="chartImpressions.chart"
-                        [colors]="chartImpressions.colors"
-                        [series]="chartImpressions.series"
-                        [stroke]="chartImpressions.stroke"
-                        [tooltip]="chartImpressions.tooltip"
-                        [xaxis]="chartImpressions.xaxis"
-                        [yaxis]="chartImpressions.yaxis"></apx-chart>
+                      class="flex-auto w-full h-full"
+                      [chart]="store.newConvertsVsFirstTimersStats().chart.chart"
+                      [colors]="store.newConvertsVsFirstTimersStats().chart.colors"
+                      [series]="store.newConvertsVsFirstTimersStats().chart.series"
+                      [stroke]="store.newConvertsVsFirstTimersStats().chart.stroke"
+                      [tooltip]="store.newConvertsVsFirstTimersStats().chart.tooltip"
+                      [xaxis]="store.newConvertsVsFirstTimersStats().chart.xaxis"
+                      [yaxis]="store.newConvertsVsFirstTimersStats().chart.yaxis"></apx-chart>
+                  }
                 </div>
             </div>
+              <!--{{store.newConvertsVsFirstTimersStats() | json}}-->
+            <!--  {{chartImpressions | json}}-->
             <!-- Visits -->
             <div class="flex flex-col flex-auto bg-card shadow rounded-2xl overflow-hidden">
                 <div class="flex items-start justify-between m-6 mb-0">
@@ -239,12 +257,12 @@
 
                   <mat-button-toggle-group
                     class="hidden sm:inline-flex border-none space-x-1"
-                    [value]="2024"
-                    #visitorsYearSelector="matButtonToggleGroup">
+                    [value]="currentYear"
+                    #firstTimerVsNewConvertsSelection="matButtonToggleGroup">
                     @for (year of store.chartAttendanceSeries(); track year) {
                       <mat-button-toggle
                         class="px-1.5 rounded-full overflow-hidden border-none font-medium"
-                        [value]="year"> {{year}}
+                        [value]="year ?? currentYear"> {{year}}
                       </mat-button-toggle>
                     }
                   </mat-button-toggle-group>
@@ -259,23 +277,25 @@
                 <div class="grid grid-cols-1 sm:grid-cols-3 gap-8 sm:gap-12">
                     <div class="flex flex-col">
                         <div class="flex items-center">
-                            <div class="font-medium text-secondary leading-5">Overall Score</div>
+                            <div class="font-medium text-secondary leading-5">Annual Conversion Rate</div>
                             <mat-icon
                                 class="ml-1.5 icon-size-4 text-hint"
                                 [svgIcon]="'heroicons_solid:information-circle'"
-                                [matTooltip]="'Score is calculated by using the historical ratio between Page Views and Visitors. Best score is 1000, worst score is 0.'"></mat-icon>
+                                [matTooltip]="'Calculated by using the historical ratio between New Converts and First Timers.'"></mat-icon>
                         </div>
                         <div class="flex items-start mt-2">
-                            <div class="text-4xl font-bold tracking-tight leading-none">{{data.visitorsVsPageViews.overallScore}}</div>
+                            <div class="text-4xl font-bold tracking-tight leading-none">{{store.newConvertsVsFirstTimersChart().totalNcAndFt[firstTimerVsNewConvertsSelection.value ?? currentYear]?.at(2)}}%</div>
                             <div class="flex items-center ml-2">
+                              @if (firstTimerVsNewConvertsSelection.value ?? 2024 === currentYear) {
                                 <mat-icon
-                                    class="icon-size-5 text-green-500"
-                                    [svgIcon]="'heroicons_solid:arrow-circle-up'"></mat-icon>
+                                  class="icon-size-5 text-green-500"
+                                  [svgIcon]="'heroicons_solid:arrow-circle-up'"></mat-icon>
                                 <div class="ml-1 text-md font-medium text-green-500">42.9%</div>
+                              }
                             </div>
                         </div>
                     </div>
-                    <div class="flex flex-col">
+    <!--                <div class="flex flex-col">
                         <div class="flex items-center">
                             <div class="font-medium text-secondary leading-5">Average Ratio</div>
                             <mat-icon
@@ -310,23 +330,23 @@
                                 <div class="ml-1 text-md font-medium text-green-500">22.2%</div>
                             </div>
                         </div>
-                    </div>
+                    </div>-->
                 </div>
             </div>
-          @if(store.newConvertsVsFirstTimersChart()) {
+          @if(store.newConvertsVsFirstTimersChart().ncAndFtChart) {
             <div class="flex flex-col flex-auto h-80 mt-3">
               <apx-chart
                 class="flex-auto w-full h-full"
-                [chart]="store.newConvertsVsFirstTimersChart().chart"
-                [colors]="store.newConvertsVsFirstTimersChart().colors"
-                [dataLabels]="store.newConvertsVsFirstTimersChart().dataLabels"
-                [grid]="store.newConvertsVsFirstTimersChart().grid"
-                [legend]="store.newConvertsVsFirstTimersChart().legend"
-                [series]="store.newConvertsVsFirstTimersChart().series"
-                [stroke]="store.newConvertsVsFirstTimersChart().stroke"
-                [tooltip]="store.newConvertsVsFirstTimersChart().tooltip"
-                [xaxis]="store.newConvertsVsFirstTimersChart().xaxis"
-                [yaxis]="store.newConvertsVsFirstTimersChart().yaxis"></apx-chart>
+                [chart]="store.newConvertsVsFirstTimersChart().ncAndFtChart.chart"
+                [colors]="store.newConvertsVsFirstTimersChart().ncAndFtChart.colors"
+                [dataLabels]="store.newConvertsVsFirstTimersChart().ncAndFtChart.dataLabels"
+                [grid]="store.newConvertsVsFirstTimersChart().ncAndFtChart.grid"
+                [legend]="store.newConvertsVsFirstTimersChart().ncAndFtChart.legend"
+                [series]="store.newConvertsVsFirstTimersChart().ncAndFtChart.series[firstTimerVsNewConvertsSelection.value]"
+                [stroke]="store.newConvertsVsFirstTimersChart().ncAndFtChart.stroke"
+                [tooltip]="store.newConvertsVsFirstTimersChart().ncAndFtChart.tooltip"
+                [xaxis]="store.newConvertsVsFirstTimersChart().ncAndFtChart.xaxis"
+                [yaxis]="store.newConvertsVsFirstTimersChart().ncAndFtChart.yaxis"></apx-chart>
             </div>
           }
         </div>

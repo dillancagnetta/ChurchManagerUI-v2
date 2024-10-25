@@ -4,7 +4,8 @@ import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 import {ApexOptions} from 'ng-apexcharts';
 import {AnalyticsService} from './analytics.service';
-import {DashboardStore} from "@features/admin/dashboard/dashboard.store";
+import {DashboardStore, Period} from "@features/admin/dashboard/dashboard.store";
+import {MatSelectChange} from "@angular/material/select";
 
 @Component({
     selector       : 'analytics',
@@ -217,6 +218,14 @@ export class AnalyticsComponent implements OnInit, OnDestroy
 
                 }
             );*/
+    }
+
+    /**
+     * Getter for current year
+     */
+    get currentYear(): number
+    {
+      return new Date().getFullYear();
     }
 
     /**
@@ -815,4 +824,12 @@ export class AnalyticsComponent implements OnInit, OnDestroy
     {
         return item.id || index;
     }
+
+  newConvertPeriodChange(period: Period) {
+    this.store.updateNewConvertPeriod(period);
+  }
+
+  onChurchSelected({value}: MatSelectChange) {
+    console.log('onChurchSelected', value)
+  }
 }

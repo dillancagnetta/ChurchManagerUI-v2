@@ -156,26 +156,24 @@
                         </div>
                     </div>
 
-                    <div class="text-gray-700">
-                        <div class="grid md:grid-cols-2">
-                            <div class="grid grid-cols-2">
-                                <div class="px-4 py-2 font-semibold">First Name</div>
-                                <div class="px-4 py-2">{{profile.fullName.firstName}}</div>
-                            </div>
-                            <div class="grid grid-cols-2">
-                                <div class="px-4 py-2 font-semibold">Last Name</div>
-                                <div class="px-4 py-2">{{profile.fullName.lastName}}</div>
-                            </div>
-                            <div class="grid grid-cols-2">
-                                <div class="px-4 py-2 font-semibold">Gender</div>
-                                <div class="px-4 py-2">{{profile.gender}}</div>
-                            </div>
-                            <div class="grid grid-cols-2">
-                                <div class="px-4 py-2 font-semibold">Age Classification</div>
-                                <div class="px-4 py-2">{{profile.ageClassification}}</div>
-                            </div>
-                        </div>
+                  <div class="grid md:grid-cols-2">
+                    <div class="grid grid-cols-2">
+                      <div class="px-4 py-2 font-semibold">First Name</div>
+                      <div class="px-4 py-2">{{profile.fullName.firstName}}</div>
                     </div>
+                    <div class="grid grid-cols-2">
+                      <div class="px-4 py-2 font-semibold">Last Name</div>
+                      <div class="px-4 py-2">{{profile.fullName.lastName}}</div>
+                    </div>
+                    <div class="grid grid-cols-2">
+                      <div class="px-4 py-2 font-semibold">Gender</div>
+                      <div class="px-4 py-2">{{profile.gender}}</div>
+                    </div>
+                    <div class="grid grid-cols-2">
+                      <div class="px-4 py-2 font-semibold">Age Classification</div>
+                      <div class="px-4 py-2">{{profile.ageClassification}}</div>
+                    </div>
+                  </div>
                 </fuse-card>
                 <!-- General info -->
 
@@ -201,26 +199,24 @@
                         </div>
                     </div>
 
-                    <div class="text-gray-700">
-                        <div class="grid md:grid-cols-2">
-                            <div class="grid grid-cols-2">
-                                <div class="px-4 py-2 font-semibold">Church</div>
-                                <div class="px-4 py-2">{{profile.church.name}}</div>
-                            </div>
-                            <div class="grid grid-cols-2">
-                                <div class="px-4 py-2 font-semibold">Connection Status</div>
-                                <div class="px-4 py-2">{{profile.connectionStatus}}</div>
-                            </div>
-                            <div class="grid grid-cols-2">
-                                <div class="px-4 py-2 font-semibold">Source</div>
-                                <div class="px-4 py-2">{{profile.source}}</div>
-                            </div>
-                            <div class="grid grid-cols-2">
-                                <div class="px-4 py-2 font-semibold">First Visit Date</div>
-                                <div class="px-4 py-2">{{profile.firstVisitDate | date}}</div>
-                            </div>
-                        </div>
+                  <div class="grid md:grid-cols-2">
+                    <div class="grid grid-cols-2">
+                      <div class="px-4 py-2 font-semibold">Church</div>
+                      <div class="px-4 py-2">{{profile.church.name}}</div>
                     </div>
+                    <div class="grid grid-cols-2">
+                      <div class="px-4 py-2 font-semibold">Connection Status</div>
+                      <div class="px-4 py-2">{{profile.connectionStatus}}</div>
+                    </div>
+                    <div class="grid grid-cols-2">
+                      <div class="px-4 py-2 font-semibold">Source</div>
+                      <div class="px-4 py-2">{{profile.source}}</div>
+                    </div>
+                    <div class="grid grid-cols-2">
+                      <div class="px-4 py-2 font-semibold">First Visit Date</div>
+                      <div class="px-4 py-2">{{profile.firstVisitDate | date}}</div>
+                    </div>
+                  </div>
                 </fuse-card>
                 <!-- Connection info -->
 
@@ -246,30 +242,28 @@
                         </div>
                     </div>
 
-                    <div class="text-gray-700">
-                        <div class="grid md:grid-cols-2">
-                            <div class="grid grid-cols-2">
-                                <div class="px-4 py-2 font-semibold">Baptised</div>
-                                <div class="px-4 py-2">{{profile.baptismStatus?.isBaptised ? 'Yes' : 'No'}}</div>
-                            </div>
-                            <div class="grid grid-cols-2">
-                                <div class="px-4 py-2 font-semibold">Baptism Date</div>
-                                <div class="px-4 py-2">{{profile.baptismStatus?.baptismDate | date}}</div>
-                            </div>
-                            <div class="grid grid-cols-2">
-                                <div class="px-4 py-2 font-semibold">Received Holy Spirit</div>
-                                <div class="px-4 py-2">{{profile.receivedHolySpirit ? 'Yes' : 'No'}}</div>
-                            </div>
-                            <div class="grid grid-cols-2">
-                                <div class="px-4 py-2 font-semibold">Foundation School</div>
-                                <div class="px-4 py-2">{{profile.foundationSchool.isComplete ? 'Yes' : 'No'}}
-                                    <span class="mat-caption" *ngIf="profile.foundationSchool.isComplete && profile.foundationSchool.completionDate">
+                  <div class="grid md:grid-cols-2">
+                    <div class="grid grid-cols-2">
+                      <div class="px-4 py-2 font-semibold">Baptised</div>
+                      <div class="px-4 py-2">{{profile.baptismStatus?.isBaptised ? 'Yes' : 'No'}}</div>
+                    </div>
+                    <div class="grid grid-cols-2">
+                      <div class="px-4 py-2 font-semibold">Baptism Date</div>
+                      <div class="px-4 py-2">{{profile.baptismStatus?.baptismDate | date}}</div>
+                    </div>
+                    <div class="grid grid-cols-2">
+                      <div class="px-4 py-2 font-semibold">Received Holy Spirit</div>
+                      <div class="px-4 py-2">{{profile.receivedHolySpirit ? 'Yes' : 'No'}}</div>
+                    </div>
+                    <div class="grid grid-cols-2">
+                      <div class="px-4 py-2 font-semibold">Foundation School</div>
+                      <div class="px-4 py-2">{{profile.foundationSchool.isComplete ? 'Yes' : 'No'}}
+                        <span class="mat-caption" *ngIf="profile.foundationSchool.isComplete && profile.foundationSchool.completionDate">
                                       ({{profile.foundationSchool.completionDate | date}})
                                     </span>
-                                </div>
-                            </div>
-                        </div>
+                      </div>
                     </div>
+                  </div>
                 </fuse-card>
                 <!-- Discipleship info -->
 
