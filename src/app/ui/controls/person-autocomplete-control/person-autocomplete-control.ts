@@ -9,7 +9,7 @@ import {
     Validators
 } from '@angular/forms';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
-import { Subject } from 'rxjs';
+import {of, Subject} from 'rxjs';
 import { debounceTime, filter, finalize, map, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { PersonAutocompletes } from '@ui/layout/common/search/search-bar.models';
 import { PersonSearchService } from '@ui/controls/person-autocomplete-control/person-search.service';
@@ -39,7 +39,7 @@ export class PersonAutocompleteControl implements ControlValueAccessor, OnInit, 
     @Input() label;
     @Input() debounce: number = 300;
     @Input() minLength: number = 2;
-    @Input() debug = false;
+    @Input() debug = true;
 
     /**
      * required
@@ -220,4 +220,15 @@ export class PersonAutocompleteControl implements ControlValueAccessor, OnInit, 
 
         return this.inputControl.valid ? null : { invalidForm: {valid: false, message: 'person autocomplete is invalid'}};
     }
+
+  close(event: MouseEvent) {
+    event.stopPropagation();  // Prevent the autocomplete from opening
+    this.inputControl.setValue(null);  // Clear the input field
+    this.inputControl.markAsUntouched();  // Optionally mark it as untouched
+    this.resetOptions();  // Reset the search results when clearing the input
+  }
+
+  resetOptions(): void {
+
+  }
 }

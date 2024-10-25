@@ -148,6 +148,119 @@ export const DashboardStore = signalStore(
 
             return chartAttendance;
         }),
+
+
+      newConvertsVsFirstTimersChart: computed(() => {
+
+          const tempNcAndFtDatasets: { [year: string]: ApexAxisChartSeries; } = {};
+          // WE REVERSE THE LISTS BECAUSE WE SHOW DATA FROM JAN
+          data()?.forEach( record => {
+            tempNcAndFtDatasets[record.year] = [
+              {
+                name: 'New Converts',
+                data: record.data.map( x => x.totalNewConverts).reverse()
+              },
+              {
+                name: 'First Timers',
+                data: record.data.map( x => x.totalFirstTimers).reverse()
+              }
+            ];
+          });
+
+          // Adjust to match format
+          const series =  tempNcAndFtDatasets[moment().year()]?.map(x => ({
+            name: x.name,
+            data: x.data
+            /*data: x.data.map((y, index) => ({
+              x: moment({ year: moment().year(), month: index, day: 1}).toDate(), //moment(index + 2, 'M').format('MMM'), // Convert index to Month
+              y
+            }))*/
+          }));
+
+          console.log('newConvertsVsFirstTimersChartData', series)
+
+          const newConvertsVsFirstTimersChart = {
+            chart     : {
+              animations: {
+                enabled: false
+              },
+              fontFamily: 'inherit',
+              foreColor : 'inherit',
+              height    : '100%',
+              type      : 'area',
+              toolbar   : {
+                show: false
+              },
+              zoom      : {
+                enabled: false
+              }
+            },
+            colors    : ['#64748B', '#94A3B8'],
+            dataLabels: {
+              enabled: false
+            },
+            fill      : {
+              colors : ['#64748B', '#94A3B8'],
+              opacity: 0.5
+            },
+            grid      : {
+              show   : false,
+              padding: {
+                top   : 10,
+                bottom: -40,
+                left  : 20,
+                right : 20
+              }
+            },
+            legend    : {
+              show: false
+            },
+            series    : series,
+            stroke    : {
+              curve: 'smooth',
+              width: 2
+            },
+            tooltip   : {
+              followCursor: true,
+              theme       : 'dark',
+              x           : {
+                format: 'MMM, yyyy'
+              }
+            },
+            xaxis     : {
+              axisBorder: {
+                show: false
+              },
+              labels    : {
+                offsetY: -20,
+                rotate : 0,
+                style  : {
+                  colors: 'var(--fuse-text-secondary)'
+                }
+              },
+              // tickAmount: 60,
+              tooltip   : {
+                enabled: false
+              },
+              categories: ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC']
+              //type      : 'datetime'
+            },
+            yaxis     : {
+              labels    : {
+                style: {
+                  colors: 'var(--fuse-text-secondary)'
+                }
+              },
+              max       : max => max + 250,
+              min       : min => min - 250,
+              show      : false,
+              tickAmount: 5
+            }
+          }; // Chart
+
+          return newConvertsVsFirstTimersChart;
+
+        })
     })),
 
     // 👇 Defining methods to load data etc.

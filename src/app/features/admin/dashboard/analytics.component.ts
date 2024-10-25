@@ -367,7 +367,7 @@ export class AnalyticsComponent implements OnInit, OnDestroy
             }
         };
 
-        console.log( 'this.chartVisitors', this.chartVisitors, '' );
+
         //this.chartVisitors$.next( this.chartVisitors);
 
         // Conversions
@@ -490,7 +490,7 @@ export class AnalyticsComponent implements OnInit, OnDestroy
             }
         };
 
-        // Visitors vs Page Views
+        // New Converts vs. First Timers
         this.chartVisitorsVsPageViews = {
             chart     : {
                 animations: {

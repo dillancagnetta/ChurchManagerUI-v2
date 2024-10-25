@@ -11,13 +11,21 @@
                [required]="required"
                (blur)="onTouched()"
                (keydown)="onKeydown($event)"/>
-        <mat-icon matSuffix>person</mat-icon>
+        @if(inputControl.valid && inputControl.value) {
+          <mat-icon matSuffix (click)="close($event)">close</mat-icon>
+        } @else {
+          <mat-icon matSuffix>person</mat-icon>
+        }
+
         <mat-error *ngIf="inputControl.hasError('required')">
             Please enter a search value
         </mat-error>
         <mat-error *ngIf="inputControl.hasError('invalidId')">
             Please select a person
         </mat-error>
+
+
+
     </mat-form-field>
 
     <!-- Autocompletion-->
@@ -56,13 +64,14 @@
 
     </mat-autocomplete>
 
-    <div *ngIf="debug">
+</div>
+
+<div *ngIf="debug">
           <pre>
               <code>
                   {{inputControl.value | json}}
                   {{inputControl.errors | json}}
+                  search results: {{searchResults$ | async | json}}
               </code>
           </pre>
-    </div>
-
 </div>
