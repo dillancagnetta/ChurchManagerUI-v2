@@ -36,25 +36,31 @@ export class DashboardDataService {
     * our cache will replay the most recent value and send that to the consumer.
     *  There’s no additional HTTP call involved.
     */
-    public getChurchAttendance$(): Observable<ChurchAttendanceAnnualBreakdown[]> {
-        if (!this._cache$) {
-            this._cache$ = this._getChurchAttendance$()
+    public getChurchAttendance$(churchId?: number): Observable<ChurchAttendanceAnnualBreakdown[]> {
+        /*if (!this._cache$) {
+            this._cache$ = this._getChurchAttendance$(churchId)
                 .pipe(
                     //  effectively there’s just one subscription to the underlying cold Observable.
                     shareReplay(CACHE_SIZE)
                 );
         }
 
-        return this._cache$;
+        return this._cache$;*/
+
+     return this._getChurchAttendance$(churchId)
+       .pipe(
+         //  effectively there’s just one subscription to the underlying cold Observable.
+         shareReplay(CACHE_SIZE)
+       );
     }
 
-    private _getChurchAttendance$(): Observable<ChurchAttendanceAnnualBreakdown[]> {
+    private _getChurchAttendance$(churchId?: number): Observable<ChurchAttendanceAnnualBreakdown[]> {
         // start date of January for the current year
         const currentEndOfYear = moment().endOf('year').toDate().toDateString();
         // start date of January for the previous year
         const startOfJanuaryLastYear = moment().subtract(1, 'year').startOf('year').toDate().toDateString();
         return this._httpClient.get<ChurchAttendanceAnnualBreakdown[]>(
-            `${this.environment.baseUrls.apiUrl}/v1/dashboard/church-attendance?from=${startOfJanuaryLastYear}&to=${currentEndOfYear}`)
+            `${this.environment.baseUrls.apiUrl}/v1/dashboard/church-attendance?from=${startOfJanuaryLastYear}&to=${currentEndOfYear}&churchId=${churchId}`)
             .pipe(
                 tap(x => console.log('fetch church-attendance', x))
             );

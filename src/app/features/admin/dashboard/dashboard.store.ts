@@ -174,8 +174,7 @@ export const DashboardStore = signalStore(
 
       const series = s[currentYear];
 
-      console.log('currentYear', currentYear);
-      console.log('currentYearSeries', series);
+      if (series?.data == null ) return {};
 
       series.data = series.data?.slice(series.data.length - parseInt(period));
 
@@ -380,14 +379,13 @@ export const DashboardStore = signalStore(
 
   // 👇 Defining methods to load data etc.
   withMethods((store, service = inject(DashboardDataService)) => ({
-    getChurchAttendance: rxMethod<void>(
+    getChurchAttendance: rxMethod<number>(
       pipe(
         tap(() => patchState(store, {isLoading: true})),
-        switchMap(() => {
-          return service.getChurchAttendance$().pipe(
-            takeUntilDestroyed(),
+        switchMap((churchId) => {
+          return service.getChurchAttendance$(churchId).pipe(
             tapResponse({
-              next: (data) => patchState(store, {data}),
+              next: (data) => patchState(store, {data, churchIdSelected: churchId}),
               error: console.error,
               finalize: () => patchState(store, {isLoading: false}),
             })
@@ -406,7 +404,7 @@ export const DashboardStore = signalStore(
 
   withHooks({
     onInit(store) {
-      store.getChurchAttendance();
+      store.getChurchAttendance(0);
 
       watchState(store, (state) => {
         console.log('[watchState] dashboard state', state);
