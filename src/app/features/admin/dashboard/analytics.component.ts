@@ -1,4 +1,13 @@
-import {ChangeDetectionStrategy, Component, inject, OnDestroy, OnInit, Signal, ViewEncapsulation} from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  effect,
+  inject,
+  OnDestroy,
+  OnInit,
+  Signal,
+  ViewEncapsulation
+} from '@angular/core';
 import {Router} from '@angular/router';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
@@ -31,8 +40,12 @@ export class AnalyticsComponent implements OnInit, OnDestroy
     // Attendance Chart
     readonly store = inject(DashboardStore);
     $isChartAttendanceLoading: Signal<boolean> = this.store.isLoading;
+    $chartChurchAttendanceDefinition: Signal<ApexOptions> = this.store.chartChurchAttendanceDefinition;
+    $chartNcVsFtDefinition: Signal<ApexOptions> = this.store.chartNcVsFtDefinition;
+    $chartAttendanceData: Signal<any> = this.store.chartAttendance;
+    $chartNcVsFtData: Signal<any> = this.store.newConvertsVsFirstTimersChart;
 
-    /**
+  /**
      * Constructor
      */
     constructor(
@@ -40,7 +53,15 @@ export class AnalyticsComponent implements OnInit, OnDestroy
         private _router: Router
     )
     {
+      effect(() => {
+        const data = this.$chartAttendanceData();
+        console.log('data', data);
+
+
+      });
     }
+
+
 
     // -----------------------------------------------------------------------------------------------------
     // @ Lifecycle hooks

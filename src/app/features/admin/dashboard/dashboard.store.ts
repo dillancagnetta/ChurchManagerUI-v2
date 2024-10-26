@@ -1,12 +1,15 @@
 import {patchState, signalStore, watchState, withComputed, withHooks, withMethods, withState} from "@ngrx/signals";
 import {computed, inject} from "@angular/core";
-import {ApexAxisChartSeries} from "ng-apexcharts";
+import {ApexAxisChartSeries, ApexOptions} from "ng-apexcharts";
 import moment from "moment/moment";
 import {DashboardDataService} from "@features/admin/dashboard/dashboard-data.service";
 import {rxMethod} from "@ngrx/signals/rxjs-interop";
 import {pipe, switchMap, tap} from "rxjs";
 import {tapResponse} from '@ngrx/operators'
-import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
+import {
+  annualChurchAttendanceChart,
+  annualNewConvertsVsFirstTimersChart
+} from "@features/admin/dashboard/dashboard-chart-definitions";
 
 export type Period = '3' | '6' | '12';
 
@@ -31,6 +34,8 @@ export const DashboardStore = signalStore(
   withComputed(({data, newConvertsPeriodSelection, isLoading}) => ({
     hasData: computed((): boolean => !!data()?.length),
     chartAttendanceSeries: computed((): (string | number)[] => data()?.map(x => x.year)),
+    chartChurchAttendanceDefinition: computed((): ApexOptions => annualChurchAttendanceChart),
+    chartNcVsFtDefinition: computed((): ApexOptions => annualNewConvertsVsFirstTimersChart),
     chartAttendance: computed(() => {
 
       const tempDatasets: { [year: string]: ApexAxisChartSeries; } = {};
@@ -54,103 +59,7 @@ export const DashboardStore = signalStore(
         series[year] = tempDatasets[year];
       }
 
-      const chartAttendance = {
-        chart: {
-          animations: {
-            speed: 400,
-            animateGradually: {
-              enabled: false
-            }
-          },
-          fontFamily: 'inherit',
-          foreColor: 'inherit',
-          width: '100%',
-          height: '100%',
-          type: 'area',
-          toolbar: {
-            show: false
-          },
-          zoom: {
-            enabled: false
-          }
-        },
-        colors: ['#818CF8'],
-        dataLabels: {
-          enabled: false
-        },
-        fill: {
-          colors: ['#312E81']
-        },
-        grid: {
-          show: true,
-          borderColor: '#334155',
-          padding: {
-            top: 10,
-            bottom: -20,
-            left: 20,
-            right: 20
-          },
-          position: 'back',
-          xaxis: {
-            lines: {
-              show: true
-            }
-          }
-        },
-        series: series,
-        stroke: {
-          width: 3
-        },
-        tooltip: {
-          followCursor: true,
-          theme: 'dark',
-          y: {
-            formatter(value: number): string {
-              return `${value}`;
-            }
-          }
-        },
-        xaxis: {
-          axisBorder: {
-            show: false
-          },
-          axisTicks: {
-            show: false
-          },
-          crosshairs: {
-            stroke: {
-              color: '#475569',
-              dashArray: 0,
-              width: 2
-            }
-          },
-          labels: {
-            offsetY: -5,
-            style: {
-              colors: '#CBD5E1'
-            }
-          },
-          tickAmount: 20,
-          tooltip: {
-            enabled: false
-          },
-          categories: ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC']
-        },
-        yaxis: {
-          axisTicks: {
-            show: false
-          },
-          axisBorder: {
-            show: false
-          },
-          min: min => min - 750,
-          max: max => max + 250,
-          tickAmount: 5,
-          show: false
-        }
-      }; // Chart
-
-      return chartAttendance;
+      return series;
     }),
     newConvertsVsFirstTimersStats: computed(() => {
       const tempNcAndFtDatasets: { [year: string]: {name: string, data: number[]}; } = {};
@@ -177,9 +86,6 @@ export const DashboardStore = signalStore(
       if (series?.data == null ) return {};
 
       series.data = series.data?.slice(series.data.length - parseInt(period));
-
-     /* const labels = series.data?.map((x, index) =>
-        ( new Date(currentYear, currentMonth - parseInt(period) + index + 1, 1)).toDateString());*/
 
       const labels = series.data?.map((x, index) =>
         (  moment({year: currentYear, month: currentMonth - parseInt(period) + index}).format('MMM YYYY') ));
@@ -272,85 +178,8 @@ export const DashboardStore = signalStore(
         series[year] = tempNcAndFtDatasets[year];
       }
 
-      const ncAndFtChart = {
-        chart: {
-          animations: {
-            enabled: false
-          },
-          fontFamily: 'inherit',
-          foreColor: 'inherit',
-          height: '100%',
-          type: 'area',
-          toolbar: {
-            show: false
-          },
-          zoom: {
-            enabled: false
-          }
-        },
-        colors: ['#64748B', '#94A3B8'],
-        dataLabels: {
-          enabled: false
-        },
-        fill: {
-          colors: ['#64748B', '#94A3B8'],
-          opacity: 0.5
-        },
-        grid: {
-          show: false,
-          padding: {
-            top: 10,
-            bottom: -40,
-            left: 20,
-            right: 20
-          }
-        },
-        legend: {
-          show: false
-        },
-        series: series,
-        stroke: {
-          curve: 'smooth',
-          width: 2
-        },
-        tooltip: {
-          followCursor: true,
-          theme: 'dark',
-          x: {
-            format: 'MMM, yyyy'
-          }
-        },
-        xaxis: {
-          axisBorder: {
-            show: false
-          },
-          labels: {
-            offsetY: -20,
-            rotate: 0,
-            style: {
-              colors: 'var(--fuse-text-secondary)'
-            }
-          },
-          // tickAmount: 60,
-          tooltip: {
-            enabled: false
-          },
-          categories: ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC']
-          //type      : 'datetime'
-        },
-        yaxis: {
-          labels: {
-            style: {
-              colors: 'var(--fuse-text-secondary)'
-            }
-          },
-          max: max => max + 250,
-          min: min => min - 250,
-          show: false,
-          tickAmount: 5
-        }
-      }; // Chart
 
+      // Add conversion rate of FT to NC
       const totalNcAndFt = {};
       for (const year in tempNcAndFtDatasets) {
         totalNcAndFt[year] = tempNcAndFtDatasets[year].map(x => x.data.reduce((prev: number, current: number) => prev + current));
@@ -359,11 +188,12 @@ export const DashboardStore = signalStore(
         totalNcAndFt[year] = [...totalNcAndFt[year], Math.round(totalNc / totalFt * 100)];
       }
 
-      return {
-        ncAndFtChart,
-        totalNcAndFt,
-      }
+      console.log('totalNcAndFt', totalNcAndFt)
 
+      return {
+        series,
+        totalNcAndFt
+      };
     }),
     availableMonthsPeriods: computed(() => {
       const currentMonth = moment().month();
