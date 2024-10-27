@@ -32,7 +32,7 @@ export const DashboardStore = signalStore(
 
   // 👇 Selectors
   withComputed(({data, newConvertsPeriodSelection, isLoading}) => ({
-    hasData: computed((): boolean => !!data()?.length),
+    hasData: computed((): boolean => data()?.length > 0),
     chartAttendanceSeries: computed((): (string | number)[] => data()?.map(x => x.year)),
     chartChurchAttendanceDefinition: computed((): ApexOptions => annualChurchAttendanceChart),
     chartNcVsFtDefinition: computed((): ApexOptions => annualNewConvertsVsFirstTimersChart),
