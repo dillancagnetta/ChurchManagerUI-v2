@@ -36,7 +36,7 @@ export const DashboardStore = signalStore(
     chartAttendanceSeries: computed((): (string | number)[] => data()?.map(x => x.year)),
     chartChurchAttendanceDefinition: computed((): ApexOptions => annualChurchAttendanceChart),
     chartNcVsFtDefinition: computed((): ApexOptions => annualNewConvertsVsFirstTimersChart),
-    chartNcVsFtStatsChartDefinition: computed((): ApexOptions => ncVsFtStatsChart),
+    chartNcStatsChartDefinition: computed((): ApexOptions => ncVsFtStatsChart),
     chartAttendance: computed(() => {
 
       const tempDatasets: { [year: string]: ApexAxisChartSeries; } = {};
@@ -62,7 +62,7 @@ export const DashboardStore = signalStore(
 
       return series;
     }),
-    newConvertsVsFirstTimersStats: computed(() => {
+    chartNewConvertsStats: computed(() => {
       const tempNcAndFtDatasets: { [year: string]: {name: string, data: number[]}; } = {};
       // WE REVERSE THE LISTS BECAUSE WE SHOW DATA FROM JAN
       data()?.forEach(record => {
