@@ -230,3 +230,43 @@ export const ncVsFtStatsChart: ApexOptions = {
     }
   }
 };
+
+// Visits
+export const firstTimersStatsChart : ApexOptions = {
+  chart  : {
+    animations: {
+      enabled: false
+    },
+    fontFamily: 'inherit',
+    foreColor : 'inherit',
+    height    : '100%',
+    type      : 'area',
+    sparkline : {
+      enabled: true
+    }
+  },
+  colors : ['#FB7185'],
+  fill   : {
+    colors : ['#FB7185'],
+    opacity: 0.5
+  },
+  series : [],
+  stroke : {
+    curve: 'smooth'
+  },
+  tooltip: {
+    followCursor: true,
+    theme       : 'dark'
+  },
+  xaxis  : {
+    type      : 'category',
+    categories: []
+  },
+  yaxis  : {
+    labels: {
+      formatter: (val) => {
+        return val.toString();
+      }
+    }
+  }
+};

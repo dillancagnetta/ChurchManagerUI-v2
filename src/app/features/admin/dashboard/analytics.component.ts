@@ -43,9 +43,11 @@ export class AnalyticsComponent implements OnInit, OnDestroy
     $chartChurchAttendanceDefinition: Signal<ApexOptions> = this.store.chartChurchAttendanceDefinition;
     $chartNcVsFtDefinition: Signal<ApexOptions> = this.store.chartNcVsFtDefinition;
     $chartNcStatsDefinition: Signal<ApexOptions> = this.store.chartNcStatsChartDefinition;
+    $chartFtStatsDefinition: Signal<ApexOptions> = this.store.chartFtStatsChartDefinition;
     $chartAttendanceData: Signal<any> = this.store.chartAttendance;
     $chartNcVsFtData: Signal<any> = this.store.newConvertsVsFirstTimersChart;
     $chartNcStatsData: Signal<any> = this.store.chartNewConvertsStats;
+    $chartFtStatsData: Signal<any> = this.store.chartFirstTimersStats;
 
   /**
      * Constructor
@@ -855,5 +857,9 @@ export class AnalyticsComponent implements OnInit, OnDestroy
   onChurchSelected({value}: MatSelectChange) {
     console.log('onChurchSelected', value);
     this.store.getChurchAttendance(value);
+  }
+
+  updateFtPeriodChange(period: Period) {
+    this.store.updateFtPeriodChange(period);
   }
 }

@@ -171,7 +171,7 @@
                                   [ngClass]="$chartNcStatsData()?.percentageChange > 0 ? 'text-green-500' : 'text-red-500'">
                               {{ $chartNcStatsData()?.percentageChange  | number:'1.0-0' }}%</span>
                 <span class="ml-1">
-                              average {{ $chartNcStatsData()?.percentageChange > 0 ? 'increase' : 'decrease' }} from start
+                              average {{ $chartNcStatsData()?.percentageChange > 0 ? 'increase' : 'decrease' }}
                             </span>
               </div>
             </div>
@@ -199,40 +199,51 @@
               <button
                 class="h-6 min-h-6 px-2 rounded-full bg-hover"
                 mat-button
-                [matMenuTriggerFor]="impressionsMenu">
-                <span class="font-medium text-sm text-secondary">30 days</span>
+                [matMenuTriggerFor]="ftMenu">
+                <span class="font-medium text-sm text-secondary">{{ store.firstTimersPeriodSelection() ?? '3' }}
+                  months</span>
               </button>
-              <mat-menu #impressionsMenu="matMenu">
-                <button mat-menu-item>30 days</button>
-                <button mat-menu-item>3 months</button>
-                <button mat-menu-item>9 months</button>
+              <mat-menu #ftMenu="matMenu">
+                @for (period of store.availableMonthsPeriods(); track period) {
+                  <button mat-menu-item (click)="updateFtPeriodChange(period)">{{ period }} Months</button>
+                }
               </mat-menu>
             </div>
           </div>
           <div class="flex flex-col lg:flex-row lg:items-center mx-6 mt-3">
-            <div class="text-7xl font-bold tracking-tighter leading-tight">{{ data.visits.amount | number:'1.0-0' }}
+            <div class="text-7xl font-bold tracking-tighter leading-tight">{{ $chartFtStatsData().total | number:'1.0-0' }}
             </div>
             <div class="flex lg:flex-col lg:ml-3">
               <mat-icon
-                class="icon-size-5 text-red-500"
-                [svgIcon]="'heroicons_solid:trending-down'"></mat-icon>
+                class="icon-size-5"
+                [ngClass]="$chartFtStatsData()?.percentageChange > 0 ? 'text-green-500' : 'text-red-500'"
+                [svgIcon]="$chartFtStatsData()?.percentageChange > 0
+                            ? 'heroicons_solid:trending-up'
+                            : 'heroicons_solid:trending-down'"></mat-icon>
               <div
                 class="flex items-center ml-1 lg:ml-0 lg:mt-0.5 text-md leading-none whitespace-nowrap text-secondary">
-                <span class="font-medium text-red-500">4%</span>
-                <span class="ml-1">below target</span>
+                            <span class="font-medium"
+                                  [ngClass]="$chartFtStatsData()?.percentageChange > 0 ? 'text-green-500' : 'text-red-500'">
+                              {{ $chartFtStatsData()?.percentageChange  | number:'1.0-0' }}%</span>
+                <span class="ml-1">
+                              average {{ $chartFtStatsData()?.percentageChange > 0 ? 'increase' : 'decrease' }}
+                            </span>
               </div>
             </div>
           </div>
           <div class="flex flex-col flex-auto h-20">
-            <apx-chart
-              class="flex-auto w-full h-full"
-              [chart]="chartVisits.chart"
-              [colors]="chartVisits.colors"
-              [series]="chartVisits.series"
-              [stroke]="chartVisits.stroke"
-              [tooltip]="chartVisits.tooltip"
-              [xaxis]="chartVisits.xaxis"
-              [yaxis]="chartVisits.yaxis"></apx-chart>
+            @if($chartFtStatsData()) {
+              <apx-chart
+                class="flex-auto w-full h-full"
+                [chart]="$chartFtStatsDefinition().chart"
+                [colors]="$chartFtStatsDefinition().colors"
+                [series]="$chartFtStatsData().series"
+                [labels]="$chartFtStatsData()?.labels"
+                [stroke]="$chartFtStatsDefinition().stroke"
+                [tooltip]="$chartFtStatsDefinition().tooltip"
+                [xaxis]="$chartFtStatsDefinition().xaxis"
+                [yaxis]="$chartFtStatsDefinition().yaxis"></apx-chart>
+            }
           </div>
         </div>
       </div>
