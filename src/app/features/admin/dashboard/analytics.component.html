@@ -38,7 +38,7 @@
       </div>
     </div>
 
-    @if (!$isChartAttendanceLoading() && store.data()?.length) {
+    @if (!$isChartAttendanceLoading() || !store.hasData()) {
 
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 w-full mt-8">
         <!-- Visitors overview -->
@@ -156,38 +156,39 @@
           </div>
           <div class="flex flex-col lg:flex-row lg:items-center mx-6 mt-3">
             <div
-              class="text-7xl font-bold tracking-tighter leading-tight">{{ store.newConvertsVsFirstTimersStats()?.total ?? 0 | number:'1.0-0' }}
+              class="text-7xl font-bold tracking-tighter leading-tight">{{ $chartNcVsFtStatsData()?.total ?? 0 | number:'1.0-0' }}
             </div>
             <div class="flex lg:flex-col lg:ml-3">
               <mat-icon
                 class="icon-size-5"
-                [ngClass]="store.newConvertsVsFirstTimersStats()?.percentageChange > 0 ? 'text-green-500' : 'text-red-500'"
-                [svgIcon]="store.newConvertsVsFirstTimersStats()?.percentageChange > 0
+                [ngClass]="$chartNcVsFtStatsData()?.percentageChange > 0 ? 'text-green-500' : 'text-red-500'"
+                [svgIcon]="$chartNcVsFtStatsData()?.percentageChange > 0
                             ? 'heroicons_solid:trending-up'
                             : 'heroicons_solid:trending-down'"></mat-icon>
               <div
                 class="flex items-center ml-1 lg:ml-0 lg:mt-0.5 text-md leading-none whitespace-nowrap text-secondary">
                             <span class="font-medium"
-                                  [ngClass]="store.newConvertsVsFirstTimersStats()?.percentageChange > 0 ? 'text-green-500' : 'text-red-500'">
-                              {{ store.newConvertsVsFirstTimersStats()?.percentageChange  | number:'1.0-0' }}%</span>
+                                  [ngClass]="$chartNcVsFtStatsData()?.percentageChange > 0 ? 'text-green-500' : 'text-red-500'">
+                              {{ $chartNcVsFtStatsData()?.percentageChange  | number:'1.0-0' }}%</span>
                 <span class="ml-1">
-                              average {{ store.newConvertsVsFirstTimersStats()?.percentageChange > 0 ? 'increase' : 'decrease' }}
+                              average {{ $chartNcVsFtStatsData()?.percentageChange > 0 ? 'increase' : 'decrease' }} from start
                             </span>
               </div>
             </div>
           </div>
           <div class="flex flex-col flex-auto h-20">
-            <!--@if (store.newConvertsVsFirstTimersStats()?.chart?.series) {
+            @if ($chartNcVsFtStatsData() ) {
               <apx-chart
                 class="flex-auto w-full h-full"
-                [chart]="store.newConvertsVsFirstTimersStats()?.chart?.chart"
-                [colors]="store.newConvertsVsFirstTimersStats()?.chart?.colors"
-                [series]="store.newConvertsVsFirstTimersStats()?.chart?.series"
-                [stroke]="store.newConvertsVsFirstTimersStats()?.chart?.stroke"
-                [tooltip]="store.newConvertsVsFirstTimersStats()?.chart?.tooltip"
-                [xaxis]="store.newConvertsVsFirstTimersStats()?.chart?.xaxis"
-                [yaxis]="store.newConvertsVsFirstTimersStats()?.chart?.yaxis"></apx-chart>
-            }-->
+                [series]="$chartNcVsFtStatsData()?.series"
+                [chart]="$chartNcVsFtStatsChartDefinition()?.chart"
+                [colors]="$chartNcVsFtStatsChartDefinition()?.colors"
+                [labels]="$chartNcVsFtStatsData()?.labels"
+                [stroke]="$chartNcVsFtStatsChartDefinition()?.stroke"
+                [tooltip]="$chartNcVsFtStatsChartDefinition()?.tooltip"
+                [xaxis]="$chartNcVsFtStatsChartDefinition()?.xaxis"
+                [yaxis]="$chartNcVsFtStatsChartDefinition()?.yaxis"></apx-chart>
+            }
           </div>
         </div>
         <!-- Visits -->

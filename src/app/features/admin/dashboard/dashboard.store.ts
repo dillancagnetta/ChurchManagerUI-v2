@@ -8,7 +8,7 @@ import {pipe, switchMap, tap} from "rxjs";
 import {tapResponse} from '@ngrx/operators'
 import {
   annualChurchAttendanceChart,
-  annualNewConvertsVsFirstTimersChart
+  annualNewConvertsVsFirstTimersChart, ncVsFtStatsChart
 } from "@features/admin/dashboard/dashboard-chart-definitions";
 
 export type Period = '3' | '6' | '12';
@@ -36,6 +36,7 @@ export const DashboardStore = signalStore(
     chartAttendanceSeries: computed((): (string | number)[] => data()?.map(x => x.year)),
     chartChurchAttendanceDefinition: computed((): ApexOptions => annualChurchAttendanceChart),
     chartNcVsFtDefinition: computed((): ApexOptions => annualNewConvertsVsFirstTimersChart),
+    chartNcVsFtStatsChartDefinition: computed((): ApexOptions => ncVsFtStatsChart),
     chartAttendance: computed(() => {
 
       const tempDatasets: { [year: string]: ApexAxisChartSeries; } = {};
@@ -73,7 +74,7 @@ export const DashboardStore = signalStore(
 
       const period = newConvertsPeriodSelection();
 
-      const s = {};
+      const s = [];
       for (const year in tempNcAndFtDatasets) {
         s[year] = tempNcAndFtDatasets[year];
       }
@@ -85,74 +86,29 @@ export const DashboardStore = signalStore(
 
       if (series?.data == null ) return {};
 
+      // Only show up to the selection period
       series.data = series.data?.slice(series.data.length - parseInt(period));
 
+      // Determine the lables of the selected period
       const labels = series.data?.map((x, index) =>
         (  moment({year: currentYear, month: currentMonth - parseInt(period) + index}).format('MMM YYYY') ));
 
+      // Calculate total for period
       const total = series.data.reduce((prev, curr) => prev + curr)
 
       // Ensure there are data
       let percentageChange = 0;
       if (series.data?.length >= 1) {
         const firstMonth = series.data[0];
-        // Calculate the average
+        // Calculate the average so we can calculate the change from the first value
         const averageSales = series.data.reduce((sum, value) => sum + value, 0) / series.data.length;
         percentageChange = ((averageSales - firstMonth) / firstMonth) * 100;
       }
 
-      console.log('computed', {
-        total,
-        labels,
-        currentYearSeries: series,
-        percentageChange
-      })
-
-      const chart = {
-        chart  : {
-          animations: {
-            enabled: false
-          },
-          fontFamily: 'inherit',
-          foreColor : 'inherit',
-          height    : '100%',
-          type      : 'area',
-          sparkline : {
-            enabled: true
-          }
-        },
-        colors : ['#34D399'],
-        fill   : {
-          colors : ['#34D399'],
-          opacity: 0.5
-        },
-        series : [series],
-        stroke : {
-          curve: 'smooth'
-        },
-        tooltip: {
-          followCursor: true,
-          theme: 'dark',
-          x: {
-            format: 'MMM, yyyy'
-          }
-        },
-        xaxis  : {
-          type      : 'category',
-          categories: labels
-        },
-        yaxis  : {
-          labels: {
-            formatter: (val) => {
-              return val.toString();
-            }
-          }
-        }
-      };
-
       return {
+        series: [series],
+        labels,
         total,
-        chart,
         percentageChange
       }
     }),

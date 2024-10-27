@@ -42,8 +42,10 @@ export class AnalyticsComponent implements OnInit, OnDestroy
     $isChartAttendanceLoading: Signal<boolean> = this.store.isLoading;
     $chartChurchAttendanceDefinition: Signal<ApexOptions> = this.store.chartChurchAttendanceDefinition;
     $chartNcVsFtDefinition: Signal<ApexOptions> = this.store.chartNcVsFtDefinition;
+    $chartNcVsFtStatsChartDefinition: Signal<ApexOptions> = this.store.chartNcVsFtStatsChartDefinition;
     $chartAttendanceData: Signal<any> = this.store.chartAttendance;
     $chartNcVsFtData: Signal<any> = this.store.newConvertsVsFirstTimersChart;
+    $chartNcVsFtStatsData: Signal<any> = this.store.newConvertsVsFirstTimersStats;
 
   /**
      * Constructor

@@ -188,3 +188,45 @@ export const annualNewConvertsVsFirstTimersChart: ApexOptions = {
   }
 };
 
+/*Smaller chart*/
+export const ncVsFtStatsChart: ApexOptions = {
+  chart  : {
+    animations: {
+      enabled: false
+    },
+    fontFamily: 'inherit',
+    foreColor : 'inherit',
+    height    : '100%',
+    type      : 'area',
+    sparkline : {
+      enabled: true
+    }
+  },
+  colors : ['#34D399'],
+  fill   : {
+    colors : ['#34D399'],
+    opacity: 0.5
+  },
+  series : [],
+  stroke : {
+    curve: 'smooth'
+  },
+  tooltip: {
+    followCursor: true,
+    theme: 'dark',
+    x: {
+      format: 'MMM, yyyy'
+    }
+  },
+  xaxis  : {
+    type      : 'category',
+    categories: []
+  },
+  yaxis  : {
+    labels: {
+      formatter: (val) => {
+        return val.toString();
+      }
+    }
+  }
+};
