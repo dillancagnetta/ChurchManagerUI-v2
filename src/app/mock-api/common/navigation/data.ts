@@ -107,7 +107,16 @@ export const compactNavigation: FuseNavigationItem[] = [
                         exactMatch: true
                     }
                 ]
-            }
+            },
+          {
+            id   : 'groups.group-types',
+            title: 'Manage Groups Types',
+            subtitle: 'View, create & edit groups types',
+            type : 'basic',
+            icon : 'heroicons_outline:circle-stack',
+            link : '/apps/group-types',
+            exactMatch: true
+          }
         ]
     },
     {
