@@ -1,33 +1,38 @@
 import {
-    Component,
-    ElementRef,
-    EventEmitter,
-    HostBinding,
-    Inject,
-    Input,
-    OnChanges,
-    OnDestroy,
-    OnInit,
-    Output,
-    Renderer2,
-    SimpleChanges,
-    ViewChild,
-    ViewEncapsulation
+  Component,
+  computed,
+  ElementRef,
+  EventEmitter,
+  HostBinding,
+  Inject,
+  Input,
+  OnChanges,
+  OnDestroy,
+  OnInit,
+  Output,
+  Renderer2,
+  signal,
+  SimpleChanges,
+  ViewChild,
+  ViewEncapsulation
 } from '@angular/core';
-import { UntypedFormControl } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
-import { of, Subject } from 'rxjs';
-import { catchError, debounceTime, filter, finalize, map, switchMap, takeUntil, tap } from 'rxjs/operators';
-import { fuseAnimations } from '@fuse/animations/public-api';
-import { PersonAutocompletes } from '@ui/layout/common/search/search-bar.models';
-import { Observable } from 'rxjs/internal/Observable';
-import { ApiResponse } from '@shared/shared.models';
-import { ENV } from '@shared/constants';
-import { Environment } from '@shared/environment.model';
+import {UntypedFormControl} from '@angular/forms';
+import {HttpClient} from '@angular/common/http';
+import {of, Subject} from 'rxjs';
+import {catchError, debounceTime, filter, finalize, map, switchMap, takeUntil, tap} from 'rxjs/operators';
+import {fuseAnimations} from '@fuse/animations/public-api';
+import {PersonAutocompletes} from '@ui/layout/common/search/search-bar.models';
+import {Observable} from 'rxjs/internal/Observable';
+import {ApiResponse} from '@shared/shared.models';
+import {ENV} from '@shared/constants';
+import {Environment} from '@shared/environment.model';
+import {MatSelectChange} from "@angular/material/select";
+import {Router} from "@angular/router";
 
 @Component({
     selector     : 'search',
     templateUrl  : './search.component.html',
+    styleUrl     : './search.component.scss',
     encapsulation: ViewEncapsulation.None,
     exportAs     : 'fuseSearch',
     animations   : fuseAnimations
@@ -45,13 +50,21 @@ export class SearchComponent implements OnChanges, OnInit, OnDestroy
     searchControl: UntypedFormControl = new UntypedFormControl();
     private _unsubscribeAll: Subject<any> = new Subject<any>();
 
+
+    // Search Type
+    $searchType = signal<'people' | 'groups'>('people');
+    $searchTypeText = computed(() => {
+      const searchType = this.$searchType();
+
+      return `Search for a ${searchType=='people' ? 'person' : 'group' }`
+    });
+
     /**
      * Constructor
      */
     constructor(
-        private _elementRef: ElementRef,
-        private _httpClient: HttpClient,
-        private _renderer2: Renderer2,
+        private readonly _httpClient: HttpClient,
+        private readonly _router: Router,
         @Inject(ENV) private environment: Environment,
     )
     {
@@ -239,7 +252,7 @@ export class SearchComponent implements OnChanges, OnInit, OnDestroy
     }
 
     searchApi(query: string): Observable<ApiResponse> {
-        const url = `${this.environment.baseUrls.apiUrl}/v1/people/autocomplete?searchTerm=${query}`;
+        const url = `${this.environment.baseUrls.apiUrl}/v1/${this.$searchType()}/autocomplete?searchTerm=${query}`;
         return this._httpClient.get<ApiResponse>(url);
     }
 
@@ -252,4 +265,16 @@ export class SearchComponent implements OnChanges, OnInit, OnDestroy
     trackByFn(index: number, item: any): any {
       return item.id || index;
     }
+
+    onSearchTypeChange({value}: MatSelectChange) {
+      if (this.$searchType() !== value) {
+        this.$searchType.set(value);
+        this.searchControl.setValue('');
+      }
+    }
+
+  navigateToSearch(id:  number) {
+    const url = this.$searchType() === 'people' ? `/pages/profile/${id}` : `/apps/groups/${id}`;
+    this._router.navigateByUrl(url)
+  }
 }

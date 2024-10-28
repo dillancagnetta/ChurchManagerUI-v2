@@ -85,6 +85,7 @@ export const appRoutes: Route[] = [
             {path: 'apps', children: [
                 {path: 'people', loadChildren: () => import('app/features/admin/people/contacts.module').then( m => m.ContactsModule)},
                 {path: 'groups', loadChildren: () => import('app/features/admin/groups/groups.module').then( m => m.GroupsModule)},
+                {path: 'group-types', loadChildren: () => import('app/features/admin/groupTypes/group-types.routes').then( m => m.GROUP_TYPES_ROUTES)},
                 {path: 'discipleship', loadChildren: () => import('app/features/admin/scrumboard/scrumboard.module').then(m => m.ScrumboardModule)},
                 {path: 'missions', loadChildren: () => import('app/features/admin/missions/missions.module').then(m => m. MissionsModule)},
             ]},
