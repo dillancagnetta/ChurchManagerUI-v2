@@ -297,7 +297,7 @@ export const DashboardStore = signalStore(
       )
     ),
 
-    getPeopleConnectionStatus: rxMethod<number>(
+    getPeopleBreakdowns: rxMethod<number>(
       pipe(
         tap(() => patchState(store, {isLoading: true})),
         switchMap((churchId) => {
@@ -326,7 +326,7 @@ export const DashboardStore = signalStore(
   withHooks({
     onInit(store) {
       store.getChurchAttendance(0);
-      store.getPeopleConnectionStatus(0);
+      store.getPeopleBreakdowns(0);
 
       watchState(store, (state) => {
         console.log('[watchState] dashboard state', state);

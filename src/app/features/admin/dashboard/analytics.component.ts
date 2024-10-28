@@ -863,6 +863,7 @@ export class AnalyticsComponent implements OnInit, OnDestroy
   onChurchSelected({value}: MatSelectChange) {
     console.log('onChurchSelected', value);
     this.store.getChurchAttendance(value);
+    this.store.getPeopleBreakdowns(value);
   }
 
   updateFtPeriodChange(period: Period) {
