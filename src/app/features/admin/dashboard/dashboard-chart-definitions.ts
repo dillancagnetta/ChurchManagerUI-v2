@@ -139,8 +139,8 @@ export const annualNewConvertsVsFirstTimersChart: ApexOptions = {
     padding: {
       top: 10,
       bottom: -40,
-      left: 20,
-      right: 20
+      left: 10,
+      right: 5
     }
   },
   legend: {
@@ -267,6 +267,63 @@ export const firstTimersStatsChart : ApexOptions = {
       formatter: (val) => {
         return val.toString();
       }
+    }
+  }
+};
+
+export const connectionStatusChart: ApexOptions = {
+  chart      : {
+    animations: {
+      speed           : 400,
+      animateGradually: {
+        enabled: false
+      }
+    },
+    fontFamily: 'inherit',
+    foreColor : 'inherit',
+    height    : '100%',
+    type      : 'donut',
+    sparkline : {
+      enabled: true
+    }
+  },
+  colors     : ['#805AD5', '#B794F4', '#4051C1'],
+  labels     : [],
+  plotOptions: {
+    pie: {
+      customScale  : 0.9,
+      expandOnClick: false,
+      donut        : {
+        size: '70%'
+      }
+    }
+  },
+  series     : [],
+  states     : {
+    hover : {
+      filter: {
+        type: 'none'
+      }
+    },
+    active: {
+      filter: {
+        type: 'none'
+      }
+    }
+  },
+  tooltip    : {
+    enabled        : true,
+    fillSeriesColor: false,
+    theme          : 'dark',
+    custom         : ({
+                        seriesIndex,
+                        w
+                      }) => {
+      return `<div class="flex items-center h-8 min-h-8 max-h-8 px-3">
+                                <div class="w-3 h-3 rounded-full" style="background-color: ${w.config.colors[seriesIndex]};"></div>
+                                <div class="ml-2 text-md leading-none">${w.config.labels[seriesIndex]}:</div>
+                                <div class="ml-2 text-md font-bold leading-none">${w.config.series[seriesIndex]}%</div>
+                            </div>`;
     }
   }
 };

@@ -10,3 +10,9 @@ export interface ChurchAttendanceAnnualBreakdown {
     year: number | string;
     data: ChurchAttendanceMonthlyTotals[];
 }
+
+export interface ConnectionStatusCount {
+  name: string;
+  count: number;
+}
+

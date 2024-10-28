@@ -8,14 +8,15 @@ import {pipe, switchMap, tap} from "rxjs";
 import {tapResponse} from '@ngrx/operators'
 import {
   annualChurchAttendanceChart,
-  annualNewConvertsVsFirstTimersChart, firstTimersStatsChart, ncVsFtStatsChart
+  annualNewConvertsVsFirstTimersChart, connectionStatusChart, firstTimersStatsChart, ncVsFtStatsChart
 } from "@features/admin/dashboard/dashboard-chart-definitions";
-import {ChurchAttendanceAnnualBreakdown} from "@features/admin/dashboard/analytics.models";
+import {ChurchAttendanceAnnualBreakdown, ConnectionStatusCount} from "@features/admin/dashboard/analytics.models";
 
 export type Period = '3' | '6' | '12';
 
 type DashboardState = {
   data: ChurchAttendanceAnnualBreakdown[];
+  connectionStatusData: ConnectionStatusCount[],
   isLoading: boolean;
   newConvertsPeriodSelection:  Period;
   firstTimersPeriodSelection:  Period;
@@ -24,6 +25,7 @@ type DashboardState = {
 
 const initialState: DashboardState = {
   data: [],
+  connectionStatusData: [],
   isLoading: false,
   newConvertsPeriodSelection: '3',
   firstTimersPeriodSelection: '3',
@@ -34,13 +36,14 @@ export const DashboardStore = signalStore(
   withState(initialState),
 
   // 👇 Selectors
-  withComputed(({data, newConvertsPeriodSelection, firstTimersPeriodSelection, isLoading}) => ({
+  withComputed(({data, newConvertsPeriodSelection, firstTimersPeriodSelection, connectionStatusData}) => ({
     hasData: computed((): boolean => data()?.length > 0),
     chartAttendanceSeries: computed((): (string | number)[] => data()?.map(x => x.year)),
     chartChurchAttendanceDefinition: computed((): ApexOptions => annualChurchAttendanceChart),
     chartNcVsFtDefinition: computed((): ApexOptions => annualNewConvertsVsFirstTimersChart),
     chartNcStatsChartDefinition: computed((): ApexOptions => ncVsFtStatsChart),
     chartFtStatsChartDefinition: computed((): ApexOptions => firstTimersStatsChart),
+    chartConnectionStatusDefinition: computed((): ApexOptions => connectionStatusChart),
     chartAttendance: computed(() => {
 
       const tempDatasets: { [year: string]: ApexAxisChartSeries; } = {};
@@ -65,6 +68,23 @@ export const DashboardStore = signalStore(
       }
 
       return series;
+    }),
+    chartConnectionStatus: computed(() => {
+
+      if (connectionStatusData()?.length) {
+        const labels = connectionStatusData()?.map(x => x.name);
+        const series = connectionStatusData()?.map(x => x.count);
+        const total = series.reduce((prev, curr)  => prev + curr);
+
+        console.log('chartConnectionStatus', labels, series, total)
+
+        return {
+          labels,
+          series,
+          total
+        }
+      }
+
     }),
     chartNewConvertsStats: computed(() => {
       const tempNcAndFtDatasets: { [year: string]: {name: string, data: number[]}; } = {};
@@ -234,6 +254,21 @@ export const DashboardStore = signalStore(
       )
     ),
 
+    getPeopleConnectionStatus: rxMethod<number>(
+      pipe(
+        tap(() => patchState(store, {isLoading: true})),
+        switchMap((churchId) => {
+          return service.getPeopleConnectionStatus$(churchId).pipe(
+            tapResponse({
+              next: (data) => patchState(store, {connectionStatusData: data}),
+              error: console.error,
+              finalize: () => patchState(store, {isLoading: false}),
+            })
+          );
+        })
+      )
+    ),
+
     updateNewConvertPeriod: (period:  Period) => {
       patchState(store, { newConvertsPeriodSelection: period });
     },
@@ -248,6 +283,7 @@ export const DashboardStore = signalStore(
   withHooks({
     onInit(store) {
       store.getChurchAttendance(0);
+      store.getPeopleConnectionStatus(0);
 
       watchState(store, (state) => {
         console.log('[watchState] dashboard state', state);
