@@ -50,6 +50,10 @@ export class AnalyticsComponent implements OnInit, OnDestroy
     $chartFtStatsData: Signal<any> = this.store.chartFirstTimersStats;
     $chartConnectionStatusDefinition: Signal<any> = this.store.chartConnectionStatusDefinition;
     $chartConnectionStatusData: Signal<any> = this.store.chartConnectionStatus;
+    $chartGenderDefinition: Signal<any> = this.store.chartGenderDefinition;
+    $chartGenderData: Signal<any> = this.store.chartGender;
+    $chartAgeDefinition: Signal<any> = this.store.chartAgeDefinition;
+    $chartAgeData: Signal<any> = this.store.chartAgeClassification;
 
   /**
      * Constructor

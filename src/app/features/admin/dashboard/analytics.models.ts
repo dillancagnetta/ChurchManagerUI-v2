@@ -11,8 +11,14 @@ export interface ChurchAttendanceAnnualBreakdown {
     data: ChurchAttendanceMonthlyTotals[];
 }
 
-export interface ConnectionStatusCount {
+export interface DashboardCount {
   name: string;
   count: number;
+}
+
+export interface DashboardCounts {
+  connectionStatus: DashboardCount[],
+  gender: DashboardCount[],
+  age: DashboardCount[],
 }
 

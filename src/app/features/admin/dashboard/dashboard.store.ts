@@ -7,16 +7,20 @@ import {rxMethod} from "@ngrx/signals/rxjs-interop";
 import {pipe, switchMap, tap} from "rxjs";
 import {tapResponse} from '@ngrx/operators'
 import {
+  ageChart,
   annualChurchAttendanceChart,
-  annualNewConvertsVsFirstTimersChart, connectionStatusChart, firstTimersStatsChart, ncVsFtStatsChart
+  annualNewConvertsVsFirstTimersChart, connectionStatusChart, firstTimersStatsChart, genderChart, ncVsFtStatsChart
 } from "@features/admin/dashboard/dashboard-chart-definitions";
-import {ChurchAttendanceAnnualBreakdown, ConnectionStatusCount} from "@features/admin/dashboard/analytics.models";
+import {
+  ChurchAttendanceAnnualBreakdown,
+  DashboardCounts
+} from "@features/admin/dashboard/analytics.models";
 
 export type Period = '3' | '6' | '12';
 
 type DashboardState = {
   data: ChurchAttendanceAnnualBreakdown[];
-  connectionStatusData: ConnectionStatusCount[],
+  countData: DashboardCounts,
   isLoading: boolean;
   newConvertsPeriodSelection:  Period;
   firstTimersPeriodSelection:  Period;
@@ -25,7 +29,7 @@ type DashboardState = {
 
 const initialState: DashboardState = {
   data: [],
-  connectionStatusData: [],
+  countData: {connectionStatus:[], age: [], gender: []},
   isLoading: false,
   newConvertsPeriodSelection: '3',
   firstTimersPeriodSelection: '3',
@@ -36,7 +40,7 @@ export const DashboardStore = signalStore(
   withState(initialState),
 
   // 👇 Selectors
-  withComputed(({data, newConvertsPeriodSelection, firstTimersPeriodSelection, connectionStatusData}) => ({
+  withComputed(({data, newConvertsPeriodSelection, firstTimersPeriodSelection, countData}) => ({
     hasData: computed((): boolean => data()?.length > 0),
     chartAttendanceSeries: computed((): (string | number)[] => data()?.map(x => x.year)),
     chartChurchAttendanceDefinition: computed((): ApexOptions => annualChurchAttendanceChart),
@@ -44,6 +48,8 @@ export const DashboardStore = signalStore(
     chartNcStatsChartDefinition: computed((): ApexOptions => ncVsFtStatsChart),
     chartFtStatsChartDefinition: computed((): ApexOptions => firstTimersStatsChart),
     chartConnectionStatusDefinition: computed((): ApexOptions => connectionStatusChart),
+    chartAgeDefinition: computed((): ApexOptions => ageChart),
+    chartGenderDefinition: computed((): ApexOptions => genderChart),
     chartAttendance: computed(() => {
 
       const tempDatasets: { [year: string]: ApexAxisChartSeries; } = {};
@@ -71,10 +77,47 @@ export const DashboardStore = signalStore(
     }),
     chartConnectionStatus: computed(() => {
 
-      if (connectionStatusData()?.length) {
-        const labels = connectionStatusData()?.map(x => x.name);
-        const series = connectionStatusData()?.map(x => x.count);
-        const total = series.reduce((prev, curr)  => prev + curr);
+      if (countData()?.connectionStatus?.length) {
+        const data = countData()?.connectionStatus;
+        const labels = data?.map(x => x.name);
+        const series = data?.map(x => x.count);
+        const total = series?.reduce((prev, curr)  => prev + curr);
+
+        console.log('chartConnectionStatus', labels, series, total)
+
+        return {
+          labels,
+          series,
+          total
+        }
+      }
+
+    }),
+    chartAgeClassification: computed(() => {
+
+      if (countData()?.age?.length) {
+        const data = countData()?.age;
+        const labels = data?.map(x => x.name);
+        const series = data?.map(x => x.count);
+        const total = series?.reduce((prev, curr)  => prev + curr);
+
+        console.log('chartConnectionStatus', labels, series, total)
+
+        return {
+          labels,
+          series,
+          total
+        }
+      }
+
+    }),
+    chartGender: computed(() => {
+
+      if (countData()?.gender?.length) {
+        const data = countData()?.gender;
+        const labels = data?.map(x => x.name);
+        const series = data?.map(x => x.count);
+        const total = series?.reduce((prev, curr)  => prev + curr);
 
         console.log('chartConnectionStatus', labels, series, total)
 
@@ -260,7 +303,7 @@ export const DashboardStore = signalStore(
         switchMap((churchId) => {
           return service.getPeopleConnectionStatus$(churchId).pipe(
             tapResponse({
-              next: (data) => patchState(store, {connectionStatusData: data}),
+              next: (countData) => patchState(store, {countData}),
               error: console.error,
               finalize: () => patchState(store, {isLoading: false}),
             })

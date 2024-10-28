@@ -4,7 +4,10 @@ import { Observable } from 'rxjs';
 import { ENV } from '@shared/constants';
 import { Environment } from '@shared/environment.model';
 import { shareReplay, tap } from 'rxjs/operators';
-import {ChurchAttendanceAnnualBreakdown, ConnectionStatusCount} from './analytics.models';
+import {
+  ChurchAttendanceAnnualBreakdown,
+  DashboardCounts
+} from './analytics.models';
 import moment from 'moment';
 
 const CACHE_SIZE = 1;
@@ -66,8 +69,8 @@ export class DashboardDataService {
             );
     }
 
-  public getPeopleConnectionStatus$(churchId?: number): Observable<ConnectionStatusCount[]> {
-    return this._httpClient.get<ConnectionStatusCount[]>(
+  public getPeopleConnectionStatus$(churchId?: number): Observable<DashboardCounts> {
+    return this._httpClient.get<DashboardCounts>(
       `${this.environment.baseUrls.apiUrl}/v1/dashboard/church-people-connectionstatus-breakdown?churchId=${churchId}`)
       .pipe(
         tap(x => console.log('fetch church-people-connectionstatus', x))
