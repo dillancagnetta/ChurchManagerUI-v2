@@ -4,9 +4,13 @@
 
         <cm-church-groups-control formControlName="churchGroup"></cm-church-groups-control>
 
-        <mat-checkbox formControlName="withFeedBack">
+        <mat-slide-toggle [color]="'primary'" formControlName="withFeedBack">
+          With Feedback?
+        </mat-slide-toggle>
+
+       <!-- <mat-checkbox formControlName="withFeedBack">
             With Feedback?
-        </mat-checkbox>
+        </mat-checkbox>-->
 
         <mat-form-field appearance="outline" style='width: 280px'>
             <mat-label>Date range</mat-label>

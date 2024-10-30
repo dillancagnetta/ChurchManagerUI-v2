@@ -22,7 +22,7 @@
             [placeholder]="$searchTypeText()"
             (keydown)="onKeydown($event)"
             #barSearchInput>
-        <mat-select class="w-1/5" [value]="'people'" matSuffix (selectionChange)="onSearchTypeChange($event)">
+        <mat-select class="w-1/5 search-type" [value]="'people'" matSuffix (selectionChange)="onSearchTypeChange($event)">
           <mat-option [value]="'people'">People</mat-option>
           <mat-option [value]="'groups'">Groups</mat-option>
         </mat-select>

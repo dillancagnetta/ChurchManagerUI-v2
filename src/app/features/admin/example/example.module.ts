@@ -13,6 +13,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { SharedModule } from '@shared/shared.module';
+import {MatSlideToggle} from "@angular/material/slide-toggle";
 
 const exampleRoutes: Route[] = [
     {
@@ -27,7 +28,7 @@ const exampleRoutes: Route[] = [
         ExampleComponent,
         ExamplePaginatedQueryComponent
     ],
-    imports     : [
+    imports: [
         RouterModule.forChild(exampleRoutes),
 
         MatButtonModule,
@@ -42,7 +43,8 @@ const exampleRoutes: Route[] = [
         PersonAutocompleteControlModule,
         ChurchGroupsSelectControlModule,
 
-        SharedModule
+        SharedModule,
+        MatSlideToggle
     ],
     providers : [
         pagingServiceProvider

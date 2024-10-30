@@ -46,7 +46,7 @@
     <mat-progress-bar *ngIf="service.dataSource.loading$ | async" [mode]="'indeterminate'"></mat-progress-bar>
 
     <!-- Table -->
-    <mat-table class="w-full"
+    <table class="w-full"
         mat-table
         matSort
         [dataSource]="service.dataSource"
@@ -71,17 +71,15 @@
         </ng-container>
 
         <!-- Columns -->
-        <ng-container *ngFor="let column of columns">
-            <ng-container matColumnDef="{{column.columnDef}}">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ column.header }}</th>
-                <td mat-cell *matCellDef="let row">{{ column.cell(row) }}</td>
-            </ng-container>
+        <ng-container *ngFor="let column of columns" matColumnDef="{{column.columnDef}}">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ column.header }}</th>
+          <td mat-cell *matCellDef="let row">{{ column.cell(row) }}</td>
         </ng-container>
 
         <!-- Buttons Column -->
         <ng-container *ngIf="buttons && buttons.length > 0" matColumnDef="actions">
-            <mat-header-cell *matHeaderCellDef></mat-header-cell>
-            <mat-cell *matCellDef="let row">
+            <th mat-header-cell *matHeaderCellDef></th>
+            <td mat-cell *matCellDef="let row">
                 <div class="flex items-center">
                     <button mat-icon-button [matMenuTriggerFor]="moreMenu" aria-label="More"
                             (click)="$event.stopPropagation();">
@@ -98,7 +96,7 @@
                     </mat-menu>
                 </div>
 
-            </mat-cell>
+            </td>
         </ng-container>
 
         <!-- Disclaimer column - with nullable approach -->
@@ -121,7 +119,7 @@
         <ng-container *ngIf="footer"> <!-- Make footer nullable -->
             <tr mat-footer-row *matFooterRowDef="['disclaimer']" class="example-second-footer-row"></tr>
         </ng-container>
-    </mat-table>
+    </table>
     <!-- Table -->
 
     <mat-paginator

@@ -28,13 +28,12 @@ export class GroupTypesListComponent {
       { columnDef: 'description',     header: 'Description',    cell: (element: GroupTypeEntity) => `${element.description}` },
       { columnDef: 'groupTerm',     header: 'Group Term',     cell: (element: GroupTypeEntity) => `${element.groupTerm}` },
       { columnDef: 'groupMemberTerm',   header: 'Group Member Term',   cell: (element: GroupTypeEntity) => `${element.groupMemberTerm}` },
-      { columnDef: 'takesAttendance',    header: 'Takes Attendance',    cell: (element: GroupTypeEntity) => `${element.takesAttendance}` },
-      { columnDef: 'isSystem', header: 'Is System', cell: (element: GroupTypeEntity) => `${element.isSystem}` },
-      { columnDef: 'iconCssClass',     header: 'Icon CSS class',    cell: (element: GroupTypeEntity) => element.iconCssClass}
+      { columnDef: 'takesAttendance',    header: 'Takes Attendance', columnType: 'checkbox',   cell: (element: GroupTypeEntity) => `${element.takesAttendance}` },
+      { columnDef: 'isSystem', header: 'Is System', columnType: 'checkbox',cell: (element: GroupTypeEntity) => `${element.isSystem}` },
+      { columnDef: 'iconCssClass',     header: 'Icon CSS class', columnType: 'icon', cell: (element: GroupTypeEntity) => element.iconCssClass }
     ];
 
     this.buttons = [
-      { icon: 'note_add',    payload: (element: GroupTypeEntity) => `${element.id}`, action: 'add', text: 'Add' },
       { icon: 'build',    payload: (element: GroupTypeEntity) => `${element.id}`, action: 'edit', text: 'Edit' },
       { icon: 'delete',    payload: (element: GroupTypeEntity) => `${element.id}`, action: 'delete', text: 'Remove' },
     ];

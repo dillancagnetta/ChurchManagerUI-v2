@@ -16,13 +16,20 @@
             </mat-select>
         </mat-form-field>
 
-        <mat-checkbox formControlName="assignedToMe">
-            Assigned To Me
-        </mat-checkbox>
 
-        <mat-checkbox formControlName="withAction">
+        <mat-slide-toggle [color]="'primary'" formControlName="assignedToMe">
+          Assigned To Me
+        </mat-slide-toggle>
+         <!-- <mat-checkbox formControlName="assignedToMe">
+              Assigned To Me
+          </mat-checkbox>-->
+
+        <mat-slide-toggle [color]="'primary'" formControlName="withAction">
+          With Action
+        </mat-slide-toggle>
+<!--        <mat-checkbox formControlName="withAction">
             With Action
-        </mat-checkbox>
+        </mat-checkbox>-->
 
         <mat-form-field appearance="outline" style='width: 280px'>
             <mat-label>Date range</mat-label>

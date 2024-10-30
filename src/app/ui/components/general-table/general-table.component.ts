@@ -18,6 +18,7 @@ export class GeneralTableComponent implements OnChanges {
   @Input() columns: TableColumn[] = [];
   @Input() buttons: TableBtn[] = [];
   @Input() data: any[] = [];
+  @Input() selectable: boolean = false;
   @Input() filter: boolean = false;
   @Input() filterPlaceholder: string = 'Filter';
   @Input() title: string = null;
@@ -42,6 +43,7 @@ export class GeneralTableComponent implements OnChanges {
         this.dataSource.paginator = this.paginator;
         this.displayedColumns = [...this.columns.map(c => c.columnDef)];
         if (this.buttons && this.buttons.length > 0 ) this.displayedColumns = [...this.displayedColumns, 'actions'];
+        if (this.selectable) this.displayedColumns = ['select', ...this.displayedColumns];
       }
     }
   }
