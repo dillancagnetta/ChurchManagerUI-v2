@@ -14,8 +14,9 @@
             </button>
 
             <h3 class="mb-4">Generic Table</h3>
-            <!--<general-table  [columns]="columns"
+            <general-table  [columns]="columns"
                             [buttons]="buttons"
+                            [toolbar]="toolbar"
                             [data]="data"
                             [filter]="true"
                             [filterPlaceholder]="'Filter any value'"
@@ -24,7 +25,7 @@
                             [pageSize]="5"
                             [tableMinWidth]="400"
                             (buttonClick)="onButtonClicked($event)">
-            </general-table>-->
+            </general-table>
 
                 <!-- columns: required,
                      data: required
@@ -40,9 +41,12 @@
 
 
 
+            <h3 class="mb-4">Paginated Table</h3>
+
             <paginated-general-table
                 [columns]="pagingColumns"
                 [buttons]="buttons"
+                [toolbar]="toolbar"
                 [selectable]="true"
                 [filter]="true"
                 [debug]="true"

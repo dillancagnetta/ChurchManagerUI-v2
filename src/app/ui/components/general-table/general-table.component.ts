@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges, ViewC
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { TableBtn, TableColumn } from '.';
+import {TableBtn, TableColumn, TableToolbar} from '.';
 import { fuseAnimations } from '@fuse/animations';
 
 /**
@@ -17,6 +17,7 @@ import { fuseAnimations } from '@fuse/animations';
 export class GeneralTableComponent implements OnChanges {
   @Input() columns: TableColumn[] = [];
   @Input() buttons: TableBtn[] = [];
+  @Input() toolbar: TableToolbar[] = [];
   @Input() data: any[] = [];
   @Input() selectable: boolean = false;
   @Input() filter: boolean = false;
@@ -57,6 +58,10 @@ export class GeneralTableComponent implements OnChanges {
     }
 
     this.dataSource.sort = this.sort;
+  }
+
+  get hasTableToolbar(): boolean {
+    return this.toolbar && this.toolbar.length > 0;
   }
 }
 

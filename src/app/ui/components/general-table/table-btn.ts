@@ -10,6 +10,11 @@ export interface TableBtn {
   disabled?: boolean;
 }
 
+export interface TableToolbar extends Omit<TableBtn, 'payload'> {
+  color?: string;
+  tooltip?: string;
+}
+
 
 /**
  *  @summary Pagination Service Token

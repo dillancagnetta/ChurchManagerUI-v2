@@ -14,7 +14,7 @@ import {
 } from '@angular/core';
 import {  MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { PAGING_SERVICE, TableBtn, TableColumn, TableQuery } from '..';
+import {PAGING_SERVICE, TableBtn, TableColumn, TableQuery, TableToolbar} from '..';
 import { PagedResult } from '@shared/data/pagination.models';
 import { takeUntil, tap } from 'rxjs/operators';
 import { IPaginatedTableService } from '@ui/components/general-table/paginated-general-table/paginated-general-table.service';
@@ -38,6 +38,7 @@ export class PaginatedGeneralTableComponent implements OnChanges, AfterViewInit,
 
     @Input() columns: TableColumn[] = [];
     @Input() buttons: TableBtn[] = [];
+    @Input() toolbar: TableToolbar[] = [];
     @Input() selectable: boolean = false;
     @Input() drawerEnabled: boolean = false;
     @Input() filter: boolean = false;
@@ -157,6 +158,10 @@ export class PaginatedGeneralTableComponent implements OnChanges, AfterViewInit,
     fetch(pageIndex: number) {
         this.service.fetch(pageIndex);
         this.resultsOnThisPage.length = 0;
+    }
+
+    get hasTableToolbar(): boolean {
+      return this.toolbar && this.toolbar.length > 0;
     }
 }
 

@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
 import { FuseConfirmationService } from '@fuse/services/confirmation';
-import { TableBtn, TableColumn } from '@ui/components/general-table';
+import {TableBtn, TableColumn, TableToolbar} from '@ui/components/general-table';
 import { UserData } from '@features/admin/example/mock/interfaces/user-data';
 import { createNewUserData } from '@features/admin/example/mock/functions/mock-data';
 import { GroupAttendanceRecord } from '@features/admin/groups/cell-ministry/cell-ministry.model';
@@ -15,6 +15,7 @@ export class ExampleComponent
 {
     introText = 'Button actions and payloads come here in textual form';
     columns: TableColumn[];   // this will define what you pass over to the table
+    toolbar: TableToolbar[];   // this will define what you pass over to the table
     pagingColumns: TableColumn[];   // this will define what you pass over to the table
     buttons: TableBtn[] = [];      // this will define what you pass over to the table
     data: UserData[];         // this is example data but you can use any object to pass to the table
@@ -67,6 +68,11 @@ export class ExampleComponent
             { columnDef: 'attendanceCount',   header: 'Attendance',   cell: (element: GroupAttendanceRecord) => `${element.attendanceCount}` },
             { columnDef: 'firstTimerCount',    header: 'First Timers',    cell: (element: GroupAttendanceRecord) => `${element.firstTimerCount}` },
             { columnDef: 'newConvertCount', header: 'New Converts', cell: (element: GroupAttendanceRecord) => `${element.newConvertCount}` },
+        ];
+
+        this.toolbar = [
+          {icon: 'add', color: 'primary', tooltip: 'Add item', action: 'add', text: 'Add'},
+          {icon: 'cloud_download', color: 'primary', tooltip: 'Export to csv', action: 'export', text: 'Export', disabled: true },
         ];
     }
 

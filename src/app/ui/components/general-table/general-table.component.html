@@ -1,10 +1,54 @@
+
+<!-- Actions Toolbar -->
+<div class="flex flex-row justify-between items-center">
+  <div  *ngIf="filter">
+    <mat-form-field class="w-100">
+      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="{{filterPlaceholder}}">
+      <button
+        mat-icon-button
+        matPrefix>
+        <mat-icon
+          class="icon-size-5"
+          [svgIcon]="'heroicons_solid:filter'"></mat-icon>
+      </button>
+    </mat-form-field>
+  </div>
+
+  <!-- Actions -->
+  @if (hasTableToolbar) {
+    <div class="p-2 md:p-2 space-x-2">
+    @for(t of toolbar; track t.action) {
+      <button
+        mat-mini-fab [color]="t.color ?? 'primary'"
+        [matTooltip]="t.tooltip"
+        (click)="this.buttonClick.emit([t.action])"
+        [disabled]="t.disabled">
+        <mat-icon>{{t.icon}}</mat-icon>
+      </button>
+    }
+    </div>
+   <!-- <div class="p-2 md:p-2 space-x-2">
+      <button
+        mat-mini-fab color="primary"
+        matTooltip="Add item"
+        (click)="this.buttonClick.emit(['add' ])">
+        <mat-icon>add</mat-icon>
+      </button>
+      <button mat-mini-fab color="primary" matTooltip="Export to csv" disabled>
+        <mat-icon>cloud_download</mat-icon>
+      </button>
+    </div>-->
+  }
+
+</div>
+<!-- Toolbar -->
+
+
 <div class="sm:col-span-6 flex flex-col flex-auto p-6 bg-card shadow rounded-2xl overflow-hidden">
     <div *ngIf="title" class="text-lg font-medium tracking-tight leading-6 truncate">{{title}}</div>
     <div class="flex flex-col flex-auto mt-2 overflow-x-auto">
 
-        <mat-form-field *ngIf="filter" class="w-1/2">
-            <input matInput (keyup)="applyFilter($event.target.value)" placeholder="{{filterPlaceholder}}">
-        </mat-form-field>
+
 
         <table class="w-full overflow-y-visible"
                    mat-table
