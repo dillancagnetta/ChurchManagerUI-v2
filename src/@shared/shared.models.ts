@@ -73,6 +73,13 @@ export enum FormActions
     Edit = 'edit'
 }
 
+export enum ButtonActions
+{
+  Add = 'add',
+  Edit = 'edit',
+  Delete = 'delete'
+}
+
 
 export enum PeriodTypes
 {

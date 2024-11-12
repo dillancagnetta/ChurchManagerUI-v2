@@ -26,7 +26,7 @@
                     {{role.name}}
                 </mat-button-toggle>
             </mat-button-toggle-group>
-            <mat-error *ngIf="form.touched && form.get('groupRole').hasError('required')">
+            <mat-error *ngIf="form.dirty && form.get('groupRole').hasError('required')">
                 Please select role.
             </mat-error>
         </div>
@@ -38,7 +38,7 @@
                 <mat-button-toggle value="Email">Email</mat-button-toggle>
                 <mat-button-toggle value="Message">Message</mat-button-toggle>
             </mat-button-toggle-group>
-            <mat-error *ngIf="form.touched && form.get('communicationPreference').hasError('required')">
+            <mat-error *ngIf="form.dirty && form.get('communicationPreference').hasError('required')">
                 Please select communication preference.
             </mat-error>
         </div>

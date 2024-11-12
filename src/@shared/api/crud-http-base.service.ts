@@ -10,15 +10,15 @@ import {ApiResponse} from "@shared/shared.models";
 export interface CrudDataService<E extends Entity, F extends Filter> {
   browse(filter: F): Observable<ApiResponse>;
 
-  getAll(id: number): Observable<ApiResponse>;
+  getAll(): Observable<ApiResponse>;
 
   get(id: number): Observable<ApiResponse>
 
-  create(entity: string): Observable<ApiResponse>;
+  create(entity: E): Observable<ApiResponse>;
 
   update(entity: E): Observable<ApiResponse>;
 
-  delete(entity: E): Observable<ApiResponse>;
+  delete(id: number): Observable<ApiResponse>;
 }
 
 @Injectable()
@@ -53,9 +53,10 @@ export abstract class CrudService<TEntity extends Entity,F extends Filter> imple
     return this.http.get<ApiResponse>(`${url}/${id}`);
   }
 
-  create(value: string): Observable<ApiResponse>{
+  create(value: TEntity): Observable<ApiResponse>{
     const url =`${this.baseApiUrl}/${this.entityUrl}`;
-    return this.http.post<ApiResponse>(url, { value });
+    console.log('create crud', value);
+    return this.http.post<ApiResponse>(url, value );
   }
 
   update(value: TEntity): Observable<ApiResponse>{
@@ -63,8 +64,8 @@ export abstract class CrudService<TEntity extends Entity,F extends Filter> imple
     return this.http.put<ApiResponse>(`${url}/${value.id}`, value);
   }
 
-  delete(value: TEntity): Observable<ApiResponse>{
+  delete(id: number): Observable<ApiResponse>{
     const url =`${this.baseApiUrl}/${this.entityUrl}`;
-    return this.http.delete<ApiResponse>(`${url}/${value.id}`);
+    return this.http.delete<ApiResponse>(`${url}/${id}`);
   }
 }

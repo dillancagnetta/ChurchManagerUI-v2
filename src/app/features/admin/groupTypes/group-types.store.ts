@@ -1,16 +1,28 @@
-import {signalStore, signalStoreFeature, type, withComputed, withHooks, withMethods, withState} from '@ngrx/signals';
+import {
+  patchState,
+  signalStore,
+  signalStoreFeature,
+  type,
+  watchState,
+  withComputed,
+  withHooks,
+  withMethods,
+  withState
+} from '@ngrx/signals';
 import {BaseState, withCrudOperations} from "@core/store/crud-state.feature";
 import {GroupTypeEntity} from "@features/admin/groupTypes/group-type.model";
 import {GroupTypesDataService, GroupTypesFilter} from "@features/admin/groupTypes/_services/group-types-data.service";
 
 export interface GroupTypesState extends BaseState<GroupTypeEntity> {
   filters: GroupTypesFilter;
+  selected?: GroupTypeEntity
 }
 
 export const initialState: GroupTypesState = {
   items: [],
   loading: false,
-  filters: {}
+  filters: {},
+  selected: null
 };
 
 export const GroupTypesStore = signalStore(
@@ -20,16 +32,23 @@ export const GroupTypesStore = signalStore(
     filter: {}
   }),
   withGroupTypeSelectors(),
-  withMethods(() => ({
+  withMethods((store) => ({
     toggleDone(item: GroupTypeEntity) {
       // this.update({ ...item, done: !item.done });
     },
+    setSelected(id: number) {
+      patchState(store, { selected: store.items().find((x) => x.id === id) });
+    },
   })),
   withHooks({
-    onInit({ browse, filters, loadAll }) {
+    onInit(store) {
       console.log('GroupTypesStore: on init');
-      browse(filters);
+      store.browse(store.filters);
       // loadAll()
+
+      watchState(store, (state) => {
+        console.log('[watchState] GroupTypesStore state', state);
+      });
     },
     onDestroy() {
       console.log('GroupTypesStore: on destroy');

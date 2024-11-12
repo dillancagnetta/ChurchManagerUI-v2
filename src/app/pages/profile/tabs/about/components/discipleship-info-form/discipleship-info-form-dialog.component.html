@@ -64,7 +64,7 @@
                 class="ml-2"
                 mat-flat-button
                 [color]="'primary'"
-                [disabled]="form.invalid || !form.touched"
+                [disabled]="form.invalid || !form.dirty"
                 [matTooltip]="'Save'"
                 aria-label="Save"
                 (click)="matDialogRef.close(['save',form])">

@@ -40,9 +40,9 @@ export class FollowUpListComponent implements OnInit {
         ];
     }
 
-  ngOnInit(): void
-  {
-  }
+    ngOnInit(): void
+    {
+    }
 
     onButtonClicked(action: string[])
     {

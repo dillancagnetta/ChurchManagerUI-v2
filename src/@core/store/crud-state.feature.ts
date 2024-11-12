@@ -30,7 +30,9 @@ export function withCrudOperations<E extends Entity, F extends Filter>(
       const service = inject(dataServiceType);
 
       return {
-        addItem: rxMethod<string>(
+
+        // Create entity
+        addItem: rxMethod<E>(
           switchMap((value) => {
             patchState(store, { loading: true });
 
@@ -64,6 +66,7 @@ export function withCrudOperations<E extends Entity, F extends Filter>(
           }),
         ),
 
+        // Get all
         loadAll: rxMethod<void>(
           switchMap(() => {
             patchState(store, { loading: true });
@@ -80,15 +83,33 @@ export function withCrudOperations<E extends Entity, F extends Filter>(
           }),
         ),
 
-        deleteItem: rxMethod<E>(
-          switchMap((item) => {
+        // Get Single By id
+      /*  loadById: rxMethod<number>(
+          switchMap((id) => {
             patchState(store, { loading: true });
 
-            return service.delete(item).pipe(
+            return service.get(id).pipe(
+              tapResponse({
+                next: (response) => {
+                  patchState(store, { selected: response.data, loading: false });
+                },
+                error: console.error,
+                finalize: () => patchState(store, { loading: false }),
+              }),
+            );
+          }),
+        ),*/
+
+        // Delete by id
+        deleteItem: rxMethod<number>(
+          switchMap((id) => {
+            patchState(store, { loading: true });
+
+            return service.delete(id).pipe(
               tapResponse({
                 next: () => {
                   patchState(store, {
-                    items: [...store.items().filter((x) => x.id !== item.id)],
+                    items: [...store.items().filter((x) => x.id !== id)],
                   });
                 },
                 error: console.error,
