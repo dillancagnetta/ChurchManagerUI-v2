@@ -60,8 +60,10 @@ export abstract class CrudService<TEntity extends Entity,F extends Filter> imple
   }
 
   update(value: TEntity): Observable<ApiResponse>{
+    console.log('update crud', value);
     const url =`${this.baseApiUrl}/${this.entityUrl}`;
-    return this.http.put<ApiResponse>(`${url}/${value.id}`, value);
+    //return this.http.put<ApiResponse>(`${url}/${value.id}`, value);
+    return this.http.put<ApiResponse>(`${url}`, value);
   }
 
   delete(id: number): Observable<ApiResponse>{

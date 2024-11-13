@@ -1,8 +1,8 @@
 import {ChangeDetectionStrategy, Component, Inject, ViewEncapsulation} from "@angular/core";
-import {FormBuilder, UntypedFormGroup, Validators} from "@angular/forms";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {FormAction, FormActions} from "@shared/shared.models";
-import {GroupTypeEntity} from "@features/admin/groupTypes/group-type.model";
+import {GroupTypeEntity, GroupTypeForm} from "@features/admin/groupTypes/group-type.model";
 import {MatButton, MatIconButton} from "@angular/material/button";
 import {MatIcon} from "@angular/material/icon";
 import {SharedModule} from "@shared/shared.module";
@@ -31,7 +31,7 @@ import {MatInput} from "@angular/material/input";
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AddGroupTypeDialogComponent {
-  form: UntypedFormGroup;
+  form!: FormGroup;
   action: FormAction;
 
   // edit
@@ -40,7 +40,7 @@ export class AddGroupTypeDialogComponent {
   constructor(
     public matDialogRef: MatDialogRef<AddGroupTypeDialogComponent>,
     @Inject(MAT_DIALOG_DATA) private data: { action: FormAction; entity?: GroupTypeEntity },
-    private _formBuilder: FormBuilder)
+    private _fb: FormBuilder)
   {
     this.action = data.action;
 
@@ -54,7 +54,8 @@ export class AddGroupTypeDialogComponent {
    */
   ngOnInit(): void {
     // Create the form
-    this.form = this._formBuilder.group({
+    this.form = this._fb.group({
+      id: [this.editEntity?.id], // Hidden - needed when we are editing
       name: [this.editEntity?.name, Validators.required],
       description: [this.editEntity?.name],
       groupTerm: [this.editEntity?.groupTerm ?? 'group', Validators.required],
