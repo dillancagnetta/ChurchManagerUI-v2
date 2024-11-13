@@ -22,6 +22,7 @@ export class GroupTypesListComponent {
 
   $data = input.required<GroupTypeEntity[]>();
   addButtonClicked= output<any>()
+  $isLoading= input<boolean>(false)
 
   constructor()
   {

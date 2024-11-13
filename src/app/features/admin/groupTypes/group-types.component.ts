@@ -9,7 +9,6 @@ import {
 import {filter} from "rxjs/operators";
 import {GroupTypeEntity} from "@features/admin/groupTypes/group-type.model";
 import {FuseConfirmationService} from "@fuse/services/confirmation";
-import {GroupAttendanceRecord} from "@features/admin/groups/cell-ministry/cell-ministry.model";
 
 @Component({
   templateUrl: './group-types.component.html',
@@ -26,6 +25,7 @@ export class GroupTypesComponent {
   private readonly _confirmation= inject(FuseConfirmationService);
 
   $data = this._store.items;
+  $loading = this._store.loading;
   $selected = this._store.selected;
 
   onButtonClicked(event: string[]) {

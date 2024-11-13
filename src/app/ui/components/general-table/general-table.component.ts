@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges, ViewChild } from '@angular/core';
+import {Component, EventEmitter, input, Input, OnChanges, Output, SimpleChanges, ViewChild} from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -20,6 +20,8 @@ export class GeneralTableComponent implements OnChanges {
   @Input() toolbar: TableToolbar[] = [];
   @Input() data: any[] = [];
   @Input() selectable: boolean = false;
+  @Input() showLoader: boolean = false;
+  isLoading= input<boolean>(false)
   @Input() filter: boolean = false;
   @Input() filterPlaceholder: string = 'Filter';
   @Input() title: string = null;
