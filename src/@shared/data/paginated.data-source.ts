@@ -4,11 +4,18 @@ import { finalize, map, share, startWith, switchMap } from 'rxjs/operators';
 import { PagedResult, PaginatedEndpoint, Sort } from './pagination.models';
 import { SimpleDataSource } from './simple.data-source';
 
+// Define the type for combined query and page state
+type QueryState<TQuery> = {
+  query: TQuery;
+  page: number;
+};
+
 export class PaginatedDataSource<TModel, TQuery> implements SimpleDataSource<TModel>, IPaginatedDataSource
 {
-    private _pageNumber = new Subject<number>();
-    private _sort: BehaviorSubject<Sort<TModel>>;
-    private _query: BehaviorSubject<TQuery>;
+    // Track query and page state together to avoid multiple calls on changes
+    private _queryState: BehaviorSubject<QueryState<TQuery>>;
+
+    private readonly _sort: BehaviorSubject<Sort<TModel>>;
 
     private _loading = new Subject<boolean>();
 
@@ -21,22 +28,23 @@ export class PaginatedDataSource<TModel, TQuery> implements SimpleDataSource<TMo
         initialQuery: TQuery,
         public pageSize = 10) {
 
-        this._query = new BehaviorSubject<TQuery>(initialQuery);
         this._sort = new BehaviorSubject<Sort<TModel>>(initialSort);
+        this._queryState = new BehaviorSubject<QueryState<TQuery>>({
+          query: initialQuery,
+          page: 0,
+        });
 
-        const param$ = combineLatest([this._query, this._sort]);
+        const param$ = combineLatest([this._queryState, this._sort]);
 
         this.page$ = param$
-            .pipe(
-                switchMap(([query, sort]) => this._pageNumber
-                    .pipe(
-                        startWith(0),
-                        switchMap((page: number) => this.endpoint({page, sort, size: this.pageSize}, query)
-                            .pipe(indicate(this._loading))
-                        )
-                    )),
-                share()
-            );
+          .pipe(
+            switchMap(([{ query, page }, sort]) =>
+              this.endpoint({ page, sort, size: this.pageSize }, query).pipe(
+                indicate(this._loading)
+              )
+            ),
+            share()
+          );
     }
 
     sortBy( sort: Partial<Sort<TModel>> ): void {
@@ -46,14 +54,24 @@ export class PaginatedDataSource<TModel, TQuery> implements SimpleDataSource<TMo
     }
 
     queryBy( query: Partial<TQuery> ): void {
-        const lastQuery = this._query.getValue();
-        const nextQuery = { ...lastQuery, ...query };
-        this._pageNumber.next(0);
-        this._query.next( nextQuery );
+        const lastState = this._queryState.getValue();
+        const nextQuery = { ...lastState.query, ...query };
+        // Emit the new query and reset page in a single update
+        this._emitQueryState(nextQuery,  0);
     }
 
     fetch( page: number ): void {
-        this._pageNumber.next( page + 1 ); // MatPaginator starts at page 0
+        // this._pageNumber.next( page + 1 ); // MatPaginator starts at page 0
+        // Emit the new query and reset page in a single update
+        const lastState = this._queryState.getValue();
+        this._emitQueryState(lastState.query,  page);  //  MatPaginator starts at page 0
+    }
+
+    /**
+    * Emit the new query and reset page in a single update
+    */
+    private _emitQueryState(query: TQuery , page: number): void {
+      this._queryState.next({ query, page });
     }
 
     /**

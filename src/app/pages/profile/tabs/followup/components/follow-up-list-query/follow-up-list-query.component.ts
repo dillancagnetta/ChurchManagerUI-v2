@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
+import {ChangeDetectionStrategy, Component, DestroyRef, inject, OnDestroy, OnInit} from '@angular/core';
 import { QueryBase } from '@shared/query-base';
 import { FollowUpQuery } from '../../follow-up.models';
 import { UntypedFormBuilder } from '@angular/forms';
@@ -6,6 +6,7 @@ import { filter, map, withLatestFrom } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { cloneDeep } from 'lodash-es';
+import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 
 @Component({
   selector: 'profile-follow-up-list-query',
@@ -14,6 +15,8 @@ import { cloneDeep } from 'lodash-es';
 })
 export class FollowUpListQueryComponent extends QueryBase<FollowUpQuery> implements OnInit, OnDestroy
 {
+    private readonly _destroyRef = inject(DestroyRef);
+
     followUpTypes: string[] = ['New Convert', 'General Well Being', 'Home Visitation', 'Death'];
     severityList: string[] = ['Normal' , 'Urgent'];
 
@@ -48,9 +51,11 @@ export class FollowUpListQueryComponent extends QueryBase<FollowUpQuery> impleme
       // Extract PersonId from parent URL
       // https://ultimatecourses.com/blog/angular-parent-routing-params
       const personId$: Observable<string> = this._route.parent.params
-          .pipe(map(({personId})  => personId));
+        .pipe(takeUntilDestroyed(this._destroyRef))
+        .pipe(map(({personId})  => personId));
 
       this.query$  =  this.searchBtnClicked
+          .pipe(takeUntilDestroyed(this._destroyRef))
           .pipe(withLatestFrom(personId$))
           .pipe(
               filter( () =>  this.searchForm.valid),
