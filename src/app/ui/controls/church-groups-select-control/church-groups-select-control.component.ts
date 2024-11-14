@@ -1,4 +1,4 @@
-import { Component, ElementRef, forwardRef, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, ElementRef, forwardRef, OnDestroy, OnInit, input } from '@angular/core';
 import { ControlValueAccessor, UntypedFormControl, UntypedFormGroup, NG_VALUE_ACCESSOR, Validators } from '@angular/forms';
 import { fromEvent, Observable, Subject } from 'rxjs';
 import {debounceTime, distinctUntilChanged, filter, switchMap, takeUntil, tap} from 'rxjs/operators';
@@ -22,9 +22,9 @@ import { SelectItem } from '@shared/shared.models';
 } )
 export class ChurchGroupsSelectControlComponent implements ControlValueAccessor, OnInit, OnDestroy {
 
-    @Input() allowAllGroupsSelect = true;
-    @Input() noSelectionLabel = '-- All Groups --';
-    @Input() required = true;
+    allowAllGroupsSelect = input(true);
+    noSelectionLabel = input('-- All Groups --');
+    required = input(true);
 
     public form = new UntypedFormGroup( {
         churchId: new UntypedFormControl( null, [Validators.required] ),

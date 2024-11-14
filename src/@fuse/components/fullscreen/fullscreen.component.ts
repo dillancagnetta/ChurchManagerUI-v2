@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Inject, Input, OnInit, TemplateRef, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Inject, OnInit, TemplateRef, ViewEncapsulation, input } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { FSDocument, FSDocumentElement } from '@fuse/components/fullscreen/fullscreen.types';
 
@@ -11,8 +11,8 @@ import { FSDocument, FSDocumentElement } from '@fuse/components/fullscreen/fulls
 })
 export class FuseFullscreenComponent implements OnInit
 {
-    @Input() iconTpl: TemplateRef<any>;
-    @Input() tooltip: string;
+    iconTpl = input<TemplateRef<any>>();
+    tooltip = input<string>();
     private _fsDoc: FSDocument;
     private _fsDocEl: FSDocumentElement;
     private _isFullscreen: boolean = false;

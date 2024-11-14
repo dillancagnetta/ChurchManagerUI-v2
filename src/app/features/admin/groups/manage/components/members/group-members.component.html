@@ -1,4 +1,4 @@
-<div *ngIf="members" class="mt-5">
+<div *ngIf="members()" class="mt-5">
 
     <mat-toolbar class="items-baseline">
         <!-- Title -->
@@ -34,7 +34,7 @@
         <!-- Loader -->
         <div
             class="absolute inset-x-0 bottom-0"
-            *ngIf="isLoading">
+            *ngIf="isLoading()">
             <mat-progress-bar [mode]="'indeterminate'"></mat-progress-bar>
         </div>
 
@@ -47,7 +47,7 @@
     <!-- GROUP MEMBERS -->
     <div class="flex flex-col flex-auto sm:mb-2 overflow-hidden">
 
-        <ng-container *ngIf="members.length > 0; else noMembers">
+        <ng-container *ngIf="members().length > 0; else noMembers">
 
             <!-- Table wrapper -->
             <div
@@ -171,8 +171,8 @@
 
                 <mat-paginator
                     class="border-b sm:border-t sm:border-b-0 z-10 bg-gray-50 dark:bg-transparent"
-                    [ngClass]="{'pointer-events-none': isLoading}"
-                    [length]="members.length"
+                    [ngClass]="{'pointer-events-none': isLoading()}"
+                    [length]="members().length"
                     [pageSizeOptions]="[5, 10, 25]"
                     [showFirstLastButtons]="true">
                 </mat-paginator>

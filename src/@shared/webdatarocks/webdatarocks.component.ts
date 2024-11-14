@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, Output, EventEmitter, OnInit } from '@angular/core';
+import { Component, ElementRef, Output, EventEmitter, OnInit, input } from '@angular/core';
 import WebDataRocks from 'webdatarocks';
 
 @Component({
@@ -8,12 +8,12 @@ import WebDataRocks from 'webdatarocks';
 export class WebdatarocksComponent// implements OnInit
 {
     // params
-    @Input() toolbar: boolean;
-    @Input() width: string | number;
-    @Input() height: string | number;
-    @Input() report: WebDataRocks.Report | string;
-    @Input() global: WebDataRocks.Report;
-    @Input() customizeCell: (cell: WebDataRocks.CellBuilder, data: WebDataRocks.CellData) => void;
+    toolbar = input<boolean>();
+    width = input<string | number>();
+    height = input<string | number>();
+    report = input<WebDataRocks.Report | string>();
+    global = input<WebDataRocks.Report>();
+    customizeCell = input<(cell: WebDataRocks.CellBuilder, data: WebDataRocks.CellData) => void>();
     // events
     @Output() cellclick: EventEmitter<WebDataRocks.CellData> = new EventEmitter();
     @Output() celldoubleclick: EventEmitter<WebDataRocks.CellData> = new EventEmitter();
@@ -55,12 +55,12 @@ export class WebdatarocksComponent// implements OnInit
         this.root = this.el.nativeElement as HTMLElement;
         this.webDataRocks = new WebDataRocks({
             container: this.root.getElementsByClassName('wbr-ng-wrapper')[0],
-            width: this.width,
-            height: this.height,
-            toolbar: this.toolbar,
-            report: this.report,
-            global: this.global,
-            customizeCell: this.customizeCell,
+            width: this.width(),
+            height: this.height(),
+            toolbar: this.toolbar(),
+            report: this.report(),
+            global: this.global(),
+            customizeCell: this.customizeCell(),
             cellclick: (cell: WebDataRocks.CellData) => this.cellclick.next(cell),
             celldoubleclick: (cell: WebDataRocks.CellData) => this.celldoubleclick.next(cell),
             dataerror: (event: object) => this.dataerror.next(event),

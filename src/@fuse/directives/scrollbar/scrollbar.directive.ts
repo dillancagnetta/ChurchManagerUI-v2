@@ -1,4 +1,4 @@
-import { Directive, ElementRef, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
+import {Directive, ElementRef, OnChanges, OnDestroy, OnInit, SimpleChanges, input, model} from '@angular/core';
 import { Router } from '@angular/router';
 import { BooleanInput, coerceBooleanProperty } from '@angular/cdk/coercion';
 import { Platform } from '@angular/cdk/platform';
@@ -19,8 +19,8 @@ export class FuseScrollbarDirective implements OnChanges, OnInit, OnDestroy
 {
     static ngAcceptInputType_fuseScrollbar: BooleanInput;
 
-    @Input() fuseScrollbar: boolean = true;
-    @Input() fuseScrollbarOptions: PerfectScrollbar.Options;
+    fuseScrollbar = model<boolean>(true);
+    fuseScrollbarOptions = model<PerfectScrollbar.Options>();
 
     private _animation: number;
     private _options: PerfectScrollbar.Options;
@@ -73,10 +73,10 @@ export class FuseScrollbarDirective implements OnChanges, OnInit, OnDestroy
         if ( 'fuseScrollbar' in changes )
         {
             // Interpret empty string as 'true'
-            this.fuseScrollbar = coerceBooleanProperty(changes.fuseScrollbar.currentValue);
+            this.fuseScrollbar.set(coerceBooleanProperty(changes.fuseScrollbar.currentValue));
 
             // If enabled, init the directive
-            if ( this.fuseScrollbar )
+            if ( this.fuseScrollbar() )
             {
                 this._init();
             }
@@ -149,7 +149,7 @@ export class FuseScrollbarDirective implements OnChanges, OnInit, OnDestroy
      */
     isEnabled(): boolean
     {
-        return this.fuseScrollbar;
+        return this.fuseScrollbar()!;
     }
 
     /**
@@ -435,7 +435,7 @@ export class FuseScrollbarDirective implements OnChanges, OnInit, OnDestroy
         // Return if on mobile or not on browser
         if ( this._platform.ANDROID || this._platform.IOS || !this._platform.isBrowser )
         {
-            this.fuseScrollbar = false;
+            this.fuseScrollbar.set(false);
             return;
         }
 

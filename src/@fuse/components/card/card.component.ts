@@ -1,4 +1,4 @@
-import { Component, HostBinding, Input, OnChanges, SimpleChanges, ViewEncapsulation } from '@angular/core';
+import {Component, HostBinding, OnChanges, SimpleChanges, ViewEncapsulation, input, signal, model} from '@angular/core';
 import { BooleanInput, coerceBooleanProperty } from '@angular/cdk/coercion';
 import { fuseAnimations } from '@fuse/animations';
 import { FuseCardFace } from '@fuse/components/card/card.types';
@@ -16,9 +16,9 @@ export class FuseCardComponent implements OnChanges
     static ngAcceptInputType_expanded: BooleanInput;
     static ngAcceptInputType_flippable: BooleanInput;
 
-    @Input() expanded: boolean = false;
-    @Input() face: FuseCardFace = 'front';
-    @Input() flippable: boolean = false;
+    expanded = model<boolean>(false);
+    face = model<FuseCardFace>('front');
+    flippable = model<boolean>(false);
 
     /**
      * Constructor
@@ -37,10 +37,10 @@ export class FuseCardComponent implements OnChanges
     @HostBinding('class') get classList(): any
     {
         return {
-            'fuse-card-expanded'  : this.expanded,
-            'fuse-card-face-back' : this.flippable && this.face === 'back',
-            'fuse-card-face-front': this.flippable && this.face === 'front',
-            'fuse-card-flippable' : this.flippable
+            'fuse-card-expanded'  : this.expanded(),
+            'fuse-card-face-back' : this.flippable() && this.face() === 'back',
+            'fuse-card-face-front': this.flippable() && this.face() === 'front',
+            'fuse-card-flippable' : this.flippable()
         };
     }
 
@@ -59,14 +59,14 @@ export class FuseCardComponent implements OnChanges
         if ( 'expanded' in changes )
         {
             // Coerce the value to a boolean
-            this.expanded = coerceBooleanProperty(changes.expanded.currentValue);
+            this.expanded.set(coerceBooleanProperty(changes.expanded.currentValue));
         }
 
         // Flippable
         if ( 'flippable' in changes )
         {
             // Coerce the value to a boolean
-            this.flippable = coerceBooleanProperty(changes.flippable.currentValue);
+            this.flippable.set(coerceBooleanProperty(changes.flippable.currentValue));
         }
     }
 }

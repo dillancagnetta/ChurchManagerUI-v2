@@ -1,16 +1,15 @@
 import {
-    ChangeDetectionStrategy,
-    ChangeDetectorRef,
-    Component,
-    Input,
-    OnChanges,
-    OnDestroy,
-    OnInit,
-    SimpleChanges,
-    TemplateRef,
-    ViewChild,
-    ViewContainerRef,
-    ViewEncapsulation
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  OnChanges,
+  OnDestroy,
+  OnInit,
+  SimpleChanges,
+  TemplateRef,
+  ViewChild,
+  ViewContainerRef,
+  ViewEncapsulation, input, model
 } from '@angular/core';
 import { Overlay, OverlayRef } from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
@@ -29,7 +28,7 @@ import { MessagesService } from '@ui/layout/common/messages/messages.service';
 })
 export class MessagesComponent implements OnInit, OnChanges, OnDestroy
 {
-    @Input() messages: Message[];
+    messages = model<Message[]>();
     @ViewChild('messagesOrigin') private _messagesOrigin: MatButton;
     @ViewChild('messagesPanel') private _messagesPanel: TemplateRef<any>;
 
@@ -79,7 +78,7 @@ export class MessagesComponent implements OnInit, OnChanges, OnDestroy
             .subscribe((messages: Message[]) => {
 
                 // Load the messages
-                this.messages = messages;
+                this.messages.set(messages);
 
                 // Calculate the unread count
                 this._calculateUnreadCount();
@@ -229,9 +228,9 @@ export class MessagesComponent implements OnInit, OnChanges, OnDestroy
     {
         let count = 0;
 
-        if ( this.messages && this.messages.length )
+        if ( this.messages() && this.messages().length )
         {
-            count = this.messages.filter(message => !message.read).length;
+            count = this.messages().filter(message => !message.read).length;
         }
 
         this.unreadCount = count;

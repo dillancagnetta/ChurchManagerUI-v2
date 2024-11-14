@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, OnInit, Output, ViewChild, ViewEncapsulation, input } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 
 @Component({
@@ -10,7 +10,7 @@ import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 export class ScrumboardBoardAddListComponent implements OnInit
 {
     @ViewChild('titleInput') titleInput: ElementRef;
-    @Input() buttonTitle: string = 'Add a list';
+    buttonTitle = input<string>('Add a list');
     @Output() readonly saved: EventEmitter<string> = new EventEmitter<string>();
 
     form: UntypedFormGroup;

@@ -5,7 +5,6 @@ import {
     Component,
     ElementRef,
     EmbeddedViewRef,
-    Input,
     OnChanges,
     Renderer2,
     SecurityContext,
@@ -13,8 +12,7 @@ import {
     TemplateRef,
     ViewChild,
     ViewContainerRef,
-    ViewEncapsulation
-} from '@angular/core';
+    ViewEncapsulation, input } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { FuseHighlightService } from '@fuse/components/highlight/highlight.service';
 
@@ -28,8 +26,8 @@ import { FuseHighlightService } from '@fuse/components/highlight/highlight.servi
 })
 export class FuseHighlightComponent implements OnChanges, AfterViewInit
 {
-    @Input() code: string;
-    @Input() lang: string;
+    code = input<string>();
+    lang = input<string>();
     @ViewChild(TemplateRef) templateRef: TemplateRef<any>;
 
     highlightedCode: string;
@@ -80,17 +78,17 @@ export class FuseHighlightComponent implements OnChanges, AfterViewInit
     ngAfterViewInit(): void
     {
         // Return if there is no language set
-        if ( !this.lang )
+        if ( !this.lang() )
         {
             return;
         }
 
         // If there is no code input, get the code from
         // the textarea
-        if ( !this.code )
+        if ( !this.code() )
         {
             // Get the code
-            this.code = this._elementRef.nativeElement.value;
+            this.code() = this._elementRef.nativeElement.value;
         }
 
         // Highlight and insert
@@ -115,7 +113,7 @@ export class FuseHighlightComponent implements OnChanges, AfterViewInit
         }
 
         // Return if the code or language is not defined
-        if ( !this.code || !this.lang )
+        if ( !this.code() || !this.lang() )
         {
             return;
         }
@@ -128,7 +126,7 @@ export class FuseHighlightComponent implements OnChanges, AfterViewInit
         }
 
         // Highlight and sanitize the code just in case
-        this.highlightedCode = this._domSanitizer.sanitize(SecurityContext.HTML, this._fuseHighlightService.highlight(this.code, this.lang));
+        this.highlightedCode = this._domSanitizer.sanitize(SecurityContext.HTML, this._fuseHighlightService.highlight(this.code(), this.lang()));
 
         // Return if the highlighted code is null
         if ( this.highlightedCode === null )
@@ -139,7 +137,7 @@ export class FuseHighlightComponent implements OnChanges, AfterViewInit
         // Render and insert the template
         this._viewRef = this._viewContainerRef.createEmbeddedView(this.templateRef, {
             highlightedCode: this.highlightedCode,
-            lang           : this.lang
+            lang           : this.lang()
         });
 
         // Detect the changes

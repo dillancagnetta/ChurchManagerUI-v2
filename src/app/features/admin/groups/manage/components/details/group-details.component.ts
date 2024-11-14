@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Output, ViewEncapsulation, input } from '@angular/core';
 import { GroupWithChildren } from '@features/admin/groups';
 import {MatDialog} from '@angular/material/dialog';
 import { GroupDetailDialogComponent } from '@features/admin/groups/manage/components/group-detail/group-detail-dialog.component';
@@ -14,8 +14,8 @@ import { FormAction, FormActions } from '@shared/shared.models';
 })
 export class GroupDetailsComponent
 {
-    @Input() group: GroupWithChildren;
-    @Input() expanded = true;
+    group = input<GroupWithChildren>();
+    expanded = input(true);
     @Output() editedGroup = new EventEmitter<EditGroupForm>();
 
     constructor(private _matDialog: MatDialog)
@@ -32,7 +32,7 @@ export class GroupDetailsComponent
           panelClass: 'form-dialog',
             data : {
                 action: FormActions.Edit,
-                group: this.group
+                group: this.group()
             }
         });
 

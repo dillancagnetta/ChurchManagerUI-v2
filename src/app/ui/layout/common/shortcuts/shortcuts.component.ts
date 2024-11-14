@@ -1,16 +1,17 @@
 import {
-    ChangeDetectionStrategy,
-    ChangeDetectorRef,
-    Component,
-    Input,
-    OnChanges,
-    OnDestroy,
-    OnInit,
-    SimpleChanges,
-    TemplateRef,
-    ViewChild,
-    ViewContainerRef,
-    ViewEncapsulation
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  effect,
+  model,
+  OnChanges,
+  OnDestroy,
+  OnInit,
+  SimpleChanges,
+  TemplateRef,
+  ViewChild,
+  ViewContainerRef,
+  ViewEncapsulation
 } from '@angular/core';
 import {UntypedFormBuilder, UntypedFormGroup, Validators} from '@angular/forms';
 import {Overlay, OverlayRef} from '@angular/cdk/overlay';
@@ -30,7 +31,7 @@ import {ShortcutsService} from '@ui/layout/common/shortcuts/shortcuts.service';
 })
 export class ShortcutsComponent implements OnChanges, OnInit, OnDestroy
 {
-    @Input() shortcuts: Shortcut[];
+    shortcuts= model<Shortcut[]>([]);
     @ViewChild('shortcutsOrigin') private _shortcutsOrigin: MatButton;
     @ViewChild('shortcutsPanel') private _shortcutsPanel: TemplateRef<any>;
 
@@ -50,6 +51,12 @@ export class ShortcutsComponent implements OnChanges, OnInit, OnDestroy
         private _viewContainerRef: ViewContainerRef
     )
     {
+      effect(() => {
+        const shortcuts = this.shortcuts();
+        if (shortcuts) {
+          this._shortcutsService.store(shortcuts);
+        }
+      });
     }
 
     // -----------------------------------------------------------------------------------------------------
@@ -63,6 +70,7 @@ export class ShortcutsComponent implements OnChanges, OnInit, OnDestroy
      */
     ngOnChanges(changes: SimpleChanges): void
     {
+      // REPLACED BY EFFECT
         // Shortcuts
         if ( 'shortcuts' in changes )
         {
@@ -92,7 +100,7 @@ export class ShortcutsComponent implements OnChanges, OnInit, OnDestroy
             .subscribe((shortcuts: Shortcut[]) => {
 
                 // Load the shortcuts
-                this.shortcuts = shortcuts;
+                this.shortcuts.set(shortcuts);
 
                 // Mark for check
                 this._changeDetectorRef.markForCheck();

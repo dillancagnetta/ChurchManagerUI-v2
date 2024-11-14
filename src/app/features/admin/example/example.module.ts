@@ -14,6 +14,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { SharedModule } from '@shared/shared.module';
 import {MatSlideToggle} from "@angular/material/slide-toggle";
+import {FuseCardModule} from "@fuse/components/card";
 
 const exampleRoutes: Route[] = [
     {
@@ -44,7 +45,8 @@ const exampleRoutes: Route[] = [
         ChurchGroupsSelectControlModule,
 
         SharedModule,
-        MatSlideToggle
+        MatSlideToggle,
+        FuseCardModule
     ],
     providers : [
         pagingServiceProvider

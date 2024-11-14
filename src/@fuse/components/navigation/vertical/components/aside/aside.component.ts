@@ -2,12 +2,10 @@ import {
     ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
-    Input,
     OnChanges,
     OnDestroy,
     OnInit,
-    SimpleChanges
-} from '@angular/core';
+    SimpleChanges, input } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { BooleanInput } from '@angular/cdk/coercion';
 import { Subject } from 'rxjs';
@@ -27,11 +25,11 @@ export class FuseVerticalNavigationAsideItemComponent implements OnChanges, OnIn
     static ngAcceptInputType_autoCollapse: BooleanInput;
     static ngAcceptInputType_skipChildren: BooleanInput;
 
-    @Input() activeItemId: string;
-    @Input() autoCollapse: boolean;
-    @Input() item: FuseNavigationItem;
-    @Input() name: string;
-    @Input() skipChildren: boolean;
+    activeItemId = input<string>();
+    autoCollapse = input<boolean>();
+    item = input<FuseNavigationItem>();
+    name = input<string>();
+    skipChildren = input<boolean>();
 
     active: boolean = false;
     private _fuseVerticalNavigationComponent: FuseVerticalNavigationComponent;
@@ -88,7 +86,7 @@ export class FuseVerticalNavigationAsideItemComponent implements OnChanges, OnIn
             });
 
         // Get the parent navigation component
-        this._fuseVerticalNavigationComponent = this._fuseNavigationService.getComponent(this.name);
+        this._fuseVerticalNavigationComponent = this._fuseNavigationService.getComponent(this.name());
 
         // Subscribe to onRefreshed on the navigation component
         this._fuseVerticalNavigationComponent.onRefreshed.pipe(
@@ -165,11 +163,11 @@ export class FuseVerticalNavigationAsideItemComponent implements OnChanges, OnIn
     private _markIfActive(currentUrl: string): void
     {
         // Check if the activeItemId is equals to this item id
-        this.active = this.activeItemId === this.item.id;
+        this.active = this.activeItemId() === this.item().id;
 
         // If the aside has a children that is active,
         // always mark it as active
-        if ( this._hasActiveChild(this.item, currentUrl) )
+        if ( this._hasActiveChild(this.item(), currentUrl) )
         {
             this.active = true;
         }

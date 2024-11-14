@@ -1,27 +1,26 @@
 import {
-    ChangeDetectorRef,
-    Component,
-    ElementRef,
-    EventEmitter,
-    forwardRef,
-    HostBinding,
-    Input,
-    OnDestroy,
-    OnInit,
-    Output,
-    Renderer2,
-    TemplateRef,
-    ViewChild,
-    ViewContainerRef,
-    ViewEncapsulation
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  EventEmitter,
+  forwardRef,
+  HostBinding,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+  Renderer2,
+  TemplateRef,
+  ViewChild,
+  ViewContainerRef,
+  ViewEncapsulation
 } from '@angular/core';
-import { ControlValueAccessor, UntypedFormControl, NG_VALUE_ACCESSOR, Validators } from '@angular/forms';
-import { Overlay } from '@angular/cdk/overlay';
-import { TemplatePortal } from '@angular/cdk/portal';
-import { MatCalendarCellCssClasses, MatMonthView } from '@angular/material/datepicker';
-import { Subject } from 'rxjs';
-import moment from 'moment';
-import { Moment } from 'moment';
+import {ControlValueAccessor, NG_VALUE_ACCESSOR, UntypedFormControl, Validators} from '@angular/forms';
+import {Overlay} from '@angular/cdk/overlay';
+import {TemplatePortal} from '@angular/cdk/portal';
+import {MatCalendarCellCssClasses, MatMonthView} from '@angular/material/datepicker';
+import {Subject} from 'rxjs';
+import moment, {Moment} from 'moment';
 
 @Component({
     selector     : 'fuse-date-range',

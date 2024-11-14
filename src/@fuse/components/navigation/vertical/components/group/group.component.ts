@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit, input } from '@angular/core';
 import { BooleanInput } from '@angular/cdk/coercion';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -16,9 +16,9 @@ export class FuseVerticalNavigationGroupItemComponent implements OnInit, OnDestr
 {
     static ngAcceptInputType_autoCollapse: BooleanInput;
 
-    @Input() autoCollapse: boolean;
-    @Input() item: FuseNavigationItem;
-    @Input() name: string;
+    autoCollapse = input<boolean>();
+    item = input<FuseNavigationItem>();
+    name = input<string>();
 
     private _fuseVerticalNavigationComponent: FuseVerticalNavigationComponent;
     private _unsubscribeAll: Subject<any> = new Subject<any>();
@@ -43,7 +43,7 @@ export class FuseVerticalNavigationGroupItemComponent implements OnInit, OnDestr
     ngOnInit(): void
     {
         // Get the parent navigation component
-        this._fuseVerticalNavigationComponent = this._fuseNavigationService.getComponent(this.name);
+        this._fuseVerticalNavigationComponent = this._fuseNavigationService.getComponent(this.name());
 
         // Subscribe to onRefreshed on the navigation component
         this._fuseVerticalNavigationComponent.onRefreshed.pipe(

@@ -1,16 +1,15 @@
 import {
-    ChangeDetectionStrategy,
-    ChangeDetectorRef,
-    Component,
-    Input,
-    OnChanges,
-    OnDestroy,
-    OnInit,
-    SimpleChanges,
-    TemplateRef,
-    ViewChild,
-    ViewContainerRef,
-    ViewEncapsulation
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  OnChanges,
+  OnDestroy,
+  OnInit,
+  SimpleChanges,
+  TemplateRef,
+  ViewChild,
+  ViewContainerRef,
+  ViewEncapsulation, input, model
 } from '@angular/core';
 import {Overlay, OverlayRef} from '@angular/cdk/overlay';
 import {TemplatePortal} from '@angular/cdk/portal';
@@ -29,7 +28,7 @@ import {NotificationsService} from '@ui/layout/common/notifications/notification
 })
 export class NotificationsComponent implements OnChanges, OnInit, OnDestroy
 {
-    @Input() notifications: Notification[];
+    notifications = model<Notification[]>();
     @ViewChild('notificationsOrigin') private _notificationsOrigin: MatButton;
     @ViewChild('notificationsPanel') private _notificationsPanel: TemplateRef<any>;
 
@@ -79,7 +78,7 @@ export class NotificationsComponent implements OnChanges, OnInit, OnDestroy
             .subscribe((notifications: Notification[]) => {
 
                 // Load the notifications
-                this.notifications = notifications;
+                this.notifications.set(notifications);
 
                 // Calculate the unread count
                 this._calculateUnreadCount();
@@ -229,9 +228,9 @@ export class NotificationsComponent implements OnChanges, OnInit, OnDestroy
     {
         let count = 0;
 
-        if ( this.notifications && this.notifications.length )
+        if ( this.notifications() && this.notifications().length )
         {
-            count = this.notifications.filter(notification => !notification.read).length;
+            count = this.notifications().filter(notification => !notification.read).length;
         }
 
         this.unreadCount = count;

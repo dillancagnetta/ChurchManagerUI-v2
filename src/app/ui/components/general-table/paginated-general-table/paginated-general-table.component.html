@@ -1,4 +1,4 @@
-<pre *ngIf="debug">
+<pre *ngIf="debug()">
     selection.hasValue(): {{ selection.hasValue() }} |  isAllSelected(): {{ isAllSelected() }}
   |  docsOnThisPage: {{ resultsOnThisPage.length }} |  selected: {{ selection.selected.length }}
 </pre>
@@ -8,9 +8,9 @@
 
 <!-- Actions Toolbar -->
 <div class="flex flex-row justify-between items-center">
-  <div *ngIf="filter">
+  <div *ngIf="filter()">
     <mat-form-field class="w-100">
-      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="{{filterPlaceholder}}">
+      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="{{filterPlaceholder()}}">
       <button
         mat-icon-button
         matPrefix>
@@ -24,7 +24,7 @@
   <!-- Actions -->
   @if (hasTableToolbar) {
     <div class="p-2 md:p-2 space-x-2">
-      @for (t of toolbar; track t.action) {
+      @for (t of toolbar(); track t.action) {
         <button
           mat-mini-fab [color]="t.color ?? 'primary'"
           [matTooltip]="t.tooltip"
@@ -68,13 +68,13 @@
   </ng-container>
 
   <!-- Columns -->
-  <ng-container *ngFor="let column of columns" matColumnDef="{{column.columnDef}}">
+  <ng-container *ngFor="let column of columns()" matColumnDef="{{column.columnDef}}">
     <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ column.header }}</th>
     <td mat-cell *matCellDef="let row">{{ column.cell(row) }}</td>
   </ng-container>
 
   <!-- Buttons Column -->
-  <ng-container *ngIf="buttons && buttons.length > 0" matColumnDef="actions">
+  <ng-container *ngIf="buttons() && buttons().length > 0" matColumnDef="actions">
     <th mat-header-cell *matHeaderCellDef></th>
     <td mat-cell *matCellDef="let row">
       <div class="flex items-center">
@@ -84,7 +84,7 @@
         </button>
 
         <mat-menu #moreMenu="matMenu">
-          <div *ngFor="let button of buttons">
+          <div *ngFor="let button of buttons()">
             <button mat-menu-item (click)="this.buttonClick.emit([button.action, button.payload(row)])"
                     disabled="{{button.disabled}}">
               <mat-icon>{{ button.icon }}</mat-icon>
@@ -98,23 +98,23 @@
   </ng-container>
 
   <!-- Disclaimer column - with nullable approach -->
-  <ng-container matColumnDef="disclaimer" *ngIf="footer">
+  <ng-container matColumnDef="disclaimer" *ngIf="footer()">
     <td mat-footer-cell *matFooterCellDef colspan="100%">
-      <strong>{{ footer }}</strong>
+      <strong>{{ footer() }}</strong>
     </td>
   </ng-container>
 
   <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
-  <ng-container *ngIf="drawerEnabled">
+  <ng-container *ngIf="drawerEnabled()">
     <tr mat-row [ngClass]="'cursor-pointer'" *matRowDef="let row; columns: displayedColumns;"
         [@fadeIn]="true"
         (click)="this.buttonClick.emit(['drawer', row.id])"></tr>
   </ng-container>
-  <ng-container *ngIf="!drawerEnabled">
+  <ng-container *ngIf="!drawerEnabled()">
     <tr mat-row *matRowDef="let row; columns: displayedColumns;" [@fadeIn]="true"></tr>
   </ng-container>
 
-  <ng-container *ngIf="footer"> <!-- Make footer nullable -->
+  <ng-container *ngIf="footer()"> <!-- Make footer nullable -->
     <tr mat-footer-row *matFooterRowDef="['disclaimer']" class="example-second-footer-row"></tr>
   </ng-container>
 </table>
@@ -122,14 +122,14 @@
 
 <mat-paginator
   class="flex justify-end"
-  [pageSizeOptions]="pagination"
+  [pageSizeOptions]="pagination()"
   [length]="page.totalResults"
-  [pageSize]="pageSize"
+  [pageSize]="pageSize()"
   [pageIndex]="0"
   (page)="fetch($event.pageIndex)">
 </mat-paginator>
 
-<div *ngIf="debug">
+<div *ngIf="debug()">
   <button
     mat-raised-button
     (click)="logSelection()">Console Log Selected

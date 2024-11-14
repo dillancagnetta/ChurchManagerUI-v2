@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, OnInit, Output, ViewChild, ViewEncapsulation, input } from '@angular/core';
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
 import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 
@@ -12,7 +12,7 @@ export class ScrumboardBoardAddCardComponent implements OnInit
 {
     @ViewChild('titleInput') titleInput: ElementRef;
     @ViewChild('titleAutosize') titleAutosize: CdkTextareaAutosize;
-    @Input() buttonTitle: string = 'Add a card';
+    buttonTitle = input<string>('Add a card');
     @Output() readonly saved: EventEmitter<string> = new EventEmitter<string>();
 
     form: UntypedFormGroup;

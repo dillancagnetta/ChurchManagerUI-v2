@@ -1,4 +1,4 @@
-import { Directive, Input, OnInit, TemplateRef, ViewContainerRef } from '@angular/core';
+import { Directive, OnInit, TemplateRef, ViewContainerRef, input } from '@angular/core';
 import { AuthService } from '@core/auth/auth.service';
 
 @Directive({
@@ -8,7 +8,7 @@ import { AuthService } from '@core/auth/auth.service';
 export class UserRolesDirective implements OnInit
 {
     /* eslint-disable */
-    @Input('userRoles') allowedRoles: string[] = [];
+    allowedRoles = input<string[]>([], { alias: 'userRoles' });
 
     /**
      * Constructor
@@ -32,8 +32,8 @@ export class UserRolesDirective implements OnInit
     ngOnInit(): void
     {
         this._viewContainer.clear();
-        console.log('this.allowedRoles', this.allowedRoles);
-        if (this._auth.hasRoles(this.allowedRoles)) {
+        console.log('this.allowedRoles', this.allowedRoles());
+        if (this._auth.hasRoles(this.allowedRoles())) {
             this._viewContainer.createEmbeddedView(this._templateRef);
         }
     }

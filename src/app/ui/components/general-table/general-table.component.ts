@@ -1,4 +1,4 @@
-import {Component, EventEmitter, input, Input, OnChanges, Output, SimpleChanges, ViewChild} from '@angular/core';
+import {Component, EventEmitter, input, OnChanges, Output, SimpleChanges, ViewChild} from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -15,20 +15,20 @@ import { fuseAnimations } from '@fuse/animations';
   animations   : fuseAnimations
 })
 export class GeneralTableComponent implements OnChanges {
-  @Input() columns: TableColumn[] = [];
-  @Input() buttons: TableBtn[] = [];
-  @Input() toolbar: TableToolbar[] = [];
-  @Input() data: any[] = [];
-  @Input() selectable: boolean = false;
-  @Input() showLoader: boolean = false;
+  columns = input<TableColumn[]>([]);
+  buttons = input<TableBtn[]>([]);
+  toolbar = input<TableToolbar[]>([]);
+  data = input<any[]>([]);
+  selectable = input<boolean>(false);
+  showLoader = input<boolean>(false);
   isLoading= input<boolean>(false)
-  @Input() filter: boolean = false;
-  @Input() filterPlaceholder: string = 'Filter';
-  @Input() title: string = null;
-  @Input() footer: string = null;
-  @Input() pagination: number[] = [];
-  @Input() pageSize: number;
-  @Input() tableMinWidth: number = 500;
+  filter = input<boolean>(false);
+  filterPlaceholder = input<string>('Filter');
+  title = input<string>(null);
+  footer = input<string>(null);
+  pagination = input<number[]>([]);
+  pageSize = input<number>();
+  tableMinWidth = input<number>(500);
   @Output() filteredData = new EventEmitter<any[]>();
   @Output() buttonClick = new EventEmitter<string[]>();
 
@@ -39,14 +39,14 @@ export class GeneralTableComponent implements OnChanges {
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (this.data){
+    if (this.data()){
       if(changes.data){
-        this.dataSource =  new MatTableDataSource(this.data);
+        this.dataSource =  new MatTableDataSource(this.data()!);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
-        this.displayedColumns = [...this.columns.map(c => c.columnDef)];
-        if (this.buttons && this.buttons.length > 0 ) this.displayedColumns = [...this.displayedColumns, 'actions'];
-        if (this.selectable) this.displayedColumns = ['select', ...this.displayedColumns];
+        this.displayedColumns = [...this.columns().map(c => c.columnDef)];
+        if (this.buttons() && this.buttons().length > 0 ) this.displayedColumns = [...this.displayedColumns, 'actions'];
+        if (this.selectable()) this.displayedColumns = ['select', ...this.displayedColumns];
       }
     }
   }
@@ -63,7 +63,7 @@ export class GeneralTableComponent implements OnChanges {
   }
 
   get hasTableToolbar(): boolean {
-    return this.toolbar && this.toolbar.length > 0;
+    return this.toolbar() && this.toolbar().length > 0;
   }
 }
 

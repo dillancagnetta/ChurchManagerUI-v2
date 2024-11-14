@@ -1,4 +1,4 @@
-import { Component, forwardRef, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, forwardRef, Input, OnDestroy, OnInit, input } from '@angular/core';
 import {
     AbstractControl,
     ControlValueAccessor,
@@ -35,11 +35,11 @@ import { containsIdValidation, isAutocompleteOption } from '@shared/validators/c
 })
 export class PersonAutocompleteControl implements ControlValueAccessor, OnInit, OnDestroy, Validator
 {
-    @Input() appearance: string = 'outline';
-    @Input() label;
-    @Input() debounce: number = 300;
-    @Input() minLength: number = 2;
-    @Input() debug = true;
+    appearance = input<string>('outline');
+    label = input();
+    debounce = input<number>(300);
+    minLength = input<number>(2);
+    debug = input(true);
 
     /**
      * required
@@ -160,12 +160,12 @@ export class PersonAutocompleteControl implements ControlValueAccessor, OnInit, 
                 tap((value) => {
                     this._updateValueAndValidity( value );
                 }),
-                filter((value: string) => value && value.length >= this.minLength),
+                filter((value: string) => value && value.length >= this.minLength()),
                 tap((value) => {
                     this.isSearching = true;
                     this.noResults = false; // reset
                 }),
-                debounceTime(this.debounce),
+                debounceTime(this.debounce()),
                 switchMap((value: string) => this._search.lookup(value)
                     .pipe(
                         tap(results => {

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, OnChanges, SimpleChanges, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnChanges, SimpleChanges, ViewChild, input } from '@angular/core';
 import { WebdatarocksComponent } from '@shared/webdatarocks/webdatarocks.component';
 import * as WebDataRocks from 'webdatarocks';
 import * as Highcharts from 'highcharts';
@@ -10,8 +10,8 @@ import * as Highcharts from 'highcharts';
 } )
 export class ReportGridComponent implements OnChanges {
 
-    @Input() isLoading = false;
-    @Input() report:  WebDataRocks.Report;
+    isLoading = input(false);
+    report = input<WebDataRocks.Report>();
 
     @ViewChild( 'pivot1' ) pivot: WebdatarocksComponent;
 
@@ -84,5 +84,4 @@ export class ReportGridComponent implements OnChanges {
             Highcharts.chart('highchartsContainer', data);
         } );
     }
-
 }

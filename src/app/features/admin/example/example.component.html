@@ -4,7 +4,7 @@
     <div class="flex-auto p-6 sm:p-10">
 
         <!-- CONTENT GOES HERE -->
-        <div class="h-400 min-h-400 max-h-400 border-2 border-dashed border-gray-300 rounded-2xl">
+        <div class="h-800 min-h-800 max-h-800 border-2 border-dashed border-gray-300 rounded-2xl">
 
 
             <report-date-picker-control></report-date-picker-control>
@@ -58,6 +58,110 @@
             <div class="mt-8 w-80">
                 <person-autocomplete-control ></person-autocomplete-control>
             </div>
+
+          <hr />
+
+          <!--CARDS-->
+          <div class="flex gap-5">
+            <fuse-card class="filter-article flex w-full max-w-80 flex-col">
+              <img
+                class="object-cover"
+                src="assets/images/backgrounds/mountain.jpg"
+                alt="Card cover image"
+              />
+              <div class="m-8">
+                <div class="text-2xl font-semibold leading-tight">
+                  Rocky mountain tops
+                </div>
+                <div class="text-secondary mt-1 text-md">
+                  Updated with 20 new locations
+                </div>
+                <div class="mt-4">
+                  From rocky mountains to crystal clear lakes, there are
+                  the places you must see and enjoy.
+                </div>
+              </div>
+            </fuse-card>
+
+
+            <!-- Card #3 - Flippable card -->
+            <fuse-card
+              class="filter-article filter-interactive flex w-full max-w-80 flex-col"
+              [flippable]="true"
+              [face]="'front'"
+              #flippableCard01="fuseCard"
+            >
+              <ng-container fuseCardFront>
+                <img
+                  class="object-cover"
+                  src="assets/images/backgrounds/cape-town-1.jpg"
+                  alt="Card cover image"
+                />
+                <div class="m-8 mb-4">
+                  <div class="text-2xl font-semibold leading-tight">
+                    Most beautiful and quite places to see
+                  </div>
+                  <div class="mt-4">
+                    From rocky mountains to crystal clear lakes, there
+                    are the places you must see and enjoy.
+                  </div>
+                  <div class="-mx-3 mt-3">
+                    <button
+                      class="px-3"
+                      mat-button
+                      [color]="'primary'"
+                      (click)="
+                            flippableCard01.face.set(flippableCard01.face() === 'front'
+                                    ? 'back'
+                                    : 'front')
+                                "
+                    >
+                      Read More
+                    </button>
+                  </div>
+                </div>
+              </ng-container>
+              <ng-container fuseCardBack>
+                <div class="m-4 flex flex-auto flex-col">
+                  <button
+                    class="ml-1.5"
+                    mat-icon-button
+                    (click)="
+                            flippableCard01.face.set(flippableCard01.face() === 'front'
+                                    ? 'back'
+                                    : 'front')
+                            "
+                  >
+                    <mat-icon
+                      [svgIcon]="'heroicons_outline:arrow-long-left'"
+                    ></mat-icon>
+                  </button>
+                  <div class="m-4 mt-3">
+                    <div class="text-2xl font-semibold leading-tight">
+                      Most beautiful and quite places to see
+                    </div>
+                    <div class="mt-4">
+                      From rocky mountains to crystal clear lakes,
+                      these are the places you must see and enjoy. You
+                      can bring your own food and have a little picnic
+                      on top of the amazing grasslands.
+                    </div>
+                    <div class="mt-4">
+                      From rocky mountains to crystal clear lakes,
+                      these are the places you must see and enjoy. You
+                      can bring your own food and have a little picnic
+                      on top of the amazing grasslands.
+                    </div>
+                  </div>
+                </div>
+              </ng-container>
+            </fuse-card>
+
+          </div>
+
+
+
+
 
         </div>
 

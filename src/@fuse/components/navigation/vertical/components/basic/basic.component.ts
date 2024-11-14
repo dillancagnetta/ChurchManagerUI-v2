@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit, input } from '@angular/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { FuseVerticalNavigationComponent } from '@fuse/components/navigation/vertical/vertical.component';
@@ -14,8 +14,8 @@ import { FuseUtilsService } from '@fuse/services/utils/utils.service';
 })
 export class FuseVerticalNavigationBasicItemComponent implements OnInit, OnDestroy
 {
-    @Input() item: FuseNavigationItem;
-    @Input() name: string;
+    item = input<FuseNavigationItem>();
+    name = input<string>();
 
     private _fuseVerticalNavigationComponent: FuseVerticalNavigationComponent;
     private _unsubscribeAll: Subject<any> = new Subject<any>();
@@ -41,7 +41,7 @@ export class FuseVerticalNavigationBasicItemComponent implements OnInit, OnDestr
     ngOnInit(): void
     {
         // Get the parent navigation component
-        this._fuseVerticalNavigationComponent = this._fuseNavigationService.getComponent(this.name);
+        this._fuseVerticalNavigationComponent = this._fuseNavigationService.getComponent(this.name());
 
         // Subscribe to onRefreshed on the navigation component
         this._fuseVerticalNavigationComponent.onRefreshed.pipe(

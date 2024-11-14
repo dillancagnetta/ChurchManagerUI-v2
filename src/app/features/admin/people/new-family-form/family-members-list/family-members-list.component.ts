@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, OnChanges, SimpleChanges, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnChanges, SimpleChanges, ViewEncapsulation, input } from '@angular/core';
 import { FamilyMember } from '../person-form/person-form.model';
 import { MatTableDataSource } from '@angular/material/table';
 
@@ -14,7 +14,7 @@ import { MatTableDataSource } from '@angular/material/table';
 })
 export class FamilyMembersListComponent implements OnChanges
 {
-    @Input() familyMembers: FamilyMember[] = [];
+    familyMembers = input<FamilyMember[]>([]);
 
     displayedColumns: string[] = ['firstName', 'lastName', 'gender', 'ageClassification'];
     dataSource: MatTableDataSource<FamilyMember> = new MatTableDataSource([]);

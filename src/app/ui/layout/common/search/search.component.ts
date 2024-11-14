@@ -5,7 +5,6 @@ import {
   EventEmitter,
   HostBinding,
   Inject,
-  Input,
   OnChanges,
   OnDestroy,
   OnInit,
@@ -14,8 +13,7 @@ import {
   signal,
   SimpleChanges,
   ViewChild,
-  ViewEncapsulation
-} from '@angular/core';
+  ViewEncapsulation, input } from '@angular/core';
 import {UntypedFormControl} from '@angular/forms';
 import {HttpClient} from '@angular/common/http';
 import {of, Subject} from 'rxjs';
@@ -39,9 +37,9 @@ import {Router} from "@angular/router";
 })
 export class SearchComponent implements OnChanges, OnInit, OnDestroy
 {
-    @Input() appearance: 'basic' | 'bar' = 'basic';
-    @Input() debounce: number = 300;
-    @Input() minLength: number = 2;
+    appearance = input<'basic' | 'bar'>('basic');
+    debounce = input<number>(300);
+    minLength = input<number>(2);
     @Output() search: EventEmitter<any> = new EventEmitter<any>();
 
     opened: boolean = false;
@@ -80,8 +78,8 @@ export class SearchComponent implements OnChanges, OnInit, OnDestroy
     @HostBinding('class') get classList(): any
     {
         return {
-            'search-appearance-bar'  : this.appearance === 'bar',
-            'search-appearance-basic': this.appearance === 'basic',
+            'search-appearance-bar'  : this.appearance() === 'bar',
+            'search-appearance-basic': this.appearance() === 'basic',
             'search-opened'          : this.opened
         };
     }
@@ -135,14 +133,14 @@ export class SearchComponent implements OnChanges, OnInit, OnDestroy
         // Subscribe to the search field value changes
         this.searchControl.valueChanges
             .pipe(
-                debounceTime(this.debounce),
+                debounceTime(this.debounce()),
                 takeUntil(this._unsubscribeAll),
                 map((value) => {
 
                     // Set the search results to null if there is no value or
                     // the length of the value is smaller than the minLength
                     // so the autocomplete panel can be closed
-                    if ( !value || value.length < this.minLength )
+                    if ( !value || value.length < this.minLength() )
                     {
                         this.results = null;
                     }
@@ -153,7 +151,7 @@ export class SearchComponent implements OnChanges, OnInit, OnDestroy
                 filter((value) => {
                     // Filter out undefined/null/false statements and also
                     // filter out the values that are smaller than minLength
-                    return value && value.length >= this.minLength;
+                    return value && value.length >= this.minLength();
                 }),
                 tap(() => this.isSearching = true),
                 // use switch map so as to cancel previous subscribed events, before creating new once
@@ -194,7 +192,7 @@ export class SearchComponent implements OnChanges, OnInit, OnDestroy
     {
         // Listen for escape to close the search
         // if the appearance is 'bar'
-        if ( this.appearance === 'bar' )
+        if ( this.appearance() === 'bar' )
         {
             // Escape
             if ( event.code === 'Escape' )

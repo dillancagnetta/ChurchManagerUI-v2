@@ -3,10 +3,8 @@ import {
     ChangeDetectorRef,
     Component,
     HostBinding,
-    Input,
     OnDestroy,
-    OnInit
-} from '@angular/core';
+    OnInit, input } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { BooleanInput } from '@angular/cdk/coercion';
 import { Subject } from 'rxjs';
@@ -27,9 +25,9 @@ export class FuseVerticalNavigationCollapsableItemComponent implements OnInit, O
 {
     static ngAcceptInputType_autoCollapse: BooleanInput;
 
-    @Input() autoCollapse: boolean;
-    @Input() item: FuseNavigationItem;
-    @Input() name: string;
+    autoCollapse = input<boolean>();
+    item = input<FuseNavigationItem>();
+    name = input<string>();
 
     isCollapsed: boolean = true;
     isExpanded: boolean = false;
@@ -72,10 +70,10 @@ export class FuseVerticalNavigationCollapsableItemComponent implements OnInit, O
     ngOnInit(): void
     {
         // Get the parent navigation component
-        this._fuseVerticalNavigationComponent = this._fuseNavigationService.getComponent(this.name);
+        this._fuseVerticalNavigationComponent = this._fuseNavigationService.getComponent(this.name());
 
         // If the item has a children that has a matching url with the current url, expand...
-        if ( this._hasActiveChild(this.item, this._router.url) )
+        if ( this._hasActiveChild(this.item(), this._router.url) )
         {
             this.expand();
         }
@@ -83,7 +81,7 @@ export class FuseVerticalNavigationCollapsableItemComponent implements OnInit, O
         else
         {
             // If the autoCollapse is on, collapse...
-            if ( this.autoCollapse )
+            if ( this.autoCollapse() )
             {
                 this.collapse();
             }
@@ -101,14 +99,14 @@ export class FuseVerticalNavigationCollapsableItemComponent implements OnInit, O
                 }
 
                 // Collapse if this is a children of the collapsed item
-                if ( this._isChildrenOf(collapsedItem, this.item) )
+                if ( this._isChildrenOf(collapsedItem, this.item()) )
                 {
                     this.collapse();
                 }
             });
 
         // Listen for the onCollapsableItemExpanded from the service if the autoCollapse is on
-        if ( this.autoCollapse )
+        if ( this.autoCollapse() )
         {
             this._fuseVerticalNavigationComponent.onCollapsableItemExpanded
                 .pipe(takeUntil(this._unsubscribeAll))
@@ -121,19 +119,19 @@ export class FuseVerticalNavigationCollapsableItemComponent implements OnInit, O
                     }
 
                     // Check if this is a parent of the expanded item
-                    if ( this._isChildrenOf(this.item, expandedItem) )
+                    if ( this._isChildrenOf(this.item(), expandedItem) )
                     {
                         return;
                     }
 
                     // Check if this has a children with a matching url with the current active url
-                    if ( this._hasActiveChild(this.item, this._router.url) )
+                    if ( this._hasActiveChild(this.item(), this._router.url) )
                     {
                         return;
                     }
 
                     // Check if this is the expanded item
-                    if ( this.item === expandedItem )
+                    if ( this.item() === expandedItem )
                     {
                         return;
                     }
@@ -152,7 +150,7 @@ export class FuseVerticalNavigationCollapsableItemComponent implements OnInit, O
             .subscribe((event: NavigationEnd) => {
 
                 // If the item has a children that has a matching url with the current url, expand...
-                if ( this._hasActiveChild(this.item, event.urlAfterRedirects) )
+                if ( this._hasActiveChild(this.item(), event.urlAfterRedirects) )
                 {
                     this.expand();
                 }
@@ -160,7 +158,7 @@ export class FuseVerticalNavigationCollapsableItemComponent implements OnInit, O
                 else
                 {
                     // If the autoCollapse is on, collapse...
-                    if ( this.autoCollapse )
+                    if ( this.autoCollapse() )
                     {
                         this.collapse();
                     }
@@ -275,7 +273,7 @@ export class FuseVerticalNavigationCollapsableItemComponent implements OnInit, O
     collapse(): void
     {
         // Return if the item is disabled
-        if ( this.item.disabled )
+        if ( this.item().disabled )
         {
             return;
         }
@@ -294,7 +292,7 @@ export class FuseVerticalNavigationCollapsableItemComponent implements OnInit, O
         this._changeDetectorRef.markForCheck();
 
         // Execute the observable
-        this._fuseVerticalNavigationComponent.onCollapsableItemCollapsed.next(this.item);
+        this._fuseVerticalNavigationComponent.onCollapsableItemCollapsed.next(this.item());
     }
 
     /**
@@ -303,7 +301,7 @@ export class FuseVerticalNavigationCollapsableItemComponent implements OnInit, O
     expand(): void
     {
         // Return if the item is disabled
-        if ( this.item.disabled )
+        if ( this.item().disabled )
         {
             return;
         }
@@ -322,7 +320,7 @@ export class FuseVerticalNavigationCollapsableItemComponent implements OnInit, O
         this._changeDetectorRef.markForCheck();
 
         // Execute the observable
-        this._fuseVerticalNavigationComponent.onCollapsableItemExpanded.next(this.item);
+        this._fuseVerticalNavigationComponent.onCollapsableItemExpanded.next(this.item());
     }
 
     /**

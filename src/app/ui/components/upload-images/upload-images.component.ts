@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Output, input } from '@angular/core';
 
 @Component({
     selector: 'cm-upload-images',
@@ -7,7 +7,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 })
 export class UploadImagesComponent
 {
-    @Input() multiple = false;
+    multiple = input(false);
     @Output() readonly uploadedFiles = new EventEmitter<FileList>();
 
     selectedFiles?: FileList;

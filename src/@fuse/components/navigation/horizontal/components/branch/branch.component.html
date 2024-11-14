@@ -1,12 +1,12 @@
 <div
-    *ngIf="!child"
+    *ngIf="!child()"
     [ngClass]="{'fuse-horizontal-navigation-menu-active': trigger.menuOpen,
-                 'fuse-horizontal-navigation-menu-active-forced': item.active}"
+                 'fuse-horizontal-navigation-menu-active-forced': item().active}"
     [matMenuTriggerFor]="matMenu"
-    (onMenuOpen)="triggerChangeDetection()"
-    (onMenuClose)="triggerChangeDetection()"
+    (menuOpened)="triggerChangeDetection()"
+    (menuClosed)="triggerChangeDetection()"
     #trigger="matMenuTrigger">
-    <ng-container *ngTemplateOutlet="itemTemplate; context: {$implicit: item}"></ng-container>
+    <ng-container *ngTemplateOutlet="itemTemplate; context: {$implicit: item()}"></ng-container>
 </div>
 
 <mat-menu
@@ -14,7 +14,7 @@
     [overlapTrigger]="false"
     #matMenu="matMenu">
 
-    <ng-container *ngFor="let item of item.children">
+    <ng-container *ngFor="let item of item().children">
 
         <!-- Skip the hidden items -->
         <ng-container *ngIf="(item.hidden && !item.hidden(item)) || !item.hidden">
@@ -27,7 +27,7 @@
                 mat-menu-item>
                 <fuse-horizontal-navigation-basic-item
                     [item]="item"
-                    [name]="name"></fuse-horizontal-navigation-basic-item>
+                    [name]="name()"></fuse-horizontal-navigation-basic-item>
             </div>
 
             <!-- Branch: aside, collapsable, group -->
@@ -41,7 +41,7 @@
                 <fuse-horizontal-navigation-branch-item
                     [child]="true"
                     [item]="item"
-                    [name]="name"
+                    [name]="name()"
                     #branch></fuse-horizontal-navigation-branch-item>
             </div>
 
@@ -52,7 +52,7 @@
                 mat-menu-item>
                 <fuse-horizontal-navigation-divider-item
                     [item]="item"
-                    [name]="name"></fuse-horizontal-navigation-divider-item>
+                    [name]="name()"></fuse-horizontal-navigation-divider-item>
             </div>
 
         </ng-container>
@@ -73,8 +73,8 @@
 
         <div
             class="fuse-horizontal-navigation-item"
-            [ngClass]="{'fuse-horizontal-navigation-item-disabled': item.disabled,
-                         'fuse-horizontal-navigation-item-active-forced': item.active}">
+            [ngClass]="{'fuse-horizontal-navigation-item()-disabled': item.disabled,
+                         'fuse-horizontal-navigation-item()-active-forced': item.active}">
 
             <!-- Icon -->
             <mat-icon

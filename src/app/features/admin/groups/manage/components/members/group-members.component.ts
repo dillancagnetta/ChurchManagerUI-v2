@@ -2,13 +2,11 @@ import {
     ChangeDetectionStrategy,
     Component,
     EventEmitter,
-    Input,
     OnChanges,
     Output,
     SimpleChanges,
     ViewChild,
-    ViewEncapsulation
-} from '@angular/core';
+    ViewEncapsulation, input } from '@angular/core';
 import { GroupMemberForm, GroupMemberSimple, GroupMembersSimple, GroupWithChildren } from '@features/admin/groups';
 import { MatTableDataSource } from '@angular/material/table';
 import { SelectionModel } from '@angular/cdk/collections';
@@ -26,9 +24,9 @@ import { MatPaginator } from '@angular/material/paginator';
 })
 export class GroupMembersComponent implements OnChanges
 {
-    @Input() members: GroupMembersSimple;
-    @Input() group: GroupWithChildren;
-    @Input() isLoading: boolean = false;
+    members = input<GroupMembersSimple>();
+    group = input<GroupWithChildren>();
+    isLoading = input<boolean>(false);
     @Output() memberDeleted = new EventEmitter<{ groupMemberId: number, groupId: number }>();
     @Output() memberAdded = new EventEmitter<GroupMemberForm>();
     @Output() memberUpdated = new EventEmitter<GroupMemberForm>();
@@ -86,7 +84,7 @@ export class GroupMembersComponent implements OnChanges
             panelClass: 'add-group-member-form-dialog',
             data      : {
                 action: 'new',
-                group: this.group
+                group: this.group()
             }
         });
 
@@ -112,7 +110,7 @@ export class GroupMembersComponent implements OnChanges
 
     delete( groupMemberId: number )
     {
-        this.memberDeleted.emit({groupMemberId, groupId: this.group.id});
+        this.memberDeleted.emit({groupMemberId, groupId: this.group().id});
     }
 
     goToRecord(groupMemberId)
@@ -121,7 +119,7 @@ export class GroupMembersComponent implements OnChanges
             panelClass: 'add-group-member-form-dialog',
             data      : {
                 action: 'edit',
-                group: this.group,
+                group: this.group(),
                 groupMemberId
             }
         });
@@ -145,6 +143,4 @@ export class GroupMembersComponent implements OnChanges
         this.dataSource.paginator = this._paginator;
         this.dataSource.sort = this._sort;
     }
-
-
 }

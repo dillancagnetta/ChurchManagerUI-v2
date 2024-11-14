@@ -1,28 +1,41 @@
-/* To learn more about this file see: https://angular.io/config/tsconfig. */
 {
-    "compileOnSave": false,
-    "compilerOptions": {
-        "baseUrl": "./src",
-        "outDir": "./dist/out-tsc",
-        "esModuleInterop": true,
-        "sourceMap": true,
-        "declaration": false,
-        "experimentalDecorators": true,
-        "moduleResolution": "bundler",
-        "importHelpers": true,
-        "target": "ES2022",
-        "module": "ES2022",
-        "useDefineForClassFields": false,
-        "lib": ["ES2022", "dom"],
-        "paths": {
-            "@fuse/*": ["@fuse/*"],
-            "@shared/*": ["@shared/*"],
-            "@core/*": ["@core/*"],
-            "@features/*": ["app/features/*"],
-            "@ui/*": ["app/ui/*"]
-        }
+  "compileOnSave": false,
+  "compilerOptions": {
+    "baseUrl": "./src",
+    "outDir": "./dist/out-tsc",
+    "esModuleInterop": true,
+    "sourceMap": true,
+    "declaration": false,
+    "experimentalDecorators": true,
+    "moduleResolution": "bundler",
+    "importHelpers": true,
+    "target": "ES2022",
+    "module": "ES2022",
+    "useDefineForClassFields": false,
+    "lib": [
+      "ES2022",
+      "dom"
+    ],
+    "paths": {
+      "@core/*": [
+        "@core/*"
+      ],
+      "@features/*": [
+        "app/features/*"
+      ],
+      "@fuse/*": [
+        "@fuse/*"
+      ],
+      "@shared/*": [
+        "@shared/*"
+      ],
+      "@ui/*": [
+        "app/ui/*"
+      ]
     },
-    "angularCompilerOptions": {
-        "enableI18nLegacyMessageIdFormat": false
-    }
+    "skipLibCheck": true
+  },
+  "angularCompilerOptions": {
+    "enableI18nLegacyMessageIdFormat": false
+  }
 }

@@ -6,12 +6,10 @@ import {
     ContentChild,
     EventEmitter,
     Inject,
-    Input,
     OnChanges,
     Output,
     SimpleChanges,
-    ViewChild
-} from '@angular/core';
+    ViewChild, input } from '@angular/core';
 import {  MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import {PAGING_SERVICE, TableBtn, TableColumn, TableQuery, TableToolbar} from '..';
@@ -34,18 +32,18 @@ import { Subject } from 'rxjs';
 } )
 export class PaginatedGeneralTableComponent implements OnChanges, AfterViewInit, AfterContentInit
 {
-    @Input() debug: boolean = false;
+    debug = input<boolean>(false);
 
-    @Input() columns: TableColumn[] = [];
-    @Input() buttons: TableBtn[] = [];
-    @Input() toolbar: TableToolbar[] = [];
-    @Input() selectable: boolean = false;
-    @Input() drawerEnabled: boolean = false;
-    @Input() filter: boolean = false;
-    @Input() filterPlaceholder: string = 'Filter results';
-    @Input() footer: string = null;
-    @Input() pagination: number[] = [];
-    @Input() pageSize: number = 10;
+    columns = input<TableColumn[]>([]);
+    buttons = input<TableBtn[]>([]);
+    toolbar = input<TableToolbar[]>([]);
+    selectable = input<boolean>(false);
+    drawerEnabled = input<boolean>(false);
+    filter = input<boolean>(false);
+    filterPlaceholder = input<string>('Filter results');
+    footer = input<string>(null);
+    pagination = input<number[]>([]);
+    pageSize = input<number>(10);
     @Output() filteredData = new EventEmitter<any[]>();
     @Output() buttonClick = new EventEmitter<string[]>();
 
@@ -82,9 +80,9 @@ export class PaginatedGeneralTableComponent implements OnChanges, AfterViewInit,
     {
         if(changes.columns)
         {
-            this.displayedColumns = [...this.columns.map(c => c.columnDef)];
-            if (this.buttons && this.buttons.length > 0 ) this.displayedColumns = [...this.displayedColumns, 'actions'];
-            if (this.selectable) this.displayedColumns = ['select', ...this.displayedColumns];
+            this.displayedColumns = [...this.columns().map(c => c.columnDef)];
+            if (this.buttons() && this.buttons().length > 0 ) this.displayedColumns = [...this.displayedColumns, 'actions'];
+            if (this.selectable()) this.displayedColumns = ['select', ...this.displayedColumns];
         }
     }
 
@@ -161,7 +159,7 @@ export class PaginatedGeneralTableComponent implements OnChanges, AfterViewInit,
     }
 
     get hasTableToolbar(): boolean {
-      return this.toolbar && this.toolbar.length > 0;
+      return this.toolbar() && this.toolbar().length > 0;
     }
 }
 

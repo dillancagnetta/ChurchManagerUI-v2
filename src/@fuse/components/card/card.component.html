@@ -1,5 +1,5 @@
 <!-- Flippable card -->
-<ng-container *ngIf="flippable">
+<ng-container *ngIf="flippable()">
 
     <!-- Front -->
     <div class="fuse-card-front">
@@ -14,7 +14,7 @@
 </ng-container>
 
 <!-- Normal card -->
-<ng-container *ngIf="!flippable">
+<ng-container *ngIf="!flippable()">
 
     <!-- Content -->
     <ng-content></ng-content>
@@ -22,7 +22,7 @@
     <!-- Expansion -->
     <div
         class="fuse-card-expansion"
-        *ngIf="expanded"
+        *ngIf="expanded()"
         [@expandCollapse]>
         <ng-content select="[fuseCardExpansion]"></ng-content>
     </div>

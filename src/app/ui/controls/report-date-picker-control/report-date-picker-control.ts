@@ -1,4 +1,4 @@
-import { Component, EventEmitter, forwardRef, Input, OnDestroy, Output } from '@angular/core';
+import { Component, EventEmitter, forwardRef, Input, OnDestroy, Output, input } from '@angular/core';
 import { ControlValueAccessor, UntypedFormControl, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { MatSelectChange} from '@angular/material/select';

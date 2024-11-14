@@ -6,8 +6,7 @@ import {
     OnChanges,
     Output,
     SimpleChanges,
-    ViewEncapsulation
-} from '@angular/core';
+    ViewEncapsulation, input } from '@angular/core';
 import { GroupsDataService, GroupWithChildren } from '@features/admin/groups';
 import { FlatTreeControl } from '@angular/cdk/tree';
 import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree';
@@ -33,7 +32,7 @@ export interface FlatNode {
 })
 export class GroupsViewerComponent implements OnChanges
 {
-    @Input() groups: GroupWithChildren[] = [];
+    groups = input<GroupWithChildren[]>([]);
     @Input() set currentSelectedGroup(value: GroupWithChildren) {
         this._currentSelectedGroup = value;
         this.selected = value;
@@ -189,7 +188,7 @@ export class GroupsViewerComponent implements OnChanges
                     foundNode.expandable = true;
                     foundNode.item.groups = children;
                     // Update data source
-                    this.dataSource.data = this.groups;
+                    this.dataSource.data = this.groups();
                     // Expand the tree from the new node
                     this.expandTree(this.treeControl.dataNodes, node.item.id);
                     // Stop loading indicator
