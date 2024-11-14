@@ -68,14 +68,14 @@
 
               @switch (column.columnType) {
                 @case ('checkbox') {
-                  @if (row) {
+                  @if (column.cell(row)) {
                     <mat-icon
                       class="text-green-400 icon-size-5"
                       [svgIcon]="'heroicons_solid:check'"
                       disabled
                     ></mat-icon>
                   }
-                  @if (!row) {
+                  @if (!column.cell(row)) {
                     <mat-icon
                       class="text-gray-400 icon-size-5"
                       [svgIcon]="'heroicons_solid:x-mark'"
@@ -106,7 +106,8 @@
                 <mat-menu #moreMenu="matMenu">
                   <div *ngFor="let button of buttons()">
                     <button mat-menu-item
-                            (click)="this.buttonClick.emit([button.action, button.payload(row)])">
+                            (click)="this.buttonClick.emit([button.action, button.payload(row)])"
+                            [disabled]="button.disabledFn && button.disabledFn(row)">
                       <mat-icon>{{ button.icon }}</mat-icon>
                       <span *ngIf="button.text">{{ button.text }}</span>
                     </button>

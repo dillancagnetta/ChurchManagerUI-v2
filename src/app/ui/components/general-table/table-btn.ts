@@ -4,10 +4,11 @@ import { Observable } from 'rxjs/internal/Observable';
 export interface TableBtn {
   styleClass?: string;
   icon: string;
-  payload: (any) => string;
+  payload: (element: any) => string;
   action: string;
   text?: string;
   disabled?: boolean;
+  disabledFn?: (element: any) => boolean;
 }
 
 export interface TableToolbar extends Omit<TableBtn, 'payload'> {

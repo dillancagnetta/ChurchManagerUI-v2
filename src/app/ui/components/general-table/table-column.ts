@@ -1,6 +1,6 @@
 export interface TableColumn {
   columnDef: string;
   header: string;
-  cell: (any) => string;
+  cell: (any) => any;
   columnType?: 'text' | 'checkbox' | 'icon';
 }
