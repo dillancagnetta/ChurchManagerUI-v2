@@ -10,7 +10,6 @@ import { takeUntil } from 'rxjs/operators';
 @Component( {
     selector: 'missions-add-dialog',
     templateUrl: './missions-create-dialog.component.html',
-    styleUrls: ['./missions-create-dialog.component.scss'],
     encapsulation: ViewEncapsulation.None
 } )
 export class MissionsCreateDialogComponent implements OnInit

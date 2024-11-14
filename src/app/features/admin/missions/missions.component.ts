@@ -29,7 +29,7 @@ export class MissionsComponent
     createMission()
     {
         this.dialogRef = this._matDialog.open(MissionsCreateDialogComponent, {
-            panelClass: 'missions-create-dialog',
+            panelClass: 'panel-dialog',
             data      : {
                 action: FormActions.New,
             }

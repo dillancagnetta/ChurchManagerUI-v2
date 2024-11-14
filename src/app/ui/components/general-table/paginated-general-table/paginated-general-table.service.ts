@@ -2,10 +2,11 @@ import { Injectable } from '@angular/core';
 import { IPaginatedDataSource, PaginatedDataSource } from '@shared/data/paginated.data-source';
 import { PagedResult, PaginatedEndpoint, Sort } from '@shared/data/pagination.models';
 import { Observable } from 'rxjs';
+import {SimpleDataSource} from "@shared/data/simple.data-source";
 
 export interface IPaginatedTableService extends IPaginatedDataSource
 {
-    readonly dataSource: IPaginatedDataSource;
+    readonly dataSource: IPaginatedDataSource & SimpleDataSource<any>;
 }
 
 @Injectable()
