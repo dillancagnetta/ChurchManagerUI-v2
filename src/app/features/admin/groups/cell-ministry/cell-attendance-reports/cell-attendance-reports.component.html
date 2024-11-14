@@ -183,6 +183,10 @@
                                     </button>
 
                                     <mat-menu #moreMenu="matMenu">
+                                      <button mat-menu-item aria-label="view" (click)="goToRecord(record.id)">
+                                        <mat-icon>visibility</mat-icon>
+                                        <span>View</span>
+                                      </button>
                                         <button mat-menu-item aria-label="remove" (click)="delete(record)">
                                             <mat-icon>delete</mat-icon>
                                             <span>Remove</span>
