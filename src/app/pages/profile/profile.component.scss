@@ -9,6 +9,6 @@
 .profile-nav-link {
         /* Active state */
     &.active {
-        @apply font-medium;
+        @apply font-bold;
     }
 }

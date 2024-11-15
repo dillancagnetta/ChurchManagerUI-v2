@@ -19,7 +19,9 @@ import {FuseMockApiModule} from "@fuse/lib/mock-api";
 const routerConfig: ExtraOptions = {
     preloadingStrategy       : PreloadAllModules,
     scrollPositionRestoration: 'enabled',
-    bindToComponentInputs: true
+    bindToComponentInputs: true,
+    // https://timdeschryver.dev/blog/til-paramsinheritancestrategy-to-always-have-access-to-parent-route-info
+    paramsInheritanceStrategy: 'always'
     /* DEBUG ROUTES */
     // enableTracing: true
 };

@@ -50,9 +50,9 @@ export class FollowUpListQueryComponent extends QueryBase<FollowUpQuery> impleme
   {
       // Extract PersonId from parent URL
       // https://ultimatecourses.com/blog/angular-parent-routing-params
-      const personId$: Observable<string> = this._route.parent.params
+      const personId$: Observable<any> = this._route.parent.params
         .pipe(takeUntilDestroyed(this._destroyRef))
-        .pipe(map(({personId})  => personId));
+        .pipe(map((params)  => params));
 
       this.query$  =  this.searchBtnClicked
           .pipe(takeUntilDestroyed(this._destroyRef))
@@ -60,12 +60,11 @@ export class FollowUpListQueryComponent extends QueryBase<FollowUpQuery> impleme
           .pipe(
               filter( () =>  this.searchForm.valid),
               map( ([_, personId]) => {
-
                   const query: FollowUpQuery = cloneDeep(this.searchForm.value);
 
                   if (personId) {
                       query.person = {id: +personId};
-                      console.log('personId', query);
+                      console.log('FollowUpListQuery', query);
                   }
 
                   return query;

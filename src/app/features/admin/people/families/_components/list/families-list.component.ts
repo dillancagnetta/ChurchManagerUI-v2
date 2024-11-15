@@ -67,7 +67,7 @@ export class FamiliesListComponent implements OnInit
         ];
 
         this.buttons = [
-            { icon: 'note_add',    payload: (element: Family) => `${element.id}`, action: 'add', text: 'Add Person', disabled: false },
+            { icon: 'visibility',    payload: (element: Family) => `${element.id}`, action: 'view', text: 'View', disabled: false },
         // { icon: 'build',    payload: (element: Family) => `${element.id}`, action: 'edit', text: 'Edit' },
             { icon: 'delete',    payload: (element: Family) => `${element.id}`, action: 'delete', text: 'Remove', disabled: true },
         ];

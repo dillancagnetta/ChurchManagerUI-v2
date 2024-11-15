@@ -34,7 +34,7 @@ export class FollowUpListComponent implements OnInit {
         ];
 
         this.buttons = [
-            { icon: 'note_add',    payload: (element: FollowUpRecord) => `${element.id}`, action: 'add', text: 'Add' },
+            //{ icon: 'note_add',    payload: (element: FollowUpRecord) => `${element.id}`, action: 'add', text: 'Add' },
             { icon: 'build',    payload: (element: FollowUpRecord) => `${element.id}`, action: 'edit', text: 'Edit' },
             { icon: 'delete',    payload: (element: FollowUpRecord) => `${element.id}`, action: 'delete', text: 'Remove' },
         ];

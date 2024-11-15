@@ -38,14 +38,14 @@
                 <div class="w-full max-w-screen-xl mx-auto">
 
                     <!-- CONTENT -->
-                    <paginated-general-table
-                        [columns]="columns"
-                        [buttons]="buttons"
-                        [debug]="false"
-                        [drawerEnabled]="true"
-                        (buttonClick)="onButtonClicked($event)">
-                        <families-list-query #query></families-list-query>
-                    </paginated-general-table>
+                      <paginated-general-table
+                          [columns]="columns"
+                          [buttons]="buttons"
+                          [debug]="false"
+                          [drawerEnabled]="true"
+                          (buttonClick)="onButtonClicked($event)">
+                          <families-list-query #query></families-list-query>
+                      </paginated-general-table>
 
                 </div>
 
