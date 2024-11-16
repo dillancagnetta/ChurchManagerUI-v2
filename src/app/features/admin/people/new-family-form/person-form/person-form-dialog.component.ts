@@ -8,7 +8,7 @@ import { FormAction, FormActions } from '@shared/shared.models';
 @Component( {
     selector: 'people-person-form-dialog',
     templateUrl: './person-form-dialog.component.html',
-    styleUrls: ['./person-form-dialog.component.scss'],
+    //styleUrls: ['./person-form-dialog.component.scss'],
     encapsulation: ViewEncapsulation.None
 } )
 export class PersonFormDialogComponent
@@ -34,15 +34,16 @@ export class PersonFormDialogComponent
     ) {
         // Set the defaults
         this.action = _data.action;
+        this.familyName = _data['familyName'];
 
         if ( this.action === FormActions.Edit )
         {
-            this.dialogTitle = 'Edit Person';
+            this.dialogTitle = 'Edit Person' + ` (${this.familyName} family)`;
             this.person = _data.person;
         } else
         {
-            this.dialogTitle = 'New Person';
-            this.familyName = _data['familyName'];
+            this.dialogTitle = 'New Person' + ` (${this.familyName} family)`;
+
             this.person = new PersonModel( {} );
 
             // Adding a Person to the Family

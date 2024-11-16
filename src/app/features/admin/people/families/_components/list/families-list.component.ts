@@ -32,7 +32,6 @@ export class FamiliesListComponent implements OnInit
     drawerMode: 'over' | 'side';
 
     // View Variables
-    groupId: number | undefined;
     viewMode: 'all' | 'group' = 'all';
 
     // Table definitions
@@ -67,7 +66,8 @@ export class FamiliesListComponent implements OnInit
         ];
 
         this.buttons = [
-            { icon: 'visibility',    payload: (element: Family) => `${element.id}`, action: 'view', text: 'View', disabled: false },
+          { icon: 'note_add',    payload: (element: Family) => `${element.id}`, action: 'add', text: 'Add Person', disabled: false },
+          { icon: 'visibility',    payload: (element: Family) => `${element.id}`, action: 'view', text: 'View', disabled: false },
         // { icon: 'build',    payload: (element: Family) => `${element.id}`, action: 'edit', text: 'Edit' },
             { icon: 'delete',    payload: (element: Family) => `${element.id}`, action: 'delete', text: 'Remove', disabled: true },
         ];
@@ -75,16 +75,6 @@ export class FamiliesListComponent implements OnInit
 
     ngOnInit(): void
     {
-        // Try extract groupId from query string (can be undefined)
-        const groupIdParam$ = this._activatedRoute.queryParams
-            .pipe(map(({groupId}) => groupId))
-            .pipe(filter(groupId => groupId)); // skips when not present
-
-        // Update controls based on mode
-        groupIdParam$
-            .pipe(takeUntil(this._unsubscribeAll))
-            .subscribe();
-
         // Subscribe to media changes
         this._fuseMediaWatcherService.onMediaChange$
             .pipe(takeUntil(this._unsubscribeAll))
@@ -117,11 +107,7 @@ export class FamiliesListComponent implements OnInit
 
     onBackdropClicked(): void {
         // Go back to the list
-        this._router.navigate(['./'],
-            {
-                relativeTo: this._activatedRoute,
-                queryParams: { groupId: this.groupId }
-            });
+        this._router.navigate(['./'], { relativeTo: this._activatedRoute });
         // Mark for check
         this._changeDetectorRef.markForCheck();
     }
@@ -144,7 +130,7 @@ export class FamiliesListComponent implements OnInit
                 .pipe(
                     switchMap((family: Family)  => {
                         this.dialogRef = this._matDialog.open(PersonFormDialogComponent, {
-                            panelClass: 'person-form-dialog',
+                            panelClass: 'panel-dialog',
                             data      : {
                                 action: 'add_person',
                                 familyName: family.name,
@@ -177,10 +163,7 @@ export class FamiliesListComponent implements OnInit
             const id =  action[1];
             console.log('drawer click', 'id', id);
             // Go to detail
-            this._router.navigate(
-                ['/apps/people/families/list/', id],
-                { queryParams: { groupId: this.groupId } });
-
+            this._router.navigate(['/apps/people/families/list/', id]);
             // Mark for check
             this._changeDetectorRef.markForCheck();
         }

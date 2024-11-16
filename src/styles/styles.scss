@@ -31,10 +31,14 @@ body.light .mat-simple-snackbar-action, body .light .mat-simple-snackbar-action 
 
 
 .form-dialog {
-
-
   .mat-mdc-dialog-surface {
     padding: 20px;
   }
+}
+
+/* Highlight row for tables with 'highlight-hover' class */
+.mat-mdc-table.highlight-hover .mdc-data-table__row:hover {
+  background-color: var(--mat-table-row-item-outline-color) !important;
+  cursor: pointer;
 }
 

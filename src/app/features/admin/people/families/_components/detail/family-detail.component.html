@@ -1,0 +1,106 @@
+<div class="flex flex-col w-full">
+
+  <!-- Header -->
+  <div class="relative w-full h-40 sm:h-48 px-8 sm:px-12 bg-accent-100 dark:bg-accent-700">
+    <!-- Background -->
+    <ng-container>
+      <img
+        class="absolute inset-0 object-cover w-full h-full"
+        src="/assets/images/backgrounds/cape-town-4.jpg">
+    </ng-container>
+
+
+
+    <!-- Close button -->
+    <div class="flex items-center justify-end w-full max-w-3xl mx-auto pt-6">
+      <button
+        mat-icon-button
+        [matTooltip]="'Close'"
+        [routerLink]="['../']"
+        queryParamsHandling="preserve">
+        <mat-icon
+          class="text-white"
+          [svgIcon]="'heroicons_outline:x'"></mat-icon>
+      </button>
+    </div>
+  </div>
+
+  <!-- Main -->
+  <div class="relative flex flex-col flex-auto items-center p-6 pt-0 sm:p-12 sm:pt-0">
+    <div class="w-full max-w-3xl">
+      <!-- Name -->
+      <div class="mt-3 text-4xl font-bold truncate">{{$familyRecord()?.name}}</div>
+
+      <hr class="my-6 w-full border-t" />
+
+      <!--Family Info-->
+      <div class="flex flex-col">
+        <div class="text-2xl font-semibold leading-tight  pb-5">
+          Family Information
+        </div>
+        <div class="flex items-center">
+          <mat-icon
+            class="mr-3 icon-size-5"
+            [svgIcon]="'heroicons_solid:map-pin'"
+          ></mat-icon>
+          <span class="leading-none">{{$familyRecord()?.country}}, {{$familyRecord()?.city}}</span>
+        </div>
+        <div class="mt-4 flex items-center">
+          <mat-icon
+            class="mr-3 icon-size-5"
+            [svgIcon]="'heroicons_solid:language'"
+          ></mat-icon>
+          <span class="leading-none">{{$familyRecord()?.language}}</span>
+        </div>
+      </div>
+
+      <!--Family Members-->
+      @if($familyRecord().familyMembers?.length > 0) {
+        <div class="flex items-center justify-between pt-5">
+          <div class="text-2xl font-semibold leading-tight">
+            Family Members
+          </div>
+        </div>
+        <div class="mt-5 flex flex-col">
+            @for (person of $familyRecord().familyMembers; track person.personId) {
+              <div class="flex items-center m-2 cursor-pointer hover:bg-hover">
+                <img
+                  class="mr-4 h-14 w-14 rounded-full"
+                  [src]="person.photoUrl || 'assets/images/avatars/profile-blank.jpg'"
+                  alt="Family Member"
+                />
+                <div class="flex min-w-0 flex-col">
+                  <div class="font-medium leading-none">
+                    {{person.firstName}} {{person.lastName}}
+                  </div>
+                  <div
+                    class="text-secondary mt-1 text-md leading-none"
+                  >
+                    {{person.ageClassification}},
+                    {{person.gender}},
+                    {{person.age}} yrs
+                  </div>
+                </div>
+              </div>
+            }
+
+        </div>
+        <div class="-mx-3 mt-6 flex items-center">
+          <a
+            class="px-3"
+            mat-button
+            [color]="'primary'"
+            [routerLink]="['./']"
+          >
+            See all suggestions
+          </a>
+        </div>
+      }
+
+
+
+    </div>
+  </div>
+
+
+</div>

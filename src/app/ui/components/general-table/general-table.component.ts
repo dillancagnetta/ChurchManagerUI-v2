@@ -22,6 +22,7 @@ export class GeneralTableComponent implements OnChanges {
   selectable = input<boolean>(false);
   showLoader = input<boolean>(false);
   isLoading= input<boolean>(false)
+  drawerEnabled = input<boolean>(false);
   filter = input<boolean>(false);
   filterPlaceholder = input<string>('Filter');
   title = input<string>(null);

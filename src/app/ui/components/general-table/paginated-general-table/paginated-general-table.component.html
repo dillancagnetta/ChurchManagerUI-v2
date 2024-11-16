@@ -9,14 +9,14 @@
 <!-- Actions Toolbar -->
 <div class="flex flex-row justify-between items-center">
   <div *ngIf="filter()">
-    <mat-form-field class="w-100">
+    <mat-form-field class="w-100 fuse-mat-dense fuse-mat-rounded">
       <input matInput (keyup)="applyFilter($event.target.value)" placeholder="{{filterPlaceholder()}}">
       <button
         mat-icon-button
         matPrefix>
         <mat-icon
           class="icon-size-5"
-          [svgIcon]="'heroicons_solid:filter'"></mat-icon>
+          [svgIcon]="'heroicons_solid:search'"></mat-icon>
       </button>
     </mat-form-field>
   </div>
@@ -44,6 +44,7 @@
 
 <!-- Table -->
 <table class="w-full"
+       [ngClass]="{ 'highlight-hover': drawerEnabled() }"
        mat-table
        matSort
        [dataSource]="service.dataSource"
@@ -132,7 +133,7 @@
 
   <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
   <ng-container *ngIf="drawerEnabled()">
-    <tr mat-row [ngClass]="'cursor-pointer'" *matRowDef="let row; columns: displayedColumns;"
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"
         [@fadeIn]="true"
         (click)="this.buttonClick.emit(['drawer', row.id])"></tr>
   </ng-container>

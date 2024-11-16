@@ -54,8 +54,8 @@ export class FamiliesDataService extends HttpBaseService {
     /**
      * Get family
      */
-    getFamilyById$(familyId: number) {
-        return super.get<ApiResponse>(`${this._apiUrl}/v1/families/${familyId}`, null)
+    getFamilyById$(familyId: number, includePeople = false) {
+        return super.get<ApiResponse>(`${this._apiUrl}/v1/families/${familyId}?includePeople=${includePeople}`, null)
             .pipe(
                 map(response => response.data)
             );

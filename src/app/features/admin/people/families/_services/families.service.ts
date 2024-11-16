@@ -1,20 +1,20 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { FamiliesDataService } from '@features/admin/people/families';
+import {FamiliesDataService, Family} from '@features/admin/people/families';
 
 @Injectable()
 export class FamiliesService
 {
     private _families: BehaviorSubject<any[]> = new BehaviorSubject([]);
-    private _family: BehaviorSubject<any> = new BehaviorSubject(null);
+    private _family: BehaviorSubject<Family> = new BehaviorSubject(null);
 
     // -----------------------------------------------------------------------------------------------------
     // @ Accessors
     // -----------------------------------------------------------------------------------------------------
 
     /**
-     * Getter for missions
+     * Getter for families
      */
     get families$(): Observable<any[]>
     {
@@ -22,9 +22,9 @@ export class FamiliesService
     }
 
     /**
-     * Getter for mission
+     * Getter for family
      */
-    get family$(): Observable<any>
+    get family$(): Observable<Family>
     {
         return this._family.asObservable();
     }
@@ -40,8 +40,8 @@ export class FamiliesService
     /**
      * Get family by id
      */
-    getById$(missionId: number) {
-        return this._data.getFamilyById$(missionId)
+    getById$(familyId: number, includePeople = false): Observable<Family> {
+        return this._data.getFamilyById$(familyId, includePeople)
             .pipe(
                 tap(family => this._family.next(family))
             );

@@ -15,7 +15,7 @@ export const familiesRoutes: Route[] = [
                 component    : FamilyDetailComponent, // Drawer component
                 canDeactivate: [CanDeactivateFamilyDetail],
                 resolve: {
-                    mission: FamilyResolver
+                    family: FamilyResolver
                 }
             }
         ]

@@ -2,14 +2,14 @@
 <!-- Actions Toolbar -->
 <div class="flex flex-row justify-between items-center">
   <div  *ngIf="filter()">
-    <mat-form-field class="w-100">
+    <mat-form-field class="w-100 fuse-mat-dense fuse-mat-rounded">
       <input matInput (keyup)="applyFilter($event.target.value)" placeholder="{{filterPlaceholder()}}">
       <button
         mat-icon-button
         matPrefix>
         <mat-icon
           class="icon-size-5"
-          [svgIcon]="'heroicons_solid:filter'"></mat-icon>
+          [svgIcon]="'heroicons_solid:search'"></mat-icon>
       </button>
     </mat-form-field>
   </div>
@@ -53,10 +53,9 @@
     <div *ngIf="title()" class="text-lg font-medium tracking-tight leading-6 truncate">{{title()}}</div>
     <div class="flex flex-col flex-auto mt-2 overflow-x-auto">
 
-
-
         <table class="w-full overflow-y-visible"
-                   mat-table
+               [ngClass]="{ 'highlight-hover': drawerEnabled() }"
+               mat-table
                    [dataSource]="dataSource"
                    matSort
                    [@zoomIn]="true">

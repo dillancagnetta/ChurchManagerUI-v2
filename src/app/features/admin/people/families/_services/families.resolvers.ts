@@ -7,7 +7,7 @@ import { FamiliesService } from '@features/admin/people/families/_services/famil
  * Single Family by id Resolvers
  */
 @Injectable()
-export class FamilyResolver 
+export class FamilyResolver
 {
     /**
      * Constructor
@@ -24,6 +24,6 @@ export class FamilyResolver
      */
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any>
     {
-        return this._service.getById$(+route.paramMap.get('id'));
+        return this._service.getById$(+route.paramMap.get('id'), true); // includePeople = true
     }
 }
