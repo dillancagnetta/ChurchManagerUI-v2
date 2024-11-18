@@ -158,7 +158,6 @@ export interface History {
   relatedData: string| null;
   relatedEntity: string| null;
   relatedEntityId: number | null;
-  useRouter: boolean | undefined;
   // Changes
   valueName : string| null;
   newValue: string| null;

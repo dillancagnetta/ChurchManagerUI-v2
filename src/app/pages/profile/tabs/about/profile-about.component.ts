@@ -6,7 +6,7 @@ import { filter, first, map, switchMap, takeUntil, tap, withLatestFrom } from 'r
 import {MatDialog} from '@angular/material/dialog';
 import { fuseAnimations } from '@fuse/animations';
 
-import { Profile, ProfileGeneralInfo, ProfilePersonalInfo } from '../../profile.model';
+import { Profile, ProfileGeneralInfo, ProfilePersonalInfo, History } from '../../profile.model';
 import { ProfileService } from '../../_services/profile.service';
 import {
     ProfileConnectionInfoFormDialogComponent,
@@ -14,7 +14,7 @@ import {
     ProfileGeneralInfoFormDialogComponent,
     ProfilePersonalInfoFormDialogComponent
 } from './components';
-import { ActivatedRoute } from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import { FormActions } from '@shared/shared.models';
 import {DateTime} from "rrule/dist/esm/datetime";
 
@@ -37,8 +37,8 @@ export class ProfileAboutComponent implements OnInit, OnDestroy
      * Constructor
      */
     constructor(
-        private _profileService: ProfileService,
-        private _matDialog: MatDialog
+        private readonly _profileService: ProfileService,
+        private readonly _matDialog: MatDialog
     )
     {
         // Set the private defaults
@@ -112,7 +112,7 @@ export class ProfileAboutComponent implements OnInit, OnDestroy
             .pipe(
                 switchMap((profile: Profile) => {
                     // Calls the endpoint to update the profile
-                    return this._profileService.getUserProfileWithHistory$(+profile.personId);
+                    return this._profileService.getUserProfile$(+profile.personId);
                 } ))
             .subscribe(
             value => {},
@@ -269,5 +269,10 @@ export class ProfileAboutComponent implements OnInit, OnDestroy
       return current.getFullYear() == compare.getFullYear() &&
         current.getMonth() == compare.getMonth() &&
         current.getDay() == compare.getDay()
+    }
+
+    goToRelatedRecord(activity: History): string {
+      const url = activity.verb == 'ADDEDTOGROUP' ? '/apps/groups/'+ activity.relatedEntityId : '';
+      return url;
     }
 }

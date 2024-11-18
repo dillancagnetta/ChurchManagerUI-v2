@@ -205,8 +205,6 @@
                         }
 
 
-
-
                         <div class="mt-2 flex flex-col text-md leading-5 sm:mt-1 sm:flex-row sm:items-center sm:space-x-2">
 
                           <!-- Date -->
@@ -218,7 +216,14 @@
                             </div>
 
                             <!-- link -->
-
+                            @if (activity.relatedEntityId) {
+                              <a
+                                class="cursor-pointer text-primary"
+                                [routerLink]="goToRelatedRecord(activity)"
+                              >
+                                {{activity.relatedEntity}}
+                              </a>
+                            }
 
                             <!-- Extra content -->
                             @if (activity.relatedData) {
