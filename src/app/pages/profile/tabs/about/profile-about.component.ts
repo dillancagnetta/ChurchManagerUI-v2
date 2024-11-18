@@ -14,9 +14,7 @@ import {
     ProfileGeneralInfoFormDialogComponent,
     ProfilePersonalInfoFormDialogComponent
 } from './components';
-import {ActivatedRoute, Router} from '@angular/router';
 import { FormActions } from '@shared/shared.models';
-import {DateTime} from "rrule/dist/esm/datetime";
 
 @Component({
     selector       : 'profile-main',

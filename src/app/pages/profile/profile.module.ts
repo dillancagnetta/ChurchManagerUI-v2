@@ -49,6 +49,7 @@ import { FuseAlertModule } from '@fuse/components/alert';
 import { ProfileFollowUpComponent } from './tabs/followup/follow-up.component';
 import { GeneralTableModule } from '@ui/components/general-table/general-table.module';
 import {MatRipple} from "@angular/material/core";
+import {RecentHistoryComponent} from "./tabs/about/components/history/recent-history/recent-history.component";
 
 
 @NgModule({
@@ -66,7 +67,9 @@ import {MatRipple} from "@angular/material/core";
         ProfilePersonalInfoFormDialogComponent,
         ProfileDiscipleshipInfoFormDialogComponent,
         ProfilePhotoFormDialogComponent,
-        ProfileMyDashboardComponent
+        ProfileMyDashboardComponent,
+        // Reusable
+        RecentHistoryComponent
     ],
     imports: [
         RouterModule.forChild(profileRoutes),
