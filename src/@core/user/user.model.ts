@@ -4,5 +4,7 @@ export interface User
     name: string;
     email: string;
     avatar?: string;
-    status?: string;
+    status?: OnlineStatus;
 }
+
+export type OnlineStatus = 'online' | 'offline' | 'away' | 'busy' | 'not-visible' | undefined;

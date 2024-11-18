@@ -34,15 +34,15 @@ export class PersonFormDialogComponent
     ) {
         // Set the defaults
         this.action = _data.action;
-        this.familyName = _data['familyName'];
+        this.familyName = _data['familyName'].replace('Family', '');
 
         if ( this.action === FormActions.Edit )
         {
-            this.dialogTitle = 'Edit Person' + ` (${this.familyName} family)`;
+            this.dialogTitle = 'Edit Person' + ` (${this.familyName})`;
             this.person = _data.person;
         } else
         {
-            this.dialogTitle = 'New Person' + ` (${this.familyName} family)`;
+            this.dialogTitle = 'New Person' + ` (${this.familyName})`;
 
             this.person = new PersonModel( {} );
 

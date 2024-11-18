@@ -1,4 +1,5 @@
-import { HttpHeaders } from '@angular/common/http';
+import {HttpHeaders} from '@angular/common/http';
+import {OnlineStatus} from "@core/user/user.model";
 
 export interface ApiResponse
 {
@@ -40,7 +41,7 @@ export interface OnlineUser
     id: string;  // userLoginId
     name: string;
     avatar?: string; // photoUrl
-    status: string;
+    status: OnlineStatus;
     unread?: number;
     lastOnline?: Date;
 }
@@ -50,7 +51,7 @@ export class OnlineUserModel implements OnlineUser
     id: string;  // userLoginId
     name: string;
     avatar?: string; // photoUrl
-    status: string;
+    status: OnlineStatus;
     unread?: number;
     lastOnline?: Date;
 

@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy, Component, DestroyRef, inject, OnInit, signal, ViewEncapsulation} from '@angular/core';
 import {MatDrawerToggleResult} from "@angular/material/sidenav";
 import {FamiliesListComponent} from "@features/admin/people/families/_components/list/families-list.component";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {FamiliesService} from "@features/admin/people/families/_services/families.service";
 import {tap} from "rxjs/operators";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
@@ -18,6 +18,7 @@ export class FamilyDetailComponent implements OnInit
   $familyRecord = signal<Family>(null);
 
   private readonly _destroyRef = inject(DestroyRef);
+  private readonly _router = inject(Router);
 
   /**
    * Constructor
@@ -25,7 +26,6 @@ export class FamilyDetailComponent implements OnInit
   constructor(
     // Parent Component
     public readonly component: FamiliesListComponent,
-    private readonly _activatedRoute: ActivatedRoute,
     private readonly _service: FamiliesService
   )
   {
@@ -56,4 +56,7 @@ export class FamilyDetailComponent implements OnInit
     return this.component.matDrawer.close();
   }
 
+  goToProfile(personId: number) {
+    this._router.navigateByUrl(`/pages/profile/${personId}`)
+  }
 }

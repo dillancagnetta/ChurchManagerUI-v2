@@ -113,6 +113,7 @@ export interface PeopleAdvancedSearchQuery
     gender?: string[];
     recordStatus?: string[];
     filters?: string[];
+    churchId?: number;
 }
 
 export interface SearchItem

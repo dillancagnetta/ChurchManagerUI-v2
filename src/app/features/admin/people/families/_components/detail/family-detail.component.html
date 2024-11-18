@@ -63,7 +63,7 @@
         </div>
         <div class="mt-5 flex flex-col">
             @for (person of $familyRecord().familyMembers; track person.personId) {
-              <div class="flex items-center m-2 cursor-pointer hover:bg-hover">
+              <div class="flex items-center m-2 cursor-pointer hover:bg-hover" (click)="goToProfile(person.personId)">
                 <img
                   class="mr-4 h-14 w-14 rounded-full"
                   [src]="person.photoUrl || 'assets/images/avatars/profile-blank.jpg'"
@@ -78,7 +78,9 @@
                   >
                     {{person.ageClassification}},
                     {{person.gender}},
-                    {{person.age}} yrs
+                    @if(person.age) {
+                      {{person.age}} yrs
+                    }
                   </div>
                 </div>
               </div>

@@ -15,7 +15,7 @@
             [ngClass]="{'mr-px mb-px': !showAvatar() || !user().avatar,
                           'bg-green-500': user().status === 'online',
                           'bg-amber-500': user().status === 'away',
-                          'bg-red-500': user().status === 'busy',
+                          'bg-red-500': user().status === 'offline' || user().status === 'busy',
                           'bg-gray-400': user().status === 'not-visible'}"
         ></span>
     </span>

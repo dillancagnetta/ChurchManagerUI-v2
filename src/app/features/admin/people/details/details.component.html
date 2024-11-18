@@ -43,7 +43,7 @@
                         </div>
                     </div>
                     <!-- Actions -->
-                    <div class="flex items-center ml-auto mb-1 space-x-1">
+                   <!-- <div class="flex items-center ml-auto mb-1 space-x-1">
                         <button
                             mat-stroked-button
                             (click)="deleteContact(person.personId)">
@@ -61,11 +61,41 @@
                                 [svgIcon]="'heroicons_solid:search'"></mat-icon>
                             <span class="ml-2">View Profile</span>
                         </button>
-                    </div>
+                    </div>-->
+
+
+
                 </div>
 
                 <!-- Name -->
+              <div class="flex items-center justify-between">
                 <div class="mt-3 text-4xl font-bold truncate">{{person.fullName | fullName}}</div>
+
+                <div class="flex items-center">
+                  <!-- More menu -->
+                  <button mat-icon-button [matMenuTriggerFor]="moreMenu">
+                    <mat-icon [svgIcon]="'heroicons_outline:ellipsis-vertical'"></mat-icon>
+                  </button>
+                  <mat-menu #moreMenu="matMenu">
+                    <button mat-menu-item [routerLink]="['/pages', 'profile', person.personId]">
+                      <mat-icon [svgIcon]="'heroicons_outline:search'"></mat-icon>
+                      <span>View Profile</span>
+                    </button>
+                    <button mat-menu-item disabled>
+                      <mat-icon [svgIcon]="'heroicons_outline:chat'"></mat-icon>
+                      <span>Send Communication</span>
+                    </button>
+                    <button mat-menu-item disabled>
+                      <mat-icon [svgIcon]="'heroicons_outline:user-add'"></mat-icon>
+                      <span>Add to Group</span>
+                    </button>
+                    <button mat-menu-item (click)="deleteContact(person.personId)">
+                      <mat-icon [svgIcon]="'heroicons_outline:trash'"></mat-icon>
+                      <span>Delete</span>
+                    </button>
+                  </mat-menu>
+                </div>
+              </div>
 
                 <!-- Tags -->
                 <ng-container>

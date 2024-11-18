@@ -1,21 +1,23 @@
 import {
-    ChangeDetectionStrategy,
-    Component,
-    ElementRef,
-    EventEmitter,
-    OnInit,
-    Output,
-    ViewChild,
-    ViewEncapsulation
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  ElementRef,
+  EventEmitter,
+  model,
+  OnInit,
+  Output,
+  signal,
+  ViewChild,
+  ViewEncapsulation
 } from '@angular/core';
-import {UntypedFormControl} from '@angular/forms';
+import {FormControl} from '@angular/forms';
 import {FilterItem, PeopleAdvancedSearchQuery, SearchItem} from '@features/admin/people';
 import {SelectionModel} from '@angular/cdk/collections';
 import {MatChipInputEvent} from '@angular/material/chips';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import {MatAutocomplete, MatAutocompleteSelectedEvent} from '@angular/material/autocomplete';
 import {Observable} from 'rxjs';
-import {map, startWith} from 'rxjs/operators';
 
 @Component({
     selector: 'people-advanced-search',
@@ -31,21 +33,6 @@ export class PeopleAdvancedSearchComponent implements OnInit {
 
     selection = new SelectionModel<SearchItem>(true, []);
 
-    // Chip filters
-    chipFiltersCtrl = new UntypedFormControl();
-    filteredChips: Observable<string[]>;
-    selectedChipFilters: string[] = [];
-    // Chip map with tool tip description
-    chipFilterItems: FilterItem[] =  [
-        {key: 'baptised', label: 'Baptised', description:  'Is Baptised', color: 'primary'},
-        {key: 'notBaptised', label: 'Not Baptised', description:  'Not Baptised', color: 'accent'},
-        {key: 'holySpirit', label: 'Holy Spirit', description:  'Received Holy Spirit', color: 'primary'},
-        {key: 'noHolySpirit', label: 'No Holy Spirit', description:  'Not Received Holy Spirit', color: 'accent'},
-        {key: 'noPhoto', label: 'No Photo', description:  'No Photo', color: 'warn'},
-    ]
-
-    chipFilterLabels: string[] = this.chipFilterItems.map( x => x.label);
-
     @ViewChild('chipInput') fruitInput: ElementRef<HTMLInputElement>;
     @ViewChild('auto') matAutocomplete: MatAutocomplete;
 
@@ -53,15 +40,33 @@ export class PeopleAdvancedSearchComponent implements OnInit {
     readonly ageClassificationMap = ['Adult', 'Teen', 'Child'];
     readonly genderMap = ['Male', 'Female', 'Unknown'];
     readonly recordStatusMap = ['Active', 'Pending', 'Inactive'];
+    churchId = model<number>(0);
 
-    constructor()
-    {
-        this.filteredChips = this.chipFiltersCtrl.valueChanges
-            .pipe(
-                startWith(<string>null),
-                map((fruit: string | null) => fruit ? this._filter(fruit) : this.chipFilterLabels.slice()
-            ));
-    }
+    /* Chip Filters */
+
+    // Chip map with tool tip description
+    chipFilterItems: FilterItem[] =  [
+      {key: 'baptised', label: 'Baptised', description:  'Is Baptised', color: 'primary'},
+      {key: 'notBaptised', label: 'Not Baptised', description:  'Not Baptised', color: 'accent'},
+      {key: 'holySpirit', label: 'Holy Spirit', description:  'Received Holy Spirit', color: 'primary'},
+      {key: 'noHolySpirit', label: 'No Holy Spirit', description:  'Not Received Holy Spirit', color: 'accent'},
+      {key: 'noPhoto', label: 'No Photo', description:  'No Photo', color: 'warn'},
+    ]
+
+    chipFilterLabels: string[] = this.chipFilterItems.map( x => x.label);
+
+    readonly chipFilterCtrl = model('');
+    $chipsSelected = signal([]);
+
+    // Filtered chips: dynamically updates based on input and already selected filters
+    readonly filteredFruits = computed(() =>
+      this.chipFilterLabels
+        // Autocomplete filter
+        .filter((label) => label.toLowerCase().includes(this.chipFilterCtrl().toLowerCase()))
+        // Filter out what was already selected
+        .filter((label) => !this.$chipsSelected().includes(label))
+    );
+
 
     ngOnInit(): void
     {
@@ -74,9 +79,10 @@ export class PeopleAdvancedSearchComponent implements OnInit {
             ageClassification: this._selectedItemsByGroup('ageClassification'),
             gender: this._selectedItemsByGroup('gender'),
             recordStatus: this._selectedItemsByGroup('recordStatus'),
-            filters: this.selectedChipFilters
+            filters: this.$chipsSelected()
                 .map(x => this.chipFilterItems.find( f => f.label === x))
-                .map(x => x.key)
+                .map(x => x.key),
+            churchId: this.churchId()
         };
 
         this.searchChanged.emit(model)
@@ -100,33 +106,29 @@ export class PeopleAdvancedSearchComponent implements OnInit {
 
     add(event: MatChipInputEvent): void
     {
-        const value = (event.value || '').trim();
-
-        // Add our fruit
-        if (value) {
-            this.selectedChipFilters.push(value);
-        }
-
-        // Clear the input value
-        event.chipInput!.clear();
-
-        this.chipFiltersCtrl.setValue(null);
+      // Do nothing: Users cannot add custom chips manually.
     }
 
-    remove(fruit: string): void
+    remove(removed: string): void
     {
-        const index = this.selectedChipFilters.indexOf(fruit);
-
-        if (index >= 0) {
-            this.selectedChipFilters.splice(index, 1);
+      this.$chipsSelected.update(filter => {
+        const index = filter.indexOf(removed);
+        if (index < 0) {
+          return filter;
         }
+
+        filter.splice(index, 1);
+        return [...filter];
+      });
     }
 
     selected(event: MatAutocompleteSelectedEvent): void
     {
-        this.selectedChipFilters.push(event.option.viewValue);
-        this.fruitInput.nativeElement.value = '';
-        this.chipFiltersCtrl.setValue(null);
+        //this.selectedChipFilters.push(event.option.viewValue);
+      this.$chipsSelected.update(chips => [...chips, event.option.viewValue]);
+      event.option.deselect();
+      // Clear the input value
+      this.chipFilterCtrl.set('');
     }
 
     private _selectedItemsByGroup(group: string): string[]
@@ -134,12 +136,5 @@ export class PeopleAdvancedSearchComponent implements OnInit {
         return  this.selection.selected
             .filter(x => x.group === group)
             .map(x => x.key)
-    }
-
-    private _filter(value: string): string[]
-    {
-        const filterValue = value.toLowerCase();
-
-        return this.chipFilterLabels.filter( fruit => fruit.toLowerCase().indexOf(filterValue) === 0);
     }
 }

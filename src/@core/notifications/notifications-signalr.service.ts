@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@angular/core';
+import {inject, Inject, Injectable} from '@angular/core';
 
 import { HubConnection, HubConnectionBuilder, HubConnectionState, LogLevel } from '@microsoft/signalr';
 import { BehaviorSubject, Subject } from 'rxjs';
@@ -8,6 +8,7 @@ import { ENV } from '@shared/constants';
 import { OnlineUserModel, OnlineUsers } from '@shared/shared.models';
 import { ToastrService } from '@core/notifications/toastr.service';
 import { NotificationMethod } from '@core/notifications/notification';
+import {CurrentUserStore} from "@features/common/current-user/current-user.store";
 
 
 /*
@@ -37,6 +38,8 @@ export class NotificationsSignalRService {
     public connectionEstablished = new BehaviorSubject<boolean>( false );
     private messagesCount: number;
     private _hubConnection: HubConnection;
+    // Store
+    private readonly _currentUserStore= inject(CurrentUserStore);
 
     constructor(
         private auth: AuthService,
@@ -91,6 +94,7 @@ export class NotificationsSignalRService {
 
             // hub connection state events
             this._hubConnection.onreconnecting( () => {
+                this._currentUserStore.updateToOfflineStatus();
                 this.messenger.default(
                     `Could not connect to ${HubSettings.Name} service. \nWe are retrying the connection.`,
                     'OK',
@@ -98,6 +102,7 @@ export class NotificationsSignalRService {
             });
 
             this._hubConnection.onreconnected( () => {
+                this._currentUserStore.updateToOnlineStatus();
                 this.messenger.success( 'Connection Reestablished', 'OK' );
             });
 

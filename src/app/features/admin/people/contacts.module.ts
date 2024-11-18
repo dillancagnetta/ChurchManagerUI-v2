@@ -48,6 +48,7 @@ import {
     PersonAutocompleteControlModule
 } from '@ui/controls/person-autocomplete-control/person-autocomplete-control.module';
 import {PersonFormModule} from '@features/admin/people/new-family-form/person-form/person-form.module';
+import {ChurchesSelectControlModule} from "@ui/controls/churches-select-control/churches-select-control.module";
 
 @NgModule({
     declarations: [
@@ -61,7 +62,7 @@ import {PersonFormModule} from '@features/admin/people/new-family-form/person-fo
         FamilyMembersListComponent,
         PeopleAdvancedSearchComponent
     ],
-    imports     : [
+    imports: [
         RouterModule.forChild(contactsRoutes),
 
         MatAutocompleteModule,
@@ -104,7 +105,8 @@ import {PersonFormModule} from '@features/admin/people/new-family-form/person-fo
 
         // Extensions
         FullNamePipeModule,
-        AgePluralizeModule
+        AgePluralizeModule,
+        ChurchesSelectControlModule
     ],
     providers   : [
         {
