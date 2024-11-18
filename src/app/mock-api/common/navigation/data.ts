@@ -128,21 +128,55 @@ export const compactNavigation: FuseNavigationItem[] = [
         exactMatch: true
     },
     {
-        id   : 'apps.missions',
-        title: 'Missions',
+      id   : 'apps.missions',
+      title: 'Missions',
+      type : 'aside',
+      icon : 'heroicons_outline:support',
+      children: [
+        {
+          id   : 'missions.dashboard',
+          title: 'Dashboard',
+          subtitle: 'Missions overview',
+          type : 'basic',
+          icon : 'heroicons_outline:home',
+          link : '/apps/missions',
+          exactMatch: true
+        }
+      ]
+    },
+    {
+        id   : 'apps.reports',
+        title: 'Reports',
         type : 'aside',
-        icon : 'heroicons_outline:support',
+        icon : 'heroicons_outline:document-chart-bar',
         children: [
             {
-                id   : 'missions.dashboard',
-                title: 'Dashboard',
-                subtitle: 'Missions overview',
+                id   : 'reports.home',
+                title: 'Reports Home',
+                subtitle: 'View reports',
                 type : 'basic',
                 icon : 'heroicons_outline:home',
-                link : '/apps/missions',
+                link : '/apps/reports',
                 exactMatch: true
             }
         ]
+    },
+    {
+      id   : 'apps.settings',
+      title: 'Settings',
+      type : 'aside',
+      icon : 'heroicons_outline:adjustments-vertical',
+      children: [
+        {
+          id   : 'settings.home',
+          title: 'System settings',
+          subtitle: 'View settings',
+          type : 'basic',
+          icon : 'heroicons_outline:home',
+          link : '/apps/reports',
+          exactMatch: true
+        }
+      ]
     },
     {
         id   : 'example',
