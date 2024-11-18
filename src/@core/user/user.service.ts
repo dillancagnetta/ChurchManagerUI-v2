@@ -63,7 +63,8 @@ export class UserService {
           }
 
           return {
-            id: userDetails.userLoginId,
+            userLoginId: userDetails.userLoginId,
+            personId: userDetails.personId,
             email: userDetails.email,
             name: `${userDetails.firstName} ${userDetails.lastName}`,
             avatar: userDetails.photoUrl || 'assets/images/avatars/profile-blank.jpg',

@@ -1,20 +1,22 @@
-import { Inject, Injectable } from '@angular/core';
-import { HttpClient, HttpRequest } from '@angular/common/http';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
-import { ENV } from '@shared/constants';
-import { Environment } from '@shared/environment.model';
+import {Inject, Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {BehaviorSubject, forkJoin, Observable} from 'rxjs';
+import {map, tap} from 'rxjs/operators';
+import {ENV} from '@shared/constants';
+import {Environment} from '@shared/environment.model';
 import {
-    Profile,
-    ProfileConnectionInfo, ProfileDiscipleshipInfo,
-    ProfileGeneralInfo,
-    ProfileModel,
-    ProfilePersonalInfo
+  Profile,
+  ProfileConnectionInfo,
+  ProfileDiscipleshipInfo,
+  ProfileGeneralInfo,
+  ProfileModel,
+  ProfilePersonalInfo,
+  History
 } from '../profile.model';
-import { PagedRequest, PagedResult } from '@shared/data/pagination.models';
-import { GroupsQuery } from '../tabs/groups/groups.component';
-import { Group } from '@features/admin/groups';
-import { ApiResponse } from '@shared/shared.models';
+import {PagedRequest, PagedResult} from '@shared/data/pagination.models';
+import {GroupsQuery} from '../tabs/groups/groups.component';
+import {Group} from '@features/admin/groups';
+import {ApiResponse} from '@shared/shared.models';
 
 @Injectable()
 export class ProfileService
@@ -69,8 +71,26 @@ export class ProfileService
                         const profile = new ProfileModel(response.data);
                         console.log( 'Profile', profile, 'getUserProfile$' );
                         this._profile.next(profile);
-                    })
+                    }),
+              map(() => this._profile.getValue())
             );
+    }
+
+    getUserProfileWithHistory$(personId: number | undefined): Observable<any> {
+      // Fork join multiple API endpoint calls to wait all of them to finish
+      return forkJoin([
+        this.getUserProfile$(personId),
+        this.browseHistory$('Person', personId, 0, 3) // Get limited data for history summary only
+      ]).pipe(
+        tap(([profile, history]) => {
+            // Set history on profile
+            profile.history = history.data;
+            const _profile = new ProfileModel(profile);
+            console.log( 'Profile', profile, 'getUserProfileWithHistory$' );
+            this._profile.next(_profile);
+          }
+        )
+      );
     }
 
     /**
@@ -125,6 +145,15 @@ export class ProfileService
     deletePhoto$(personId: number): Observable<any>
     {
         return this._httpClient.delete<any>(`${this._apiUrl}/v1/people/edit/${personId}/photo`);
+    }
+
+
+    browseHistory$(entity: string, entityId: number  | undefined, page: number, size: number): Observable<PagedResult<History>> {
+      const profileUrl = entityId === undefined
+        ? `${this._apiUrl}/v1/history/current-user?entityType=${entity}&page=${page}&results=${size}`  // Current User
+        : `${this._apiUrl}/v1/history?entityType=${entity}&entityId=${entityId}&page=${page}&results=${size}`;  // Person Id
+
+      return this._httpClient.get<PagedResult<History>>(profileUrl);
     }
 
     // -----------------------------------------------------------------------------------------------------

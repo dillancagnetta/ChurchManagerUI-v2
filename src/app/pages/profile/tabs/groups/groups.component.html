@@ -10,7 +10,16 @@
           [dataSource]="dataSource"
           [@zoomIn]="true">
 
-            <!-- Name Column -->
+          <!-- Group Type Column -->
+          <ng-container matColumnDef="groupType">
+            <th mat-header-cell *matHeaderCellDef>Group Type</th>
+            <td mat-cell *matCellDef="let row">
+              <p class="text-truncate font-weight-600">{{row.groupType}}</p>
+            </td>
+          </ng-container>
+
+
+          <!-- Name Column -->
             <ng-container matColumnDef="name">
                 <th mat-header-cell *matHeaderCellDef>Name</th>
                 <td mat-cell *matCellDef="let row">

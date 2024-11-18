@@ -16,6 +16,7 @@ import {
 } from './components';
 import { ActivatedRoute } from '@angular/router';
 import { FormActions } from '@shared/shared.models';
+import {DateTime} from "rrule/dist/esm/datetime";
 
 @Component({
     selector       : 'profile-main',
@@ -111,7 +112,7 @@ export class ProfileAboutComponent implements OnInit, OnDestroy
             .pipe(
                 switchMap((profile: Profile) => {
                     // Calls the endpoint to update the profile
-                    return this._profileService.getUserProfile$(+profile.personId);
+                    return this._profileService.getUserProfileWithHistory$(+profile.personId);
                 } ))
             .subscribe(
             value => {},
@@ -252,5 +253,21 @@ export class ProfileAboutComponent implements OnInit, OnDestroy
                 error => {},
                 () => console.log('Discipleship completed')
             );
+    }
+
+
+    /**
+     * Returns whether the given dates are different days
+     *
+     * @param currentDateStr
+     * @param nextDateStr
+     */
+    isSameDay(currentDateStr: string, nextDateStr: string): boolean {
+      const current = new Date(currentDateStr);
+      const compare = new Date(nextDateStr);
+
+      return current.getFullYear() == compare.getFullYear() &&
+        current.getMonth() == compare.getMonth() &&
+        current.getDay() == compare.getDay()
     }
 }

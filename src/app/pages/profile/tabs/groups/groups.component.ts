@@ -37,7 +37,7 @@ export interface GroupsQuery {
 export class ProfileGroupsComponent implements OnInit, OnDestroy
 {
     dataSource: PaginatedDataSource<Group, GroupsQuery> | null;
-    displayedColumns = ['name', 'description', 'membersCount', 'buttons'];
+    displayedColumns = ['groupType', 'name', 'description', 'membersCount', 'buttons'];
 
     dialogRef: any;
 

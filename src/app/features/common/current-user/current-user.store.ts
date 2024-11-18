@@ -14,7 +14,8 @@ export interface CurrentUserState {
 
 export const userInitialState: CurrentUserState = {
   data: {
-    id: null,
+    userLoginId: null,
+    personId: null,
     name: null,
     email: null,
     avatar: 'assets/images/avatars/profile-blank.jpg',

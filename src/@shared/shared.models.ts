@@ -23,6 +23,7 @@ export interface SelectItem {
 }
 
 export interface UserDetails {
+    personId: number;
     username?: string;
     userLoginId?: string;
     firstName?: string;

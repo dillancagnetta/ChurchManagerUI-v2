@@ -33,6 +33,8 @@ export interface Profile {
     receivedHolySpirit?: boolean;
     familyMembers?: FamilyMember[];
     groups?: any[];
+
+    history?: History[];
 }
 
 class FamilyMemberModel implements  FamilyMember {
@@ -143,6 +145,25 @@ export interface ProfileDiscipleshipInfo
     foundationSchoolDate?: Date | null;
 }
 
+
+export interface History {
+  id: number;
+  date: string | Date;
+  category: string;
+  entity: string;
+  verb: string;
+  isSensitive: boolean;
+  // Optional
+  caption: string | null;
+  relatedData: string| null;
+  relatedEntity: string| null;
+  relatedEntityId: number | null;
+  useRouter: boolean | undefined;
+  // Changes
+  valueName : string| null;
+  newValue: string| null;
+  oldValue: string| null;
+}
 
 
 

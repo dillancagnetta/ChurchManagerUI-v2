@@ -6,7 +6,6 @@ import { map } from 'rxjs/operators';
 import { InitialData } from 'app/app.types';
 import { ENV } from '@shared/constants';
 import { Environment } from '@shared/environment.model';
-import { ApiResponse, UserDetails } from '@shared/shared.models';
 import LogRocket from 'logrocket';
 import { AuthService } from '@core/auth/auth.service';
 import { FuseNavigationItem } from '@fuse/components/navigation';
