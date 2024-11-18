@@ -31,7 +31,7 @@ export class PaginatedDataSource<TModel, TQuery> implements SimpleDataSource<TMo
         this._sort = new BehaviorSubject<Sort<TModel>>(initialSort);
         this._queryState = new BehaviorSubject<QueryState<TQuery>>({
           query: initialQuery,
-          page: 0,
+          page: 1,
         });
 
         const param$ = combineLatest([this._queryState, this._sort]);
@@ -57,14 +57,14 @@ export class PaginatedDataSource<TModel, TQuery> implements SimpleDataSource<TMo
         const lastState = this._queryState.getValue();
         const nextQuery = { ...lastState.query, ...query };
         // Emit the new query and reset page in a single update
-        this._emitQueryState(nextQuery,  0);
+        this._emitQueryState(nextQuery,  1);
     }
 
     fetch( page: number ): void {
         // this._pageNumber.next( page + 1 ); // MatPaginator starts at page 0
         // Emit the new query and reset page in a single update
         const lastState = this._queryState.getValue();
-        this._emitQueryState(lastState.query,  page);  //  MatPaginator starts at page 0
+        this._emitQueryState(lastState.query,  page + 1);  //  MatPaginator starts at page 0
     }
 
     /**
