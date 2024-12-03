@@ -1,15 +1,16 @@
 import {
-    AfterContentInit,
-    AfterViewInit,
-    ChangeDetectionStrategy,
-    Component,
-    ContentChild,
-    EventEmitter,
-    Inject,
-    OnChanges,
-    Output,
-    SimpleChanges,
-    ViewChild, input } from '@angular/core';
+  AfterContentInit,
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  Component,
+  ContentChild,
+  EventEmitter,
+  Inject,
+  OnChanges,
+  Output,
+  SimpleChanges,
+  ViewChild, input, inject
+} from '@angular/core';
 import {  MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import {PAGING_SERVICE, TableBtn, TableColumn, TableQuery, TableToolbar} from '..';
@@ -19,6 +20,7 @@ import { IPaginatedTableService } from '@ui/components/general-table/paginated-g
 import { fuseAnimations } from '@fuse/animations';
 import { SelectionModel } from '@angular/cdk/collections';
 import { Subject } from 'rxjs';
+import {Router} from "@angular/router";
 
 /**
  * @title Data table with sorting, pagination, and filtering.
@@ -53,6 +55,8 @@ export class PaginatedGeneralTableComponent implements OnChanges, AfterViewInit,
     // ViewChildren don’t include elements that exist within the ng-content tag.
     @ViewChild( MatPaginator, { static: true } ) paginator: MatPaginator;
     @ViewChild( MatSort, { static: true } ) sort: MatSort;
+
+    private readonly _router = inject(Router);
 
     displayedColumns: string[];
 
@@ -160,6 +164,10 @@ export class PaginatedGeneralTableComponent implements OnChanges, AfterViewInit,
 
     get hasTableToolbar(): boolean {
       return this.toolbar() && this.toolbar().length > 0;
+    }
+
+    goTo(url: string) {
+      this._router.navigateByUrl(url)
     }
 }
 

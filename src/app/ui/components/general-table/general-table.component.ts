@@ -1,9 +1,20 @@
-import {Component, EventEmitter, input, OnChanges, Output, SimpleChanges, ViewChild} from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  inject,
+  input,
+  OnChanges,
+  output,
+  Output,
+  SimpleChanges,
+  ViewChild
+} from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import {TableBtn, TableColumn, TableToolbar} from '.';
 import { fuseAnimations } from '@fuse/animations';
+import {Router} from "@angular/router";
 
 /**
  * @title Data table with sorting, pagination, and filtering.
@@ -30,14 +41,16 @@ export class GeneralTableComponent implements OnChanges {
   pagination = input<number[]>([]);
   pageSize = input<number>();
   tableMinWidth = input<number>(500);
-  @Output() filteredData = new EventEmitter<any[]>();
-  @Output() buttonClick = new EventEmitter<string[]>();
+  filteredData = output<any[]>();
+  buttonClick = output<string[]>();
 
   dataSource: MatTableDataSource<any>;
   displayedColumns: string[];
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
+
+  private readonly _router = inject(Router);
 
   ngOnChanges(changes: SimpleChanges): void {
     if (this.data()){
@@ -65,6 +78,10 @@ export class GeneralTableComponent implements OnChanges {
 
   get hasTableToolbar(): boolean {
     return this.toolbar() && this.toolbar().length > 0;
+  }
+
+  goTo(url: string) {
+    this._router.navigateByUrl(url)
   }
 }
 

@@ -85,6 +85,30 @@
                 @case ('icon') {
                   <mat-icon [svgIcon]="column.cell(row)"></mat-icon>
                 }
+                @case ('person') {
+                  <div *ngIf="column.cell(row) as person"
+                       class="flex flex-row  items-center gap-5 hover:cursor-pointer"
+                       (click)="goTo(column.link(row))"
+                       matTooltip="View profile">
+                    <div class="flex flex-0 items-center justify-center w-8 h-8 rounded-full overflow-hidden">
+                      <ng-container *ngIf="person?.photoUrl as photo">
+                        <img
+                          class="object-cover w-full h-full"
+                          [src]="photo"
+                          alt="Person image"/>
+                      </ng-container>
+                      <ng-container *ngIf="!person?.photoUrl">
+                        <div
+                          class="flex items-center justify-center w-full h-full rounded-full text-lg uppercase bg-gray-200 text-gray-600 dark:bg-gray-700 dark:text-gray-200">
+                          {{person?.label?.charAt(0)}}
+                        </div>
+                      </ng-container>
+                    </div>
+                    <div>
+                      {{ person?.label }}
+                    </div>
+                  </div>
+                }
                 @default {
                   {{ column.cell(row) }}
                 }
@@ -124,8 +148,15 @@
                 </td>
             </ng-container>
 
-            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+            <ng-container *ngIf="drawerEnabled()">
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+                  [@fadeIn]="true"
+                  (click)="this.buttonClick.emit(['drawer', row.id])"></tr>
+            </ng-container>
+            <ng-container *ngIf="!drawerEnabled()">
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;" [@fadeIn]="true"></tr>
+            </ng-container>
 
             <ng-container *ngIf="footer()"> <!-- Make footer nullable -->
                 <tr mat-footer-row *matFooterRowDef="['disclaimer']" class="example-second-footer-row"></tr>

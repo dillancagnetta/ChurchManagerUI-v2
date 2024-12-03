@@ -21,8 +21,8 @@ export class GroupTypesListComponent {
   toolbar: TableToolbar[] = [];
 
   $data = input.required<GroupTypeEntity[]>();
-  addButtonClicked= output<any>()
-  $isLoading= input<boolean>(false)
+  addButtonClicked= output<any>();
+  $isLoading= input<boolean>(false);
 
   constructor()
   {

@@ -54,6 +54,47 @@ export const compactNavigation: FuseNavigationItem[] = [
         ] // This will be filled from defaultNavigation so we don't have to manage multiple sets of the same navigation
     },
     {
+        id   : 'apps.churches',
+        title: 'Churches',
+        type : 'aside',
+        icon : 'heroicons_outline:building-library',
+        children: [
+          {
+            id   : 'churches.dashboard',
+            title: 'Dashboard',
+            subtitle: 'Churches overview',
+            type : 'basic',
+            icon : 'heroicons_outline:home',
+            link : '/apps/churches',
+            exactMatch: true
+          },
+          {
+            id   : 'churches.attendance-reports',
+            title: 'Attendance Records',
+            type : 'basic',
+            icon    : 'heroicons_outline:clipboard-check',
+            link : '/apps/churches/attendance-reports',
+            exactMatch: true,
+          },
+          {
+            id      : 'churches.reporting',
+            title   : 'Reports',
+            type    : 'collapsable',
+            icon    : 'heroicons_outline:document-report',
+            children: [
+              {
+                id   : 'churches.reporting.attendance-analytics',
+                title: 'Attendance Analytics',
+                type : 'basic',
+                icon    : 'heroicons_outline:trending-up',
+                link : '/apps/churches/reports/attendance-analytics',
+                exactMatch: true
+              }
+            ]
+          }
+        ]
+    },
+    {
         id      : 'apps.groups',
         title   : 'Groups',
         type    : 'aside',
@@ -143,23 +184,6 @@ export const compactNavigation: FuseNavigationItem[] = [
           exactMatch: true
         }
       ]
-    },
-    {
-        id   : 'apps.reports',
-        title: 'Reports',
-        type : 'aside',
-        icon : 'heroicons_outline:document-chart-bar',
-        children: [
-            {
-                id   : 'reports.home',
-                title: 'Reports Home',
-                subtitle: 'View reports',
-                type : 'basic',
-                icon : 'heroicons_outline:home',
-                link : '/apps/reports',
-                exactMatch: true
-            }
-        ]
     },
     {
       id   : 'apps.settings',

@@ -15,6 +15,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { SharedModule } from '@shared/shared.module';
 import {MatSlideToggle} from "@angular/material/slide-toggle";
 import {FuseCardModule} from "@fuse/components/card";
+import {ReportViewerComponent} from "@ui/components/report-viewer/reportviewer.component";
 
 const exampleRoutes: Route[] = [
     {
@@ -46,7 +47,8 @@ const exampleRoutes: Route[] = [
 
         SharedModule,
         MatSlideToggle,
-        FuseCardModule
+        FuseCardModule,
+        ReportViewerComponent
     ],
     providers : [
         pagingServiceProvider

@@ -2,5 +2,6 @@ export interface TableColumn {
   columnDef: string;
   header: string;
   cell: (any) => any;
-  columnType?: 'text' | 'checkbox' | 'icon';
+  columnType?: 'text' | 'checkbox' | 'icon' | 'person';
+  link?: (any) => string;
 }
