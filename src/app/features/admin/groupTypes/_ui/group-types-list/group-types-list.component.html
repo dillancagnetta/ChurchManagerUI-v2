@@ -1,6 +1,6 @@
 <div class="md:p-8  flex-1" fuseScrollbar>
   <!-- CONTENT -->
-  <general-table
+  <!--<general-table
     [columns]="columns"
     [buttons]="buttons"
     [toolbar]="toolbar"
@@ -14,6 +14,14 @@
     [pageSize]="10"
     (buttonClick)="addButtonClicked.emit($event)"
     >
+  </general-table>-->
+
+  <general-table
+    [config]="$tableConfig()"
+    [data]="$data()"
+    [isLoading]="$isLoading()"
+    (buttonClick)="addButtonClicked.emit($event)"
+  >
   </general-table>
 
 </div>

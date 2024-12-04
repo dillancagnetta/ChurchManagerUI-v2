@@ -2,8 +2,7 @@
 
     <!-- CONTENT -->
     <paginated-general-table
-        [columns]="columns"
-        [buttons]="buttons"
+        [config]="$tableConfig()"
         [debug]="false"
         (buttonClick)="onButtonClicked($event)">
             <profile-follow-up-list-query #query></profile-follow-up-list-query >

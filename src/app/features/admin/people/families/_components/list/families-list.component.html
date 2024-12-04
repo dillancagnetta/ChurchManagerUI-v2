@@ -39,10 +39,8 @@
 
                     <!-- CONTENT -->
                       <paginated-general-table
-                          [columns]="columns"
-                          [buttons]="buttons"
+                          [config]="$tableConfig()"
                           [debug]="false"
-                          [drawerEnabled]="true"
                           (buttonClick)="onButtonClicked($event)">
                           <families-list-query #query></families-list-query>
                       </paginated-general-table>

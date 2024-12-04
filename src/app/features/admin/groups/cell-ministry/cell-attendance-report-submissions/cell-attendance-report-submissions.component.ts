@@ -1,12 +1,13 @@
-import { ChangeDetectionStrategy, Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnDestroy, OnInit, signal, ViewEncapsulation} from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { filter, map, switchMap, takeUntil } from 'rxjs/operators';
 import { CellMinistryDataService } from '@features/admin/groups/cell-ministry/_services/cell-ministry-data.service';
-import { TableColumn } from '@ui/components/general-table';
+import {createTableConfig, TableColumn, TableConfig} from '@ui/components/general-table';
 import { AttendanceReportSubmission } from '@features/admin/groups/cell-ministry/cell-ministry.model';
 import { indicate } from '@shared/data/paginated.data-source';
 import { ActivatedRoute, Params } from '@angular/router';
+import {Family} from "@features/admin/people/families";
 
 @Component({
     selector     : 'cell-attendance-report-submissions',
@@ -22,7 +23,23 @@ export class CellAttendanceReportSubmissionsComponent implements OnInit, OnDestr
     // View data
     attendanceReportSubmissions$ = this._data.attendanceReportSubmissions$;
     loading$ = new Subject<boolean>();
-    columns: TableColumn[];
+    columns: TableColumn[] = [
+      // { columnDef: 'id',    header: 'Id',    cell: (element: AttendanceReportSubmission) => `${element.id}` },
+      { columnDef: 'name',     header: 'Name',     cell: (element: AttendanceReportSubmission) => `${element.name}` },
+      { columnDef: 'leader',     header: 'Leader',     cell: (element: AttendanceReportSubmission) => `${element.leader.personName}` },
+    ];
+
+    $noReportsTableConfig = signal<TableConfig>(createTableConfig({
+      columns: this.columns,
+      filter: true,
+      title: 'Groups Without Reports'
+    }));
+
+    $reportsTableConfig = signal<TableConfig>(createTableConfig({
+      columns: this.columns,
+      filter: true,
+      title: 'Groups With Reports'
+    }));
 
     // Private
     private _queryParams: Params;
@@ -40,12 +57,6 @@ export class CellAttendanceReportSubmissionsComponent implements OnInit, OnDestr
             church: [null, [Validators.required]],
             period: [null, [Validators.required]]
         });
-
-        this.columns = [
-            // { columnDef: 'id',    header: 'Id',    cell: (element: AttendanceReportSubmission) => `${element.id}` },
-            { columnDef: 'name',     header: 'Name',     cell: (element: AttendanceReportSubmission) => `${element.name}` },
-            { columnDef: 'leader',     header: 'Leader',     cell: (element: AttendanceReportSubmission) => `${element.leader.personName}` },
-        ];
     }
 
     // -----------------------------------------------------------------------------------------------------

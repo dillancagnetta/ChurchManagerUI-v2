@@ -28,3 +28,4 @@ export const PAGING_SERVICE = new InjectionToken('Paginated Datasource service')
 export interface TableQuery {
     query$: Observable<any>;
 }
+

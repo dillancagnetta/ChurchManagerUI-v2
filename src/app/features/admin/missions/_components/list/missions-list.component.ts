@@ -1,13 +1,13 @@
 import {
-    ChangeDetectionStrategy,
-    ChangeDetectorRef,
-    Component,
-    OnInit,
-    ViewChild,
-    ViewEncapsulation
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  OnInit, signal,
+  ViewChild,
+  ViewEncapsulation
 } from '@angular/core';
 import { pagingServiceProvider } from '@features/admin/missions/_components/list/missions-list-paging.providers';
-import { TableBtn, TableColumn } from '@ui/components/general-table';
+import {createTableConfig, TableBtn, TableColumn, TableConfig} from '@ui/components/general-table';
 import { parseLocalDate } from '@core/date-utils';
 import { Mission } from '@features/admin/missions';
 import { MatDrawer } from '@angular/material/sidenav';
@@ -15,6 +15,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { filter, map, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { FuseMediaWatcherService } from '@fuse/services/media-watcher';
+import {FollowUpRecord} from "../../../../../pages/profile/tabs/followup/follow-up.models";
 
 @Component({
     selector       : 'missions',
@@ -34,8 +35,25 @@ export class MissionsListComponent implements OnInit
     viewMode: 'all' | 'group' = 'all';
 
     // Table definitions
-    columns: TableColumn[];
-    buttons: TableBtn[] = [];
+    $tableConfig = signal<TableConfig>(createTableConfig({
+      columns: [
+        { columnDef: 'startDateTime',     header: 'Assigned Date',    cell: (element: Mission) => {
+            return parseLocalDate(element.startDateTime);
+          } },
+        { columnDef: 'type',     header: 'Type',     cell: (element: Mission) => `${element.type}` },
+        { columnDef: 'category',   header: 'Category',   cell: (element: Mission) => `${element.category}` },
+        { columnDef: 'stream',   header: 'Stream',   cell: (element: Mission) => `${element.stream}` },
+        { columnDef: 'attendanceCount',   header: 'Attendance',   cell: (element: Mission) => `${element.attendance?.attendanceCount}` },
+        { columnDef: 'firstTimerCount',   header: 'First Timers',   cell: (element: Mission) => `${element.attendance?.firstTimerCount}` },
+        { columnDef: 'newConvertCount',   header: 'New Converts',   cell: (element: Mission) => `${element.attendance?.newConvertCount}` },
+        { columnDef: 'receivedHolySpiritCount',   header: 'Holy Spirit',   cell: (element: Mission) => `${element.attendance?.receivedHolySpiritCount}` },
+      ],
+      buttons: [
+        { icon: 'note_add',    payload: (element: Mission) => `${element.id}`, action: 'add', text: 'Add' },
+        { icon: 'build',    payload: (element: Mission) => `${element.id}`, action: 'edit', text: 'Edit' },
+        { icon: 'delete',    payload: (element: Mission) => `${element.id}`, action: 'delete', text: 'Remove' },
+      ]
+    }));
 
     // Private
     private _unsubscribeAll = new Subject();
@@ -50,24 +68,6 @@ export class MissionsListComponent implements OnInit
         private _fuseMediaWatcherService: FuseMediaWatcherService
     )
     {
-        this.columns = [
-            { columnDef: 'startDateTime',     header: 'Assigned Date',    cell: (element: Mission) => {
-                    return parseLocalDate(element.startDateTime);
-                } },
-            { columnDef: 'type',     header: 'Type',     cell: (element: Mission) => `${element.type}` },
-            { columnDef: 'category',   header: 'Category',   cell: (element: Mission) => `${element.category}` },
-            { columnDef: 'stream',   header: 'Stream',   cell: (element: Mission) => `${element.stream}` },
-            { columnDef: 'attendanceCount',   header: 'Attendance',   cell: (element: Mission) => `${element.attendance?.attendanceCount}` },
-            { columnDef: 'firstTimerCount',   header: 'First Timers',   cell: (element: Mission) => `${element.attendance?.firstTimerCount}` },
-            { columnDef: 'newConvertCount',   header: 'New Converts',   cell: (element: Mission) => `${element.attendance?.newConvertCount}` },
-            { columnDef: 'receivedHolySpiritCount',   header: 'Holy Spirit',   cell: (element: Mission) => `${element.attendance?.receivedHolySpiritCount}` },
-        ];
-
-        this.buttons = [
-            { icon: 'note_add',    payload: (element: Mission) => `${element.id}`, action: 'add', text: 'Add' },
-            { icon: 'build',    payload: (element: Mission) => `${element.id}`, action: 'edit', text: 'Edit' },
-            { icon: 'delete',    payload: (element: Mission) => `${element.id}`, action: 'delete', text: 'Remove' },
-        ];
     }
 
     ngOnInit(): void

@@ -1,7 +1,7 @@
-import {ChangeDetectionStrategy, Component, input, output} from "@angular/core";
+import {ChangeDetectionStrategy, Component, input, output, signal} from "@angular/core";
 import {FuseScrollbarModule} from "@fuse/directives/scrollbar";
 import {GeneralTableModule} from "@ui/components/general-table/general-table.module";
-import {TableBtn, TableColumn, TableToolbar} from "@ui/components/general-table";
+import {createTableConfig, TableBtn, TableColumn, TableConfig, TableToolbar} from "@ui/components/general-table";
 import {ChurchGroupEntity} from "@features/admin/churches/churches.model";
 import {GroupTypeEntity} from "@features/admin/groupTypes/group-type.model";
 import {ButtonActions} from "@shared/shared.models";
@@ -25,6 +25,22 @@ export class ChurchGroupsListComponent {
   addButtonClicked = output<any>();
   $isLoading = input<boolean>(false);
 
+  $tableConfig = signal<TableConfig>(createTableConfig({
+    columns: [
+      { columnDef: 'name',     header: 'Name',    cell: (element: ChurchGroupEntity) => `${element.name}` },
+      { columnDef: 'description',     header: 'Description',    cell: (element: ChurchGroupEntity) => `${element.description ?? ''}` },
+      { columnDef: 'leaderPerson',
+        header: 'Leader',
+        columnType:'person',
+        link: (element: ChurchGroupEntity) => element.leaderPerson?.personId ? `/pages/profile/${element.leaderPerson.personId}` : '',
+        cell: (element: ChurchGroupEntity) => element.leaderPerson,
+      },
+    ],
+    title: 'Groups Types',
+    drawerEnabled: true
+  }));
+
+
   constructor()
   {
     this.columns = [
@@ -33,7 +49,7 @@ export class ChurchGroupsListComponent {
       { columnDef: 'leaderPerson',
         header: 'Leader',
         columnType:'person',
-        link: (element: ChurchGroupEntity) => `/pages/profile/${element.leaderPerson?.id ?? ''}`,
+        link: (element: ChurchGroupEntity) => element.leaderPerson?.personId ? `/pages/profile/${element.leaderPerson.personId}` : '',
         cell: (element: ChurchGroupEntity) => element.leaderPerson,
       },
     ];

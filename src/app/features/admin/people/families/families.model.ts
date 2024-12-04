@@ -1,3 +1,5 @@
+import {BasicPerson} from "@shared/shared.models";
+
 export interface FamiliesQuery
 {
     name?: string;
@@ -14,15 +16,6 @@ export interface Family
     province?: string;
     postalCode?: string;
     language: string | undefined;
-    familyMembers: FamilyPerson[] | undefined;
+    familyMembers: BasicPerson[] | undefined;
 }
 
-interface FamilyPerson {
-  personId: number;
-  firstName: string;
-  lastName: string;
-  gender: "Male" | "Female" | "Unknown";
-  ageClassification: string;
-  photoUrl: string | null;
-  age: number | null;
-}

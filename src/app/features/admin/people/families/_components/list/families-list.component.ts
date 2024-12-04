@@ -1,12 +1,12 @@
 import {
-    ChangeDetectionStrategy,
-    ChangeDetectorRef,
-    Component,
-    OnInit,
-    ViewChild,
-    ViewEncapsulation
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  OnInit, signal,
+  ViewChild,
+  ViewEncapsulation
 } from '@angular/core';
-import { TableBtn, TableColumn } from '@ui/components/general-table';
+import {createTableConfig, TableBtn, TableColumn, TableConfig} from '@ui/components/general-table';
 import { MatDrawer } from '@angular/material/sidenav';
 import { ActivatedRoute, Router } from '@angular/router';
 import { filter, first, map, switchMap, takeUntil } from 'rxjs/operators';
@@ -17,6 +17,8 @@ import { PersonFormDialogComponent } from '@features/admin/people/new-family-for
 import {MatDialog} from '@angular/material/dialog';
 import { FamilyMember } from '@features/admin/people/new-family-form/person-form/person-form.model';
 import { FamiliesService } from '@features/admin/people/families/_services/families.service';
+import {FollowUpRecord} from "../../../../../../pages/profile/tabs/followup/follow-up.models";
+import {parseLocalDate} from "@core/date-utils";
 
 @Component({
     selector       : 'families',
@@ -35,8 +37,20 @@ export class FamiliesListComponent implements OnInit
     viewMode: 'all' | 'group' = 'all';
 
     // Table definitions
-    columns: TableColumn[];
-    buttons: TableBtn[] = [];
+    $tableConfig = signal<TableConfig>(createTableConfig({
+      columns: [
+        { columnDef: 'name',     header: 'Name',     cell: (element: Family) => `${element.name}` },
+        { columnDef: 'city',     header: 'City',     cell: (element: Family) => `${element.city}` },
+        { columnDef: 'country',   header: 'Country',   cell: (element: Family) => `${element.country}` }
+      ],
+      buttons: [
+        { icon: 'note_add',    payload: (element: Family) => `${element.id}`, action: 'add', text: 'Add Person', disabled: false },
+        { icon: 'visibility',    payload: (element: Family) => `${element.id}`, action: 'view', text: 'View', disabled: false },
+        // { icon: 'build',    payload: (element: Family) => `${element.id}`, action: 'edit', text: 'Edit' },
+        { icon: 'delete',    payload: (element: Family) => `${element.id}`, action: 'delete', text: 'Remove', disabled: true },
+      ],
+      drawerEnabled: true
+    }));
 
     dialogRef: any;
 
@@ -59,18 +73,6 @@ export class FamiliesListComponent implements OnInit
         private _data: FamiliesDataService,
     )
     {
-        this.columns = [
-            { columnDef: 'name',     header: 'Name',     cell: (element: Family) => `${element.name}` },
-            { columnDef: 'city',     header: 'City',     cell: (element: Family) => `${element.city}` },
-            { columnDef: 'country',   header: 'Country',   cell: (element: Family) => `${element.country}` }
-        ];
-
-        this.buttons = [
-          { icon: 'note_add',    payload: (element: Family) => `${element.id}`, action: 'add', text: 'Add Person', disabled: false },
-          { icon: 'visibility',    payload: (element: Family) => `${element.id}`, action: 'view', text: 'View', disabled: false },
-        // { icon: 'build',    payload: (element: Family) => `${element.id}`, action: 'edit', text: 'Edit' },
-            { icon: 'delete',    payload: (element: Family) => `${element.id}`, action: 'delete', text: 'Remove', disabled: true },
-        ];
     }
 
     ngOnInit(): void

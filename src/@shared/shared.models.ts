@@ -123,3 +123,12 @@ export interface CmHttpErrorResponse
     error?: Error;
 }
 
+export interface BasicPerson {
+  personId: number;
+  firstName: string;
+  lastName: string;
+  gender: "Male" | "Female" | "Unknown";
+  ageClassification: string;
+  photoUrl: string | null;
+  age: number | null;
+}

@@ -8,9 +8,9 @@
 
 <!-- Actions Toolbar -->
 <div class="flex flex-row justify-between items-center">
-  <div *ngIf="filter()">
+  <div *ngIf="config().filter">
     <mat-form-field class="w-100 fuse-mat-dense fuse-mat-rounded">
-      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="{{filterPlaceholder()}}">
+      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="{{config().filterPlaceholder}}">
       <button
         mat-icon-button
         matPrefix>
@@ -24,7 +24,7 @@
   <!-- Actions -->
   @if (hasTableToolbar) {
     <div class="p-2 md:p-2 space-x-2">
-      @for (t of toolbar(); track t.action) {
+      @for (t of config().toolbar; track t.action) {
         <button
           mat-mini-fab [color]="t.color ?? 'primary'"
           [matTooltip]="t.tooltip"
@@ -44,7 +44,7 @@
 
 <!-- Table -->
 <table class="w-full"
-       [ngClass]="{ 'highlight-hover': drawerEnabled() }"
+       [ngClass]="{ 'highlight-hover': config().drawerEnabled }"
        mat-table
        matSort
        [dataSource]="service.dataSource"
@@ -69,7 +69,7 @@
   </ng-container>
 
   <!-- Columns -->
-  <ng-container *ngFor="let column of columns()" matColumnDef="{{column.columnDef}}">
+  <ng-container *ngFor="let column of config().columns" matColumnDef="{{column.columnDef}}">
     <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ column.header }}</th>
     <td mat-cell *matCellDef="let row">
       <!-- Specific column types -->
@@ -108,12 +108,12 @@
               <ng-container *ngIf="!person?.photoUrl">
                 <div
                   class="flex items-center justify-center w-full h-full rounded-full text-lg uppercase bg-gray-200 text-gray-600 dark:bg-gray-700 dark:text-gray-200">
-                  {{person?.label?.charAt(0)}}
+                  {{person?.firstName.charAt(0)}}{{person?.lastName.charAt(0)}}
                 </div>
               </ng-container>
             </div>
             <div>
-              {{ person?.label }}
+              {{ person?.firstName }} {{ person?.lastName }}
             </div>
           </div>
         }
@@ -125,7 +125,7 @@
   </ng-container>
 
   <!-- Buttons Column -->
-  <ng-container *ngIf="buttons() && buttons().length > 0" matColumnDef="actions">
+  <ng-container *ngIf="config().buttons && config().buttons.length > 0" matColumnDef="actions">
     <th mat-header-cell *matHeaderCellDef></th>
     <td mat-cell *matCellDef="let row">
       <div class="flex items-center">
@@ -135,7 +135,7 @@
         </button>
 
         <mat-menu #moreMenu="matMenu">
-          <div *ngFor="let button of buttons()">
+          <div *ngFor="let button of config().buttons">
             <button mat-menu-item (click)="this.buttonClick.emit([button.action, button.payload(row)])"
                     [disabled]="button.disabledFn && button.disabledFn(row)">
               <mat-icon>{{ button.icon }}</mat-icon>
@@ -149,23 +149,23 @@
   </ng-container>
 
   <!-- Disclaimer column - with nullable approach -->
-  <ng-container matColumnDef="disclaimer" *ngIf="footer()">
+  <ng-container matColumnDef="disclaimer" *ngIf="config().footer">
     <td mat-footer-cell *matFooterCellDef colspan="100%">
       <strong>{{ footer() }}</strong>
     </td>
   </ng-container>
 
-  <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
-  <ng-container *ngIf="drawerEnabled()">
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+  <tr mat-header-row *matHeaderRowDef="displayedColumns(); sticky: true"></tr>
+  <ng-container *ngIf="config().drawerEnabled">
+    <tr mat-row *matRowDef="let row; columns: displayedColumns();"
         [@fadeIn]="true"
         (click)="this.buttonClick.emit(['drawer', row.id])"></tr>
   </ng-container>
-  <ng-container *ngIf="!drawerEnabled()">
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;" [@fadeIn]="true"></tr>
+  <ng-container *ngIf="!config().drawerEnabled">
+    <tr mat-row *matRowDef="let row; columns: displayedColumns();" [@fadeIn]="true"></tr>
   </ng-container>
 
-  <ng-container *ngIf="footer()"> <!-- Make footer nullable -->
+  <ng-container *ngIf="config().footer"> <!-- Make footer nullable -->
     <tr mat-footer-row *matFooterRowDef="['disclaimer']" class="example-second-footer-row"></tr>
   </ng-container>
 </table>
@@ -173,9 +173,9 @@
 
 <mat-paginator
   class="flex justify-end"
-  [pageSizeOptions]="pagination()"
+  [pageSizeOptions]="config().pagination"
   [length]="page.totalResults"
-  [pageSize]="pageSize()"
+  [pageSize]="config().pageSize"
   [pageIndex]="0"
   (page)="fetch($event.pageIndex)">
 </mat-paginator>
