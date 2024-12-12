@@ -51,10 +51,10 @@ jobs:
           cat ./buildinfo.json # just some logging
       working-directory: ./src/assets
 
-    - name: ⚙️ Use Node 14.x
+    - name: ⚙️ Use Node 22.x
       uses: actions/setup-node@v1
       with:
-          node-version: '14.x'
+          node-version: '22.x'
     - name: 📥 Install dependencies
       run: npm ci --quiet
     - name: 🛠️ Build
