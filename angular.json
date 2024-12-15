@@ -15,14 +15,12 @@
             "prefix": "app",
             "architect": {
                 "build": {
-                    "builder": "@angular-devkit/build-angular:application",
+                    "builder": "@angular-devkit/build-angular:browser-esbuild",
                     "options": {
-                        "outputPath": {
-                          "base": "dist/church-manager-ui"
-                        },
+                        "outputPath": "dist/church-manager-ui",
                         "index": "src/index.html",
                         "polyfills": [
-                          "src/polyfills.ts"
+                            "src/polyfills.ts"
                         ],
                         "tsConfig": "tsconfig.app.json",
                         "inlineStyleLanguage": "scss",
@@ -66,7 +64,7 @@
                             "./node_modules/apexcharts/dist/apexcharts.min.js"
                         ],
                         "serviceWorker": "ngsw-config.json",
-                        "browser": "src/main.ts"
+                        "main": "src/main.ts"
                     },
                     "configurations": {
                         "production": {
@@ -133,7 +131,7 @@
                             "outputHashing": "all"
                         },
                         "development": {
-                          "optimization": false,
+                            "optimization": false,
                             "extractLicenses": false,
                             "sourceMap": true,
                             "namedChunks": true
@@ -184,32 +182,11 @@
                         ],
                         "scripts": []
                     }
-                },
-                "lint": {
-                    "builder": "@angular-eslint/builder:lint",
-                    "options": {
-                        "lintFilePatterns": [
-                            "src/**/*.ts",
-                            "src/**/*.html"
-                        ]
-                    }
-                },
-                "e2e": {
-                    "builder": "@angular-devkit/build-angular:protractor",
-                    "options": {
-                        "protractorConfig": "e2e/protractor.conf.js",
-                        "devServerTarget": "church-manager-ui:serve"
-                    },
-                    "configurations": {
-                        "production": {
-                            "devServerTarget": "church-manager-ui:serve:production"
-                        }
-                    }
                 }
             }
         }
     },
     "cli": {
-      "analytics": false
+        "analytics": false
     }
 }
