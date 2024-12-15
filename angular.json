@@ -63,7 +63,8 @@
                             "./node_modules/webdatarocks/webdatarocks.highcharts.js",
                             "./node_modules/apexcharts/dist/apexcharts.min.js"
                         ],
-                        "serviceWorker": "ngsw-config.json",
+                        "serviceWorker": true,
+                        "ngswConfigPath": "ngsw-config.json",
                         "main": "src/main.ts"
                     },
                     "configurations": {
