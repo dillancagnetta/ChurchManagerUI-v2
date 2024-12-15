@@ -66,7 +66,7 @@
                             "./node_modules/apexcharts/dist/apexcharts.min.js"
                         ],
                         "serviceWorker": "ngsw-config.json",
-                        "browser": "src/main.ts"
+                        "main": "src/main.ts"
                     },
                     "configurations": {
                         "production": {
